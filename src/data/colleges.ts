@@ -5,7 +5,7 @@ import anand from '../assets/core/anand.jpg';
 import hardik from '../assets/core/hardik.jpg';
 import devesh from '../assets/core/devesh.jpg';
 import jiya from '../assets/core/jiya.jpg';
-
+///heads
 import harsh from '../assets/heads/College Heads/harsh.jpg';
 // import saurab from '../assets/heads/College Heads/saurab.jpg';
 import venugopal from '../assets/heads/College Heads/venugopal.jpg';
@@ -21,7 +21,7 @@ import aditya from '../assets/heads/College Heads/aditya.jpg';
 import aadhya from '../assets/heads/College Heads/aadhya.jpg';
 import shreeharsh from '../assets/heads/College Heads/shreeharsh.jpg';
 
-
+//mentors
 import jay from '../assets/heads/College Heads/jay.jpg';
 import anuraj from '../assets/mentors/anuraj.jpg';
 import adinath from '../assets/mentors/adinath.jpg';
@@ -253,28 +253,28 @@ export const colleges: College[] = [
         name: 'Samiksha Magdum',
         branch: 'Computer Engineering',
         year: 'Second Year',
-        photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=200'
+        photo: samiksha,
       },
       {
         id: '14',
         name: 'Janhavi Deshpande',
         branch: 'ENTC',
         year: 'Second Year',
-        photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=200'
+        photo: janhavi,
       },
       {
         id: '15',
         name: 'Gargi Mukkawar',
         branch: 'Computer Engineering',
         year: 'Second Year',
-        photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=200'
+        photo: gargi,
       },
       {
         id: '16',
         name: 'Purva Kavathekar',
         branch: 'Computer Engineering',
         year: 'Second Year',
-        photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=200'
+        photo: purva,
       }
     ]
   },
@@ -296,7 +296,7 @@ export const colleges: College[] = [
         name: 'Anand Chapke',
         branch: 'Information Technology',
         year: 'Third Year',
-        photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=200'
+        photo: anand,
       },
       {
         id: '18',

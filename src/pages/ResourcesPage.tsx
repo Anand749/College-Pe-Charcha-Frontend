@@ -2,7 +2,8 @@ import React from 'react';
 import { Download, Lock, FileText, Star, Users } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
-
+import list from '../assets/general/list.png'
+import list1 from '../files/top20.pdf'
 interface Resource {
   id: string;
   title: string;
@@ -14,6 +15,7 @@ interface Resource {
   rating: number;
   previewImage: string;
   lastUpdated: string;
+   fileUrl?: string;
 }
 
 const ResourcesPage = () => {
@@ -21,75 +23,30 @@ const ResourcesPage = () => {
 
   const resources: Resource[] = [
     {
-      id: '1',
-      title: 'Top 15 ROI Engineering Colleges in Maharashtra 2024',
-      description: 'Comprehensive analysis of Return on Investment for engineering colleges including placement data, fee structure, and career outcomes.',
-      category: 'College Rankings',
-      isPremium: true,
-      price: 149,
-      downloads: 1248,
-      rating: 4.8,
-      previewImage: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=400',
-      lastUpdated: '2024-01-15'
+     id: '1',
+  title: 'College Preference List for CAP Rounds',
+  description: 'Expertly curated preference list for CAP rounds including top colleges from Mumbai, Pune, and Sangli. Built from seniors’ real experiences, placement insights, and college reviews to help students make the best choice.',
+  category: 'Admission Guidance',
+  isPremium: true,
+  price: 199,
+  downloads: '1K+',
+  rating: 4.9,
+  previewImage: list,
+  lastUpdated: '2025-08-10'
     },
-    {
-      id: '2',
-      title: 'Branch-wise College Rankings 2024',
-      description: 'Detailed rankings of Maharashtra engineering colleges organized by branch - Computer Science, IT, Electronics, Mechanical, and more.',
-      category: 'Branch Analysis',
-      isPremium: true,
-      price: 99,
-      downloads: 892,
-      rating: 4.7,
-      previewImage: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?w=400',
-      lastUpdated: '2024-01-20'
-    },
-    {
-      id: '3',
-      title: 'Complete Guide to Engineering Entrance Exams',
-      description: 'Everything you need to know about MHT-CET, JEE Main, and other entrance exams including preparation strategies and cutoff trends.',
-      category: 'Career Guidance',
-      isPremium: false,
-      downloads: 2156,
-      rating: 4.9,
-      previewImage: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=400',
-      lastUpdated: '2024-01-25'
-    },
-    {
-      id: '4',
-      title: 'Placement Statistics Report 2023-24',
-      description: 'Comprehensive placement data for top engineering colleges including average packages, top recruiters, and hiring trends.',
-      category: 'Placement Data',
-      isPremium: true,
-      price: 199,
-      downloads: 756,
-      rating: 4.6,
-      previewImage: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?w=400',
-      lastUpdated: '2024-01-30'
-    },
-    {
-      id: '5',
-      title: 'Career Path Analysis: Engineering vs Other Fields',
-      description: 'Comparative analysis of career prospects in engineering versus other professional fields like management, law, and medicine.',
-      category: 'Career Guidance',
-      isPremium: false,
-      downloads: 1432,
-      rating: 4.5,
-      previewImage: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?w=400',
-      lastUpdated: '2024-02-01'
-    },
-    {
-      id: '6',
-      title: 'Hidden Gems: Underrated Engineering Colleges',
-      description: 'Discover lesser-known but excellent engineering colleges that offer great education and placement opportunities.',
-      category: 'College Rankings',
-      isPremium: true,
-      price: 79,
-      downloads: 543,
-      rating: 4.4,
-      previewImage: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?w=400',
-      lastUpdated: '2024-02-05'
-    }
+   {
+  id: '2',
+  title: 'Top 20 Engineering Colleges in Maharashtra',
+  description: 'Comprehensive list and analysis of the top 20 engineering colleges in Maharashtra, covering rankings, placements, infrastructure, and student reviews.',
+  category: 'College Rankings',
+  isPremium: false,
+  price: 0,
+  downloads: 2450,
+  rating: 4.8,
+  previewImage: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+  lastUpdated: '2025-07-15',
+  fileUrl: list1
+}
   ];
 
   const handleDownload = (resource: Resource) => {
@@ -98,12 +55,21 @@ const ResourcesPage = () => {
       return;
     }
     
+   
     if (resource.isPremium) {
-      // Handle payment integration here
+      // TODO: Integrate payment
       alert(`Payment integration would be implemented here for ₹${resource.price}`);
     } else {
-      // Handle free download
-      alert('Free download started!');
+      if (resource.fileUrl) {
+        const link = document.createElement('a');
+        link.href = resource.fileUrl;
+        link.download = resource.title + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        alert('File not available yet!');
+      }
     }
   };
 
