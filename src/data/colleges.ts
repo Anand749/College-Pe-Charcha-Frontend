@@ -420,7 +420,7 @@ export const colleges: College[] = [
     fullName: 'Pimpri Chinchwad College of Engineering',
     location: 'Pune',
     established: 1999,
-    image: 'https://share.google/images/uwTHRf5LJn5jG60ob',
+    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
     description: 'PCCOE is a premier autonomous institute renowned for its strong industry-academia collaboration. Located in Pune, a major educational and automotive hub.',
     highlights: ['Good placements', 'Industry connections', 'Research opportunities', 'Student activities'],
     pros: ['Supports research and innovation', 'Have lot of clubs for learning experiences', 'Organizes many activities throughout  the year'],
@@ -472,8 +472,8 @@ export const colleges: College[] = [
   established: 1999,
   image: 'https://images.pexels.com/photos/3184312/pexels-photo-3184312.jpeg?w=800',
   description: 'JSPM holds \'A\' grade accreditation from NAAC and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design.',
-  highlights: ['\'A\' grade NAAC accreditation', ' Affiliation to SPPU ', 'Robust placement', 'Award-winning institute, recognized with AICTE-CII platinum awards and best professional college honors.', 'Comprehensive academic offerings including flagship BTech and MBA programs spanning multiple engineering disciplines'],
-  pros: ['Autonomous institute under Savitribai Phule Pune University (SPPU)', 'NAAC Aaccredited and NBA-accredited programs', 'Offers UG, PG, and PhD programs in Engineering, Management, and Research', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations and MoUs with leading companies', 'Focus on innovation, entrepreneurship, and research activities', 'Modern facilities: advanced labs, digital library, incubation center, and hostels', 'Active student clubs for technical, cultural, and sports activities'],
+  highlights: ['\'A\' grade NAAC accreditation', 'Robust placement', 'Award-winning institute', 'Comprehensive academic offerings '],
+  pros: ['Autonomous ', 'NAAC Aaccredited and NBA-accredited programs', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations', 'Active student clubs '],
   cons: ['Strict attendance policies', 'Campus infrastructure is functional but not very impressive', 'Accessibility is limited'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForJSPM',
   mentors: [
@@ -560,9 +560,9 @@ export const colleges: College[] = [
   established: 1992,
   image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
   description: 'AISSMS College of Engineering is a prominent private engineering college affiliated with Savitribai Phule Pune University.',
-  highlights: ['\'A+\' Grade by NAAC', 'Well-equipped labs', 'Decent placements', 'Active student clubs and in-campus hostel facilities available'],
-  pros: ['Modern labs, good library, and a large campus with sports facilities', 'Experienced and knowledgeable teachers', 'Decent placement record with the highest package of INR 14 LPA in 2024', 'Active student clubs and a vibrant atmosphere'],
-  cons: ['Some students report a heavy academic schedule', 'Lack of proper guidance and lower average salary packages for some branches', 'Some students feel a lack of proper guidance from teachers when needed', 'Placement process can be "taxing" for students'],
+  highlights: ['\'A+\' Grade by NAAC', 'Well-equipped labs', 'Decent placements', 'Active student clubs'],
+  pros: ['Modern labs, good library', 'Experienced and knowledgeable teachers', 'Decent placement record', 'Active student clubs and a vibrant atmosphere'],
+  cons: ['Heavy academic schedule', 'Lack of proper guidance', 'Placement process can be "taxing" for students'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForAISSMS',
   mentors: [
     
