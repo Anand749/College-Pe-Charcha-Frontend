@@ -79,10 +79,10 @@ export const colleges: College[] = [
     location: 'Pune',
     established: 1854,
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-    description: 'One of India\'s oldest and most prestigious engineering colleges, known for its rich heritage and excellent placement records.',
-    highlights: ['Top placement records', 'Strong alumni network', 'Research excellence', 'Historic campus'],
-    pros: ['Excellent faculty', 'Strong industry connections', 'Beautiful campus', 'Rich legacy'],
-    cons: ['High competition', 'Limited seats', 'Strict academic environment'],
+    description: 'COEP is a prestigious autonomous government engineering institute in Pune renowned for its legacy, academics, and innovation culture.',
+    highlights: ['Historic campus', 'Tier-I accreditation ', 'One of India\'s top college', 'Excellent placements'],
+    pros: ['Very strong placements', 'Large and well-maintained campus', 'Experienced faculty', 'Strong alumni network'],
+    cons: ['High admission cutoffs', 'Heavy academic schedule', 'Higher fees than other government colleges'],
     whatsappLink: 'https://chat.whatsapp.com/KRwgjOcjeVX7hD24FTbJmK?mode=ems_copy_c',
     mentors: []
     
@@ -146,7 +146,7 @@ export const colleges: College[] = [
     location: 'Mumbai',
     established: 1887,
     image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
-    description: 'VJTI Mumbai, established in 1887, is one of India’s oldest engineering institutes. It is government-aided, autonomous under Mumbai University, and known for academic excellence and strong placements.',
+    description: 'VJTI is government-aided, autonomous under Mumbai University, and known for academic excellence and strong placements.',
     highlights: ['Historic Legacy & Autonomy', 'Placement Excellence', 'Vibrant Campus & Facilities', 'Alumni & Industry Linkages'],
     pros: ['Excellent Placement Outcomes', 'Rich Legacy & Autonomy', 'Affordability & Support', 'Influential Alumni & Industry Ties'],
     cons: ['Aging Infrastructure', 'Strict Attendance & Grading', 'Hostel & Mess Constraints', 'Highly competitive Admission'],
@@ -182,7 +182,7 @@ export const colleges: College[] = [
     location: 'Mumbai',
     established: 1962,
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-    description: 'Sardar Patel Institute of Technology (SPIT), located in Andheri (W), Mumbai, is a premier autonomous tech-focused institute known for its strong academic rigor, vibrant innovation and hackathon culture, and active student clubs.',
+    description: 'SPIT is a premier autonomous tech-focused institute known for its strong academic rigor, vibrant innovation and hackathon culture.',
     highlights: ['Autonomous tech-only institute', 'Strong tech & innovation culture', 'Good alumni network', 'Excellent placements'],
     pros: ['Excellent placements', 'Vibrant campus', 'Good connectivity', 'Research tie-ups'],
     cons: ['Intense academics with strict grading/attendance', 'Expensive city', 'Limited hostel facilities'],
@@ -212,7 +212,7 @@ export const colleges: College[] = [
     location: 'Sangli',
     established: 1947,
     image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
-    description: 'Walchand College of Engineering (WCE), established in 1947, is a prominent autonomous engineering institution located on a sprawling ~90-acre campus in Vishrambag, conveniently between Sangli and Miraj, Maharashtra.',
+    description: 'Walchand College is a prominent autonomous engineering institution located on a sprawling ~90-acre campus in Sangli, Maharashtra.',
     highlights: ['Historic & autonomous legacy', 'Vast and green campus', 'Includes one of Asia’s largest Library ', 'Strong placements'],
     pros: ['Rich history and proud autonomy', 'Expansive, green, well-equipped campus', 'Strong placement records', 'Highly rated'],
     cons: ['Limited international exposure', 'Remote location '],
@@ -227,6 +227,13 @@ export const colleges: College[] = [
       },
       {
         id: '12',
+        name: 'Darshan Ptil',
+        branch: 'Computer Engineering',
+        year: 'Second Year',
+        photo: darshan
+      },
+      {
+        id: '13',
         name: 'Pratik Yelmewad',
         branch: 'Computer Engineering',
         year: 'Second Year',
@@ -242,35 +249,35 @@ export const colleges: College[] = [
     location: 'Pune',
     established: 1990,
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-    description: 'Cummins College of Engineering for Women, Pune is an autonomous institute.Known for modern infrastructure, strong industry ties, and excellent placements, with top recruiters visiting every year. ',
+    description: 'Cummins College of Engineering for Women, Pune is an autonomous institute.Known for modern infrastructure and excellent placements. ',
     highlights: ['Strong placement records', 'Opportunities for fully funded MS degree ', 'Major recruiters include Microsoft, Goldman Sachs'],
     pros: ['India’s first all-women engineering college', 'Safe and empowering environment.', 'Excellent recruitment', 'Autononous'],
     cons: ['Branch-Wise Placement Gap', 'Limited campus size ', 'Strict Rules & Regulations'],
     whatsappLink: 'https://chat.whatsapp.com/BiYba2XkGBw6ax5Abwpo1N?mode=ems_copy_c',
     mentors: [
       {
-        id: '13',
+        id: '14',
         name: 'Samiksha Magdum',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: samiksha
       },
       {
-        id: '14',
+        id: '15',
         name: 'Janhavi Deshpande',
         branch: 'ENTC',
         year: 'Second Year',
         photo: janhavi
       },
       {
-        id: '15',
+        id: '16',
         name: 'Gargi Mukkawar',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: gargi
       },
       {
-        id: '16',
+        id: '17',
         name: 'Purva Kavathekar',
         branch: 'Computer Engineering',
         year: 'Second Year',
@@ -285,98 +292,98 @@ export const colleges: College[] = [
     location: 'Pune',
     established: 1983,
     image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
-    description: 'VIT Pune is a top autonomous engineering college in Maharashtra, offering strong academics and industry exposure through internships, fests, research, and global collaborations.',
+    description: 'VIT Pune is a top autonomous engineering college in Maharashtra, offering strong academics and industry exposure.',
     highlights: ['Autonomous under SPPU', 'Strong industry exposure & tie-ups', 'Active technical & cultural clubs', 'International collaborations' , 'Good placement record'],
     pros: ['Great exposure & research opportunities', 'Vibrant campus life', 'Strong alumni support', 'Good placements'],
     cons: ['Highly competitive admissions', 'Crowded infrastructure', 'Uneven branch opportunities', 'Strict rules'],
           whatsappLink: 'https://chat.whatsapp.com/E6S01xdg1AuDURz9fbyeV8?mode=ems_copy_c',
     mentors: [
       {
-        id: '17',
+        id: '18',
         name: 'Anand Chapke',
         branch: 'Information Technology',
         year: 'Third Year',
         photo: anand
       },
       {
-        id: '18',
+        id: '19',
         name: 'Vedanti Raut',
         branch: 'Computer Engineering-AI',
         year: 'Second Year',
         photo: vedanti
       },
       {
-        id: '19',
+        id: '20',
         name: 'Samarth Dhagate',
         branch: 'Information Technology',
         year: 'Second Year',
         photo: samarth
       },
       {
-        id: '20',
+        id: '21',
         name: 'Arnav Mahajan',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: arnav 
       },
       {
-        id: '21',
+        id: '22',
         name: 'Hardik Rokhde',
         branch: 'Computer Engineering-AIDS',
         year: 'Third year',
         photo: hardik
       },
       {
-        id: '22',
+        id: '23',
         name: 'Devesh Nhalde',
         branch: 'Information Technology',
         year: 'Second Year',
         photo: devesh
       },
       {
-        id: '23',
+        id: '24',
         name: 'Pragati Rakhunde',
         branch: 'Computer Engineering-AI',
         year: 'Second Year',
         photo: pragati
       },
       {
-        id: '24',
+        id: '25',
         name: 'Adinath Dound',
         branch: 'Information Technology',
         year: 'Second Year',
         photo: adinath
       },
       {
-        id: '25',
+        id: '26',
         name: 'Arya Kale',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: arya
       },
       {
-        id: '26',
+        id: '27',
         name: 'Ruchi Hande',
         branch: 'Information Technology',
         year: 'Second year',
         photo: ruchi
       },
       {
-        id: '27',
+        id: '28',
         name: 'Atharv',
         branch: 'Computer Engineering-AI',
         year: 'Second Year',
         photo: atharv
       },
       {
-        id: '28',
+        id: '29',
         name: 'Pratham Dedgaonkar',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: pratham
       },
       {
-        id: '29',
+        id: '30',
         name: 'Shreeharsh Omase',
         branch: 'Mechcanical Engineering',
         year: 'Second year',
@@ -391,14 +398,14 @@ export const colleges: College[] = [
     location: 'Pune',
     established: 1998,
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-    description: 'Dr. D. Y. Patil Institute of Technology (DYPIT), Pimpri, Pune,One of the top engineering college in maharashtra is a premier private engineering college affiliated to Savitribai Phule Pune University. Accredited with an A++ NAAC rating (CGPA 3.74) and NBA accreditation.',
+    description: 'Dr. D. Y. Patil Institute of Technology is one of the top engineering college in maharashtra is a premier private engineering college.',
     highlights: ['Good Placement records', 'Internship opportunity', 'Active technical and cultural club ', 'DYPIT-Pimpri has secured MoUs with leading industry', 'Highest package 70 lakhs'],
     pros: ['Faculty is experienced and qualified', 'Strong academic reputation', 'College life is enriched with cultural event,Technical clubs and other activities'],
     cons: ['Limited campus size and space', 'College is strict about academics', 'Attendance is mandatory'],
     whatsappLink: 'https://chat.whatsapp.com/JaiqCJKk4EAKNjbeA9GD20?mode=ems_copy_c',
     mentors: [
       {
-        id: '30',
+        id: '31',
         name: 'Vedant Ingle',
         branch: 'ELectrical Engineering',
         year: 'Third Year',
@@ -414,45 +421,45 @@ export const colleges: College[] = [
     location: 'Pune',
     established: 1999,
     image: 'https://share.google/images/uwTHRf5LJn5jG60ob',
-    description: 'Pimpri Chinchwad College of Engineering (PCCOE) is a premier autonomous institute established in 1999, renowned for its strong industry-academia collaboration. Located in Pune, a major educational and automotive hub, the college offers a vibrant learning environment focused on innovation and research. It is consistently ranked among the top engineering colleges in Maharashtra for its academic excellence and  placements opportunities.',
+    description: 'PCCOE is a premier autonomous institute renowned for its strong industry-academia collaboration. Located in Pune, a major educational and automotive hub.',
     highlights: ['Good placements', 'Industry connections', 'Research opportunities', 'Student activities'],
     pros: ['Supports research and innovation', 'Have lot of clubs for learning experiences', 'Organizes many activities throughout  the year'],
     cons: ['Strict about attendance', 'Has college hours of 9-5'],
     whatsappLink: 'https://chat.whatsapp.com/JhY1s9beKDNExTgevoV2Ls?mode=ems_copy_c',
     mentors: [
       {
-        id: '31',
+        id: '32',
         name: 'Aadhya Bhagat',
         branch: 'Computer Engineering',
         year: 'Third Year',
         photo: aadhya
       },
       {
-        id: '32',
+        id: '33',
         name: 'Sakshi Patil',
         branch: 'Computer Engineering',
         year: 'Third Year',
         photo: sakshi
       },
       {
-        id: '33',
+        id: '34',
         name: 'Siddhesh Sarphale',
         branch: 'Computer Engineering',
         year: 'Third',
         photo: siddhesh
       },
       {
-        id: '34',
+        id: '35',
         name: 'Ishwar Sonawane',
         branch: 'Computer Engineering',
         year: 'Third Year',
         photo: ishwar
       },
       {
-        id: '35',
+        id: '36',
         name: 'Tejas Parkar',
-        branch: '',
-        year: '',
+        branch: 'Computer Engineering',
+        year: 'Third Year',
         photo: tejas
       }
     ]
@@ -464,21 +471,21 @@ export const colleges: College[] = [
   location: 'Pune',
   established: 1999,
   image: 'https://images.pexels.com/photos/3184312/pexels-photo-3184312.jpeg?w=800',
-  description: 'JSPM\'s Rajarshi Shahu College of Engineering (RSCOE), located in Tathawade, Pune, is a private, Autonomous institute established in 2001 and affiliated with Savitribai Phule Pune University. It holds ‘A’ grade accreditation from NAAC, is recognized by NBA and ARIIA, and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design. RSCOE has achieved notable rankings and awards, including the Best Professional College (Urban Category), and consistently excellent placement records with over 780 students placed in 2025 and the highest recent salary package at INR 30 LPA',
-  highlights: ['\'A\' grade NAAC accreditation and autonomous status from UGC.', ' Affiliation to SPPU and approval from AICTE and UGC', 'Robust placement record with 912+ offers, highest salary of 30 LPA, and diverse top recruiters like TCS, IBM, Adobe, and Accenture', 'Award-winning institute, recognized with AICTE-CII platinum awards and best professional college honors.', 'Comprehensive academic offerings including flagship BTech and MBA programs spanning multiple engineering disciplines'],
+  description: 'JSPM holds \'A\' grade accreditation from NAAC and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design.',
+  highlights: ['\'A\' grade NAAC accreditation', ' Affiliation to SPPU ', 'Robust placement', 'Award-winning institute, recognized with AICTE-CII platinum awards and best professional college honors.', 'Comprehensive academic offerings including flagship BTech and MBA programs spanning multiple engineering disciplines'],
   pros: ['Autonomous institute under Savitribai Phule Pune University (SPPU)', 'NAAC Aaccredited and NBA-accredited programs', 'Offers UG, PG, and PhD programs in Engineering, Management, and Research', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations and MoUs with leading companies', 'Focus on innovation, entrepreneurship, and research activities', 'Modern facilities: advanced labs, digital library, incubation center, and hostels', 'Active student clubs for technical, cultural, and sports activities'],
   cons: ['Strict attendance policies', 'Campus infrastructure is functional but not very impressive', 'Accessibility is limited'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForJSPM',
   mentors: [
     {
-      id: '36',
+      id: '37',
       name: 'Aditya Patel',
       branch: 'Computer Engineering',
       year: 'Second Year',
       photo: aditya
     },
     {
-      id: '37',
+      id: '38',
       name: 'Avdhoot Patankar',
       branch: 'Computer Engineering',
       year: 'Second Year',
@@ -493,21 +500,21 @@ export const colleges: College[] = [
   location: 'Pune',
   established: 1996,
   image: 'https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?w=800',
-  description: ' A well-known college under the Sinhgad Institutes umbrella, recognized for its large campus, a wide range of engineering programs, and a focus on both academic and extracurricular development.',
-  highlights: ['Part of a large educational campus with extensive infrastructure', 'Decent placement record, especially for IT branches, with a reported highest package of up to INR 64 LPA ', 'Active campus with numerous clubs and events'],
+  description: ' A well-known college under the Sinhgad Institutes umbrella, recognized for its large campus, a wide range of engineering programs.',
+  highlights: ['Extensive infrastructure', 'Decent placement record', 'Active campus with numerous clubs and events'],
   pros: ['Excellent infrastructure, including a large library and sports complex', 'On-campus hostel facilities are available', '​Lively atmosphere with various fests and clubs'],
   cons: ['Average salary packages are moderate', 'Limited placements for core engineering branches', 'Some students have reported issues with college administration'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForSCOE',
   mentors: [
       // {
-      //   id: '38',
+      //   id: '39',
       //   name: 'Rohan Kulkarni',
       //   branch: 'Mechanical Engineering',
       //   year: 'Third Year',
       //   photo: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=200'
       // },
       // {
-      //   id: '39',
+      //   id: '40',
       //   name: 'Sneha Patil',
       //   branch: 'Computer Engineering',
       //   year: 'Second Year',
@@ -522,21 +529,21 @@ export const colleges: College[] = [
   location: 'Mumbai',
   established: 1994,
   image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
-  description: 'Dwarkadas J. Sanghvi College of Engineering is a reputed private autonomous institute affiliated to the University of Mumbai and accredited by NAAC and NBA.',
-  highlights: ['Consistently ranked among top engineering colleges by agencies like India Today and The Week', '\'A\' Grade by NAAC and DTE, with all UG programs accredited by NBA', 'Strong placement record with top companies. The highest package for the 2025 batch was 56 LPA', 'Active student chapters of professional bodies such as IEEE and CSI, offering technical development opportunities'],
+  description: 'D. J. Sanghvi College of Engineering is a reputed private autonomous institute affiliated to the University of Mumbai and accredited by NAAC and NBA.',
+  highlights: ['\'A\' Grade by NAAC and DTE', 'Strong placement record', 'Active student chapters'],
   pros: ['Excellent placements with a high salary package', 'Modern infrastructure with well-equipped labs', 'Highly qualified and experienced faculty', 'Vibrant committee culture with various clubs', 'Prime location in Mumbai'],
   cons: ['Small campus with limited outdoor facilities', 'No on-campus hostel accommodation', 'Strict attendance policy in certain departments', 'Significant number of seats reserved for the Gujarati linguistic minority'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForDJSanghvi',
   mentors: [
     // {
-    //   id: '40',
+    //   id: '41',
     //   name: 'Aarav Mehta',
     //   branch: 'Computer Engineering',
     //   year: 'Third Year',
     //   photo: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?w=200'
     // },
     // {
-    //   id: '41',
+    //   id: '42',
     //   name: 'Riya Shah',
     //   branch: 'Information Technology',
     //   year: 'Second Year',
@@ -552,8 +559,8 @@ export const colleges: College[] = [
   location: 'Pune',
   established: 1992,
   image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
-  description: 'AISSMS College of Engineering is a prominent private engineering college affiliated with Savitribai Phule Pune University, approved by AICTE, and accredited NAAC A+ & NBA.',
-  highlights: ['Accreditations: \'A+\' Grade by NAAC; NBA-accredited programs', 'Well-equipped labs, large library, and sports complex', 'Decent placements; highest package in 2024 was INR 14 LPA', 'Active student clubs and in-campus hostel facilities available'],
+  description: 'AISSMS College of Engineering is a prominent private engineering college affiliated with Savitribai Phule Pune University.',
+  highlights: ['\'A+\' Grade by NAAC', 'Well-equipped labs', 'Decent placements', 'Active student clubs and in-campus hostel facilities available'],
   pros: ['Modern labs, good library, and a large campus with sports facilities', 'Experienced and knowledgeable teachers', 'Decent placement record with the highest package of INR 14 LPA in 2024', 'Active student clubs and a vibrant atmosphere'],
   cons: ['Some students report a heavy academic schedule', 'Lack of proper guidance and lower average salary packages for some branches', 'Some students feel a lack of proper guidance from teachers when needed', 'Placement process can be "taxing" for students'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForAISSMS',
