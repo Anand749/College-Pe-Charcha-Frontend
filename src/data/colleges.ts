@@ -155,7 +155,7 @@ export const colleges: College[] = [
       {
         id: '6',
         name: 'Yash Bhate',
-        branch: 'ELectrical Engineering',
+        branch: 'Electrical Engineering',
         year: 'Second Year',
         photo: yash,
       },
@@ -221,13 +221,13 @@ export const colleges: College[] = [
       {
         id: '11',
         name: 'Udyaraj',
-        branch: 'ELectrical Engineering',
+        branch: 'Electrical Engineering',
         year: 'Second Year',
         photo: udayraj
       },
       {
         id: '12',
-        name: 'Darshan Ptil',
+        name: 'Darshan Patil',
         branch: 'Computer Engineering',
         year: 'Second Year',
         photo: darshan
@@ -251,7 +251,7 @@ export const colleges: College[] = [
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
     description: 'Cummins College of Engineering for Women, Pune is an autonomous institute.Known for modern infrastructure and excellent placements. ',
     highlights: ['Strong placement records', 'Opportunities for fully funded MS degree ', 'Major recruiters include Microsoft, Goldman Sachs'],
-    pros: ['India’s first all-women engineering college', 'Safe and empowering environment.', 'Excellent recruitment', 'Autononous'],
+    pros: ['India’s first all-women engineering college', 'Safe and empowering environment.', 'Excellent recruitment', 'Autonomous'],
     cons: ['Branch-Wise Placement Gap', 'Limited campus size ', 'Strict Rules & Regulations'],
     whatsappLink: 'https://chat.whatsapp.com/BiYba2XkGBw6ax5Abwpo1N?mode=ems_copy_c',
     mentors: [
@@ -385,7 +385,7 @@ export const colleges: College[] = [
       {
         id: '30',
         name: 'Shreeharsh Omase',
-        branch: 'Mechcanical Engineering',
+        branch: 'Mechanical Engineering',
         year: 'Second year',
         photo: shreeharsh
       }
@@ -407,7 +407,7 @@ export const colleges: College[] = [
       {
         id: '31',
         name: 'Vedant Ingle',
-        branch: 'ELectrical Engineering',
+        branch: 'Electrical Engineering',
         year: 'Third Year',
         photo: vedant
       }
@@ -420,7 +420,7 @@ export const colleges: College[] = [
     fullName: 'Pimpri Chinchwad College of Engineering',
     location: 'Pune',
     established: 1999,
-    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    image: 'https://share.google/images/uwTHRf5LJn5jG60ob',
     description: 'PCCOE is a premier autonomous institute renowned for its strong industry-academia collaboration. Located in Pune, a major educational and automotive hub.',
     highlights: ['Good placements', 'Industry connections', 'Research opportunities', 'Student activities'],
     pros: ['Supports research and innovation', 'Have lot of clubs for learning experiences', 'Organizes many activities throughout  the year'],
@@ -473,7 +473,7 @@ export const colleges: College[] = [
   image: 'https://images.pexels.com/photos/3184312/pexels-photo-3184312.jpeg?w=800',
   description: 'JSPM holds \'A\' grade accreditation from NAAC and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design.',
   highlights: ['\'A\' grade NAAC accreditation', 'Robust placement', 'Award-winning institute', 'Comprehensive academic offerings '],
-  pros: ['Autonomous ', 'NAAC Aaccredited and NBA-accredited programs', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations', 'Active student clubs '],
+  pros: ['Autonomous ', 'NAAC Accredited and NBA-accredited programs', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations', 'Active student clubs '],
   cons: ['Strict attendance policies', 'Campus infrastructure is functional but not very impressive', 'Accessibility is limited'],
   whatsappLink: 'https://chat.whatsapp.com/FakeLinkForJSPM',
   mentors: [
