@@ -1,9 +1,10 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { Download, Calendar, BookOpen, Users, TrendingUp, FileText } from 'lucide-react';
 
 const DashboardPage = () => {
-  const { user } = useAuth();
+  const user = { name: 'User' };
+  const downloadStats = { totalDownloads: 0, premiumDownloads: 0, freeDownloads: 0, totalSpent: 0 };
+  const paymentHistory: any[] = [];
 
   const mockPredictions = [
     { id: '1', date: '2024-01-15', collegeName: 'COEP Pune', branch: 'Computer Engineering', status: 'Purchased' },
@@ -57,10 +58,26 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Resources Downloaded</p>
-                <p className="text-2xl font-bold text-gray-900">3</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {downloadStats.totalDownloads}
+                </p>
               </div>
               <div className="bg-green-100 p-3 rounded-full">
                 <FileText className="h-6 w-6 text-green-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Total Spent</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {`₹${downloadStats.totalSpent}`}
+                </p>
+              </div>
+              <div className="bg-orange-100 p-3 rounded-full">
+                <Download className="h-6 w-6 text-orange-600" />
               </div>
             </div>
           </div>
@@ -79,6 +96,51 @@ const DashboardPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Recent Downloads */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Download className="h-6 w-6 mr-2 text-green-600" />
+              Recent Downloads
+            </h2>
+            
+            <div className="space-y-4">
+              {paymentHistory.length > 0 ? (
+                paymentHistory.slice(0, 5).map((payment) => (
+                  <div key={payment._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900">{payment.resourceTitle}</h3>
+                        <p className="text-gray-600 text-sm">₹{payment.amount}</p>
+                        <p className="text-gray-500 text-xs mt-1">
+                          {new Date(payment.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          payment.status === 'completed' ? 'bg-green-100 text-green-800' : 
+                          payment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {payment.status}
+                        </span>
+                        {payment.status === 'completed' && (
+                          <button className="text-green-600 hover:text-green-700">
+                            <Download className="h-4 w-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">No downloads yet. Check out our resources!</p>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* College Predictions History */}
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">

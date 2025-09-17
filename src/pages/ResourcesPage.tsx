@@ -1,65 +1,87 @@
-import React from 'react';
-import { Download, Lock, FileText, Star, Users } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Download, Lock, FileText, Star, Users, Loader2 } from 'lucide-react';
+ 
 import list from '../assets/general/list.png'
 import list1 from '../files/top20.pdf'
+import list2 from '../files/clist.pdf'
+ 
+
 interface Resource {
   id: string;
   title: string;
   description: string;
-  category: 'College Rankings' | 'Branch Analysis' | 'Career Guidance' | 'Placement Data';
+  category: 'College Rankings' | 'Branch Analysis' | 'Career Guidance' | 'Placement Data' | 'Admission Guidance';
   isPremium: boolean;
   price?: number;
-  downloads: number;
+  downloads: number | string;
   rating: number;
   previewImage: string;
   lastUpdated: string;
-   fileUrl?: string;
+  fileUrl?: string;
 }
 
 const ResourcesPage = () => {
-  const { user } = useAuth();
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [loading, setLoading] = useState(true);
+  
 
-  const resources: Resource[] = [
-    {
-     id: '1',
-  title: 'College Preference List for CAP Rounds',
-  description: 'Expertly curated preference list for CAP rounds including top colleges from Mumbai, Pune, and Sangli. Built from seniors’ real experiences, placement insights, and college reviews to help students make the best choice.',
-  category: 'Admission Guidance',
-  isPremium: true,
-  price: 199,
-  downloads: '1K+',
-  rating: 4.9,
-  previewImage: list,
-  lastUpdated: '2025-08-10'
-    },
-   {
-  id: '2',
-  title: 'Top 20 Engineering Colleges in Maharashtra',
-  description: 'Comprehensive list and analysis of the top 20 engineering colleges in Maharashtra, covering rankings, placements, infrastructure, and student reviews.',
-  category: 'College Rankings',
-  isPremium: false,
-  price: 0,
-  downloads: 2450,
-  rating: 4.8,
-  previewImage: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-  lastUpdated: '2025-07-15',
-  fileUrl: list1
-}
-  ];
+  // Load resources from backend
+  useEffect(() => {
+    const loadResources = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/resources');
+        const data = await response.json();
+        setResources(data);
+      } catch (error) {
+        console.error('Failed to load resources:', error);
+        // Fallback to static data
+        setResources([
+          {
+            id: '1',
+            title: 'College Preference List for CAP Rounds',
+            description: 'Expertly curated preference list for CAP rounds including top colleges from Mumbai, Pune, and Sangli. Built from seniors\' real experiences, placement insights, and college reviews to help students make the best choice.',
+            category: 'Admission Guidance',
+            isPremium: true,
+            price: 199,
+            downloads: '1K+',
+            rating: 4.9,
+            previewImage: list,
+            lastUpdated: '2025-08-10',
+            fileUrl: list2
+          },
+          {
+            id: '2',
+            title: 'Top 20 Engineering Colleges in Maharashtra',
+            description: 'Comprehensive list and analysis of the top 20 engineering colleges in Maharashtra, covering rankings, placements, infrastructure, and student reviews.',
+            category: 'College Rankings',
+            isPremium: false,
+            price: 0,
+            downloads: '2.4K+',
+            rating: 4.8,
+            previewImage: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+            lastUpdated: '2025-07-15',
+            fileUrl: list1
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleDownload = (resource: Resource) => {
-    if (resource.isPremium && !user) {
-      alert('Please login to download premium resources');
-      return;
-    }
-    
-   
-    if (resource.isPremium) {
-      // TODO: Integrate payment
-      alert(`Payment integration would be implemented here for ₹${resource.price}`);
-    } else {
+    loadResources();
+  }, []);
+
+  // Auth and payments removed
+  useEffect(() => {
+    // no-op
+  }, [resources]);
+
+  // Payments removed
+
+  const handleDownload = async (resource: Resource) => {
+    console.log('Download clicked for:', resource.title);
+    // Direct download
+    try {
       if (resource.fileUrl) {
         const link = document.createElement('a');
         link.href = resource.fileUrl;
@@ -67,9 +89,13 @@ const ResourcesPage = () => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        alert('Download started! Check your downloads folder.');
       } else {
         alert('File not available yet!');
       }
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Download failed. Please try again.');
     }
   };
 
@@ -83,11 +109,22 @@ const ResourcesPage = () => {
   };
 
   const categories = ['All', ...new Set(resources.map(r => r.category))];
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredResources = selectedCategory === 'All' 
     ? resources 
     : resources.filter(r => r.category === selectedCategory);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 text-orange-600 animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading resources...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50 py-12">
@@ -180,26 +217,17 @@ const ResourcesPage = () => {
                     )}
                   </div>
                   
-                  {resource.isPremium && !user ? (
-                    <Link
-                      to="/login"
-                      className="bg-orange-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm flex items-center"
-                    >
-                      Login to Download
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => handleDownload(resource)}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors text-sm flex items-center ${
-                        resource.isPremium
-                          ? 'bg-orange-600 text-white hover:bg-orange-700'
-                          : 'bg-green-600 text-white hover:bg-green-700'
-                      }`}
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      {resource.isPremium ? 'Buy & Download' : 'Download'}
-                    </button>
-                  )}
+                  <button
+                    onClick={() => handleDownload(resource)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors text-sm flex items-center ${
+                      resource.isPremium
+                        ? 'bg-orange-600 text-white hover:bg-orange-700'
+                        : 'bg-green-600 text-white hover:bg-green-700'
+                    }`}
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download
+                  </button>
                 </div>
               </div>
             </div>
