@@ -6,7 +6,7 @@ const AboutPage = () => {
   const stats = [
     { icon: <Users className="w-8 h-8 text-orange-600" />, number: "15000+", label: "Happy Visitors on website" },
     { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, number: "15+", label: "Colleges Included" },
-    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "5000+", label: "Students Helped" },
+    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "4500+", label: "Students Helped" },
     { icon: <Award className="w-8 h-8 text-orange-600" />, number: "120+", label: "Expert Mentors" },
   ];
 
@@ -37,7 +37,7 @@ const AboutPage = () => {
   {
     year: "2024",
     title: "The Beginning",
-    description: "Started as a small group of students helping juniors navigate the complex college admission process — successfully guiding 500+ students on our own."
+    description: "Started as a small group of students helping juniors navigate the complex college admission process, successfully guiding 500+ students on our own."
   },
   {
     year: "March 2025",
@@ -46,13 +46,13 @@ const AboutPage = () => {
   },
   {
     year: "Sept 2025",
-    title: "AI-Powered Platform",
-    description: "Launched our AI college predictor and mentorship platform to provide personalized guidance and transparent insights."
+    title: "Great Achievement",
+    description: "Became Maharashtra's only Non-Profit student-led initiative with 15000+ visitors,120+ seniors on our website."
   },
   {
-    year: "2026",
+    year: "2025",
     title: "Campus to Corporate",
-    description: "Started connecting students with employees from their dream companies like Microsoft, Amazon, Barclays, and more — bridging the gap between education and industry."
+    description: "Started connecting students with employees from their dream companies like Microsoft, Amazon, Barclays, and more, bridging the gap between education and industry."
   }
 ];
 
@@ -110,25 +110,108 @@ const AboutPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                To bridge the gap between college aspirants and current students by providing authentic insights, 
-                personalized guidance, and a supportive community that helps students make informed decisions about their future.
-              </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                We believe that every student deserves access to real, unfiltered information about college life, 
-                academics, and career opportunities from those who have walked the same path.
-              </p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
+                <motion.div 
+                  whileHover={{ scale: 1.01 }}
+                  className="bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 shadow-sm hover:shadow-lg hover:shadow-orange-100/30 transition-all duration-300 group"
+                >
+                  <div className="relative overflow-hidden">
+                    <p className="text-xl text-orange-800 font-semibold mb-2 group-hover:text-orange-700 transition-colors">
+                      Making College Selection Simple & Smart
+                    </p>
+                    <p className="text-lg text-gray-700 leading-relaxed group-hover:text-gray-800">
+                      We connect you directly with seniors who've been through it all. Get real, honest insights about colleges - 
+                      from actual placement stats to campus life, just truth from the Seniors of your Dream College!
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-blue-50 p-6 rounded-xl border border-blue-100 hover:shadow-lg hover:shadow-blue-100/30 transition-all duration-300 group"
+                >
+                  <p className="font-semibold text-blue-800 mb-2 group-hover:text-blue-700">100% Student-Driven</p>
+                  <p className="text-gray-700 group-hover:text-gray-800">Maharashtra's first non-profit platform run by students, for students.</p>
+                </motion.div>
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-green-50 p-6 rounded-xl border border-green-100 hover:shadow-lg hover:shadow-green-100/30 transition-all duration-300 group"
+                >
+                  <p className="font-semibold text-green-800 mb-2 group-hover:text-green-700">Real Information</p>
+                  <p className="text-gray-700 group-hover:text-gray-800">Direct access to placement data, college life & honest reviews.</p>
+                </motion.div>
+              </div>
             </div>
+
             <div className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-3xl p-8 shadow-2xl">
               <div className="text-center">
-                <GraduationCap className="w-16 h-16 text-orange-600 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Empowering Students</h3>
-                <p className="text-gray-700">
-                  Through technology, community, and authentic experiences, we're making college admissions 
-                  more transparent and accessible for every student in Maharashtra.
-                </p>
+                <GraduationCap className="w-16 h-16 text-orange-600 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Us?</h3>
+                <div className="grid gap-4">
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/80 backdrop-blur-sm rounded-xl p-4 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors duration-300">
+                        <span className="text-orange-600 font-bold text-xl group-hover:scale-110 transition-transform duration-300">1</span>
+                      </div>
+                      <div className="text-left">
+                        <h4 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">Direct Student Connection</h4>
+                        <p className="text-gray-600 text-sm group-hover:text-gray-700">Chat with current students about real experiences</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/80 backdrop-blur-sm rounded-xl p-4 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors duration-300">
+                        <span className="text-orange-600 font-bold text-xl group-hover:scale-110 transition-transform duration-300">2</span>
+                      </div>
+                      <div className="text-left">
+                        <h4 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">Verified Placement Data</h4>
+                        <p className="text-gray-600 text-sm group-hover:text-gray-700">Access actual placement statistics & packages</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/80 backdrop-blur-sm rounded-xl p-4 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors duration-300">
+                        <span className="text-orange-600 font-bold text-xl group-hover:scale-110 transition-transform duration-300">3</span>
+                      </div>
+                      <div className="text-left">
+                        <h4 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">100% Honest Reviews</h4>
+                        <p className="text-gray-600 text-sm group-hover:text-gray-700">No marketing, just real student experiences</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/80 backdrop-blur-sm rounded-xl p-4 hover:bg-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors duration-300">
+                        <span className="text-orange-600 font-bold text-xl group-hover:scale-110 transition-transform duration-300">4</span>
+                      </div>
+                      <div className="text-left">
+                        <h4 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">Expert Guidance</h4>
+                        <p className="text-gray-600 text-sm group-hover:text-gray-700">Learn from successful seniors' experiences</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>

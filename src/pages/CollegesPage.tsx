@@ -235,9 +235,10 @@ const CollegesPage = () => {
                                   </div>
                                 </div>
                                 
-                                <p className="text-lg text-gray-200 mb-8 leading-relaxed max-w-lg">
-                                  {filteredColleges[currentSlide].description}
-                                </p>
+                                <div className="text-gray-200 mb-8 leading-relaxed max-w-lg">
+                                  <p className="text-lg font-medium mb-2">{filteredColleges[currentSlide].description.type}</p>
+                                  <p className="text-base text-gray-300">{filteredColleges[currentSlide].description.notable}</p>
+                                </div>
                                 
                                 <Link
                                   to={`/colleges/${filteredColleges[currentSlide].id}`}
@@ -348,9 +349,10 @@ const CollegesPage = () => {
                       </div>
 
                       {/* Description */}
-                      <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed">
-                        {college.description}
-                      </p>
+                      <div className="mb-6">
+                        <p className="text-gray-700 font-medium mb-2">{college.description.type}</p>
+                        <p className="text-gray-600 text-sm leading-relaxed">{college.description.status}</p>
+                      </div>
 
                       {/* Highlights */}
                       <div className="mb-6">

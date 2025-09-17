@@ -80,7 +80,7 @@ export const colleges: College[] = [
     established: 1854,
     image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
     description: 'COEP is a prestigious autonomous government engineering institute in Pune renowned for its legacy, academics, and innovation culture.',
-    highlights: ['Historic campus', 'Tier-I accreditation ', 'One of India\'s top college', 'Excellent placements'],
+    highlights: ['Historic campus', 'Tier-1 accreditation ', 'One of India\'s top college', 'Excellent placements'],
     pros: ['Very strong placements', 'Large and well-maintained campus', 'Experienced faculty', 'Strong alumni network'],
     cons: ['High admission cutoffs', 'Heavy academic schedule', 'Higher fees than other government colleges'],
     whatsappLink: 'https://chat.whatsapp.com/KRwgjOcjeVX7hD24FTbJmK?mode=ems_copy_c',
