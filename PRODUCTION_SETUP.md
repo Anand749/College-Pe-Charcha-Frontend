@@ -28,57 +28,12 @@
 
 ---
 
-### 💳 **2. Razorpay Production Setup**
-
-#### **Step 1: Razorpay Account Setup**
-1. Go to [Razorpay Dashboard](https://dashboard.razorpay.com/)
-2. Complete KYC verification (required for live mode)
-3. Switch to "Live Mode" (top right corner)
-4. Go to Settings → API Keys
-5. Generate Live API Keys
-
-#### **Step 2: Your Live Credentials**
-- **Key ID**: `rzp_live_your_live_key_id`
-- **Key Secret**: `your_live_key_secret`
-
-#### **Step 3: Webhook Setup**
-1. Go to Settings → Webhooks
-2. Add webhook URL: `https://yourdomain.com/api/payments/webhook`
-3. Select events: `payment.captured`, `payment.failed`
-4. Copy webhook secret
-
----
-
-### 🗄️ **3. MongoDB Atlas Production Setup**
-
-#### **Step 1: MongoDB Atlas Setup**
-1. Go to [MongoDB Atlas](https://www.mongodb.com/atlas)
-2. Create production cluster (M10 or higher recommended)
-3. Create database user with strong password
-4. Whitelist your server IP addresses
-5. Get connection string
-
-#### **Step 2: Your Production MongoDB URI**
-```
-mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/collegepecharcha_prod?retryWrites=true&w=majority
-```
-
----
-
-### 🔧 **4. Environment Configuration**
+### � **2. Environment Configuration**
 
 #### **Backend Environment (`backend/.env.production`)**
 ```env
-# MongoDB
-MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/collegepecharcha_prod?retryWrites=true&w=majority
-
 # JWT
 JWT_SECRET=your-super-secure-jwt-secret-256-bits-long
-
-# Razorpay Live
-RAZORPAY_KEY_ID=rzp_live_your_live_key_id
-RAZORPAY_KEY_SECRET=your_live_key_secret
-RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
 
 # Google OAuth
 GOOGLE_CLIENT_ID=your-google-client-id.googleusercontent.com
@@ -92,7 +47,6 @@ FRONTEND_URL=https://yourdomain.com
 
 #### **Frontend Environment (`.env.production`)**
 ```env
-REACT_APP_RAZORPAY_KEY_ID=rzp_live_your_live_key_id
 REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id.googleusercontent.com
 REACT_APP_API_URL=https://yourdomain.com/api
 ```
