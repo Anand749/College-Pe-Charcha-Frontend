@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
- 
+  const { user, signInWithGoogle, logout } = useAuth();
+  
+  const handleAuth = async () => {
+    try {
+      if (user) {
+        await logout();
+      } else {
+        await signInWithGoogle();
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+    }
+  };
 
   const navLinks = [
     { name: 'College Predictor', path: '/predictor' },
@@ -16,32 +29,73 @@ const Navbar = () => {
     { name: 'Contact Us', path: '/contact' },
   ];
 
+  const specialLinks = [
+    { name: 'Apply for Team', path: '/apply-core', isSpecial: true },
+  ];
+
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50" style={{ minHeight: '72px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex flex-row flex-nowrap justify-between items-center" style={{ minHeight: '72px' }}>
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 flex items-center">
-            <span className="text-2xl font-bold text-orange-600">College Pe Charcha</span>
+          <Link to="/" className="flex-shrink-0 flex items-center group">
+            <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent group-hover:from-orange-500 group-hover:to-orange-400 transition-all duration-300">College Pe Charcha</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+          <div className="hidden md:flex flex-1 justify-center overflow-hidden">
+            <div className="flex items-center space-x-1 overflow-hidden min-w-0">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 relative group whitespace-nowrap"
                 >
                   {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              ))}
+              {specialLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden group whitespace-nowrap"
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Auth Buttons removed */}
-          <div className="hidden md:block" />
+          {/* Auth Button */}
+          <div className="hidden md:block pl-4">
+            <div className="flex items-center space-x-4">
+              {user && (
+                <div className="flex items-center bg-gradient-to-r from-orange-50 to-orange-100 rounded-full px-3 py-2 border border-orange-200 shadow-sm whitespace-nowrap max-w-[240px]">
+                  <img
+                    src={user.photoURL || ''}
+                    alt={user.displayName || ''}
+                    className="w-9 h-9 rounded-full border-2 border-orange-400 shadow-sm"
+                  />
+                  <span className="ml-2 text-gray-700 font-semibold truncate max-w-[140px] text-sm">{user.displayName}</span>
+                </div>
+              )}
+              <button
+                onClick={handleAuth}
+                className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg relative overflow-hidden group text-sm ${
+                  user
+                    ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white'
+                    : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-md'
+                }`}
+              >
+                <span className="relative z-10">{user ? 'Sign Out' : 'Sign in'}</span>
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  user ? 'bg-gradient-to-r from-red-400 to-red-500' : 'bg-gradient-to-r from-orange-400 to-orange-500'
+                }`}></div>
+              </button>
+            </div>
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -58,17 +112,47 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+          <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 backdrop-blur-md border-t border-orange-100 shadow-lg">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className="text-gray-700 hover:text-orange-600 block px-3 py-2 rounded-md text-base font-medium"
+                className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 hover:scale-105"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
+            {specialLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <button
+              onClick={handleAuth}
+              className={`w-full mt-3 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
+                user
+                  ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-lg'
+                  : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg'
+              }`}
+            >
+              {user ? 'Sign Out' : 'Sign in'}
+            </button>
+            {user && (
+              <div className="flex items-center bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg px-3 py-2 mt-3 border border-orange-200 shadow-sm">
+                <img
+                  src={user.photoURL || ''}
+                  alt={user.displayName || ''}
+                  className="w-8 h-8 rounded-full border-2 border-orange-400 shadow-sm"
+                />
+                <span className="ml-2 text-gray-700 font-semibold text-sm">{user.displayName}</span>
+              </div>
+            )}
           </div>
         </div>
       )}

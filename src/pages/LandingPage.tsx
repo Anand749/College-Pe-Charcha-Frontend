@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight, Linkedin, Instagram, GraduationCap, Sparkles, TrendingUp, Award } from 'lucide-react';
+import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight, Linkedin, Instagram, Sparkles, TrendingUp, Award, X, Play, Pause } from 'lucide-react';
 import teamPhoto1 from '../assets/team-photo-1.jpg';
 import arnav from '../assets/core/arnav.jpg';
 import vedanti from '../assets/core/vedanti.jpg';
@@ -29,97 +29,205 @@ interface TeamShowcaseProps {
   title: string;
   members: TeamMember[];
   accentColor: string;
+  initialVisibleCount?: number;
+  autoSlide?: boolean;
 }
 
 // Reusable component for the "List & Detail" showcase, now typed with React.FC
-const TeamShowcase: React.FC<TeamShowcaseProps> = ({ title, members, accentColor }) => {
-  if (members.length === 0) return null;
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [selectedMember, setSelectedMember] = useState<TeamMember>(members[0]);
-  const [showAllMembers, setShowAllMembers] = useState(false);
+const TeamShowcase: React.FC<TeamShowcaseProps> = ({ title, members, accentColor, initialVisibleCount = 4, autoSlide = false }) => {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(members && members.length > 0 ? members[0] : null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(autoSlide);
+  const [showAllModal, setShowAllModal] = useState(false);
   const accentTextClass = `text-${accentColor}-600`;
   const accentBgClass = `bg-${accentColor}-100`;
 
-  // Show only 4 members initially, or all if showAllMembers is true
-  const displayedMembers = showAllMembers ? members : members.slice(0, 4);
+  useEffect(() => {
+    if (isPlaying && members.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % members.length);
+        setSelectedMember(members[(currentIndex + 1) % members.length]);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, members, currentIndex]);
+
+  const nextMember = () => {
+    const nextIndex = (currentIndex + 1) % members.length;
+    setCurrentIndex(nextIndex);
+    setSelectedMember(members[nextIndex]);
+  };
+
+  const prevMember = () => {
+    const prevIndex = (currentIndex - 1 + members.length) % members.length;
+    setCurrentIndex(prevIndex);
+    setSelectedMember(members[prevIndex]);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const canBeTruncated = initialVisibleCount && members.length > initialVisibleCount;
+  const visibleMembers = canBeTruncated && !isExpanded ? members.slice(0, initialVisibleCount) : members;
+
+  const getDynamicHeight = () => 600;
+
+  if (!members || members.length === 0 || !selectedMember) return null;
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100" style={{ minHeight: showAllMembers ? '550px' : '400px' }}>
-      <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
-        <div className="p-6 flex-grow overflow-y-auto">
-          <h2 className={`text-xl font-bold ${accentTextClass} mb-6`}>{title}</h2>
-          <div className="space-y-3">
-            {displayedMembers.map(member => (
-              <button
-                key={member.id}
-                onClick={() => setSelectedMember(member)}
-                className={`w-full flex items-center space-x-4 p-4 rounded-2xl text-left transition-all duration-300 ${
-                  selectedMember.id === member.id ? accentBgClass : 'hover:bg-gray-100'
-                }`}
-              >
-                <img src={member.photo} alt={member.name} className="w-14 h-14 rounded-2xl object-cover flex-shrink-0" />
-                <div>
-                  <p className="font-bold text-gray-900 text-lg">{member.name}</p>
-                  <p className={`text-sm font-semibold ${accentTextClass}`}>{member.role}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-        
-        {/* Show More/Less Button */}
-        {members.length > 4 && (
-          <div className="p-6 border-t border-gray-200">
-            <button
-              onClick={() => setShowAllMembers(!showAllMembers)}
-              className={`w-full flex items-center justify-center space-x-2 text-sm font-semibold py-3 rounded-2xl transition-all duration-300 ${
-                showAllMembers 
-                  ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' 
-                  : `${accentTextClass} hover:bg-${accentColor}-50`
-              }`}
-            >
-              <span>{showAllMembers ? 'Show Less' : `View All ${members.length} Members`}</span>
-              {showAllMembers ? (
-                <ChevronLeft className="w-4 h-4" />
-              ) : (
-                <ChevronRight className="w-4 h-4" />
-              )}
-            </button>
-          </div>
-        )}
-      </div>
-      
-      <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedMember.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12"
-          >
-            <div className="w-full lg:w-1/3">
-              <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-3xl shadow-2xl w-full aspect-square object-cover" />
+    <section className="mb-16">
+      <div 
+        className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100"
+        style={{ minHeight: `${getDynamicHeight()}px` }}
+      >
+        {/* Left Panel: Scrollable List of Members */}
+        <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
+          <div className="p-6 flex-grow overflow-y-auto">
+            <h2 className={`text-xl font-bold ${accentTextClass} mb-6`}>{title}</h2>
+            <div className="space-y-3">
+              {visibleMembers.map(member => (
+                <button
+                  key={member.id}
+                  onClick={() => setSelectedMember(member)}
+                  className={`w-full flex items-center space-x-4 p-4 rounded-2xl text-left transition-all duration-300 ${
+                    selectedMember.id === member.id ? accentBgClass : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <img src={member.photo} alt={member.name} className="w-16 h-16 rounded-2xl object-cover flex-shrink-0 shadow-md hover:shadow-lg transition-shadow duration-300" />
+                  <div>
+                    <p className="font-bold text-gray-900 text-lg">{member.name}</p>
+                    <p className={`text-sm font-semibold ${accentTextClass}`}>{member.role}</p>
+                  </div>
+                </button>
+              ))}
             </div>
-            <div className="w-full lg:w-2/3">
-              <p className={`text-sm font-semibold ${accentTextClass} uppercase tracking-wider`}>{selectedMember.role}</p>
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-4">{selectedMember.name}</h1>
-              <p className="text-xl font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
-              <p className="text-gray-700 leading-relaxed text-lg">{selectedMember.bio}</p>
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-sm font-semibold text-gray-500 mb-4">Connect:</p>
-                <div className="flex space-x-6">
-                  {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={24} /><span>LinkedIn</span></a>}
-                  {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={24} /><span>Instagram</span></a>}
+          </div>
+          {/* "View More" Button */}
+          {canBeTruncated && (
+            <div className="p-6 border-t border-gray-200">
+              <button 
+                onClick={() => setShowAllModal(true)} 
+                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-orange-600 hover:text-orange-700 py-3 rounded-2xl hover:bg-orange-50 transition-all duration-300 transform hover:scale-105"
+              >
+                <span>View All {members.length} Members</span>
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
+        </div>
+        {/* Right Panel: Detailed View of Selected Member */}
+        <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16 overflow-y-auto relative">
+          {/* Navigation Controls */}
+          {members.length > 1 && (
+            <div className="absolute top-4 right-4 flex space-x-2 z-10">
+              <button
+                onClick={prevMember}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                <ChevronLeft className="h-4 w-4 text-gray-600" />
+              </button>
+              <button
+                onClick={togglePlayPause}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                {isPlaying ? <Pause className="h-4 w-4 text-gray-600" /> : <Play className="h-4 w-4 text-gray-600" />}
+              </button>
+              <button
+                onClick={nextMember}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                <ChevronRight className="h-4 w-4 text-gray-600" />
+              </button>
+            </div>
+          )}
+          {/* Progress Indicators */}
+          {members.length > 1 && (
+            <div className="absolute top-4 left-4 flex space-x-1 z-10">
+              {members.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    setSelectedMember(members[index]);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-orange-500 w-6' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedMember.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12"
+            >
+              <div className="w-full lg:w-1/3">
+                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-3xl shadow-2xl w-full max-w-sm mx-auto lg:mx-0 aspect-square object-cover hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="w-full lg:w-2/3">
+                <p className={`text-sm font-semibold ${accentTextClass} uppercase tracking-wider`}>{selectedMember.role}</p>
+                <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-4">{selectedMember.name}</h1>
+                <p className="text-xl font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
+                <p className="text-gray-700 leading-relaxed text-lg">{selectedMember.bio}</p>
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <p className="text-sm font-semibold text-gray-500 mb-4">Connect:</p>
+                  <div className="flex space-x-6">
+                    {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={24} /><span>LinkedIn</span></a>}
+                    {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={24} /><span>Instagram</span></a>}
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+      {/* All Members Modal */}
+      {showAllModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden">
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">All {title} Members</h2>
+              <button
+                onClick={() => setShowAllModal(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-100"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {members.map((member) => (
+                  <div
+                    key={member.id}
+                    className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors cursor-pointer"
+                    onClick={() => {
+                      setSelectedMember(member);
+                      setShowAllModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <img src={member.photo} alt={member.name} className="w-12 h-12 rounded-xl object-cover" />
+                      <div>
+                        <h3 className="font-semibold text-gray-900">{member.name}</h3>
+                        <p className={`text-sm ${accentTextClass}`}>{member.role}</p>
+                        <p className="text-xs text-gray-500">{member.college}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 
@@ -127,6 +235,7 @@ const TeamShowcase: React.FC<TeamShowcaseProps> = ({ title, members, accentColor
 const LandingPage: React.FC = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [showCorePopup, setShowCorePopup] = useState(false);
 
   const testimonials = [
     { id: 1, name: "Priya Sharma", college: "COEP Pune", rating: 5, text: "College Pe Charcha helped me connect with seniors who guided me through the entire admission process. The AI predictor was spot-on!", avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150" },
@@ -153,6 +262,9 @@ const LandingPage: React.FC = () => {
        { id: '6', name: 'Devesh Nhalde', role: 'Research  Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
   ];
 
+  // Ensure founder is first and selected initially for emphasis
+  const orderedCoreTeam = [coreTeamMembers.find(m => m.role.toLowerCase().includes('founder')) || coreTeamMembers[0], ...coreTeamMembers.filter(m => !m.role.toLowerCase().includes('founder'))];
+
   useEffect(() => {
     const testimonialInterval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -160,9 +272,16 @@ const LandingPage: React.FC = () => {
     const heroImageInterval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 6000);
+    
+    // Show core popup after 3 seconds
+    const popupTimer = setTimeout(() => {
+      setShowCorePopup(true);
+    }, 3000);
+    
     return () => {
       clearInterval(testimonialInterval);
       clearInterval(heroImageInterval);
+      clearTimeout(popupTimer);
     };
   }, []);
 
@@ -261,8 +380,10 @@ const LandingPage: React.FC = () => {
           </motion.div>
           <TeamShowcase 
             title="Core Team" 
-            members={coreTeamMembers} 
+            members={orderedCoreTeam} 
             accentColor="orange"
+            initialVisibleCount={4}
+            autoSlide={true}
           />
         </div>
       </section>
@@ -329,6 +450,76 @@ const LandingPage: React.FC = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Core Member Application Popup */}
+      <AnimatePresence>
+        {showCorePopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            onClick={() => setShowCorePopup(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowCorePopup(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+              
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Users className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Join Our Core Team!</h3>
+                <p className="text-gray-600 mb-6">
+                  We're looking for passionate students to join our mission of helping aspiring engineers find their dream colleges.
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Sparkles className="h-4 w-4 text-orange-500 mr-2" />
+                    <span>Lead impactful initiatives</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Award className="h-4 w-4 text-orange-500 mr-2" />
+                    <span>Build your leadership skills</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <TrendingUp className="h-4 w-4 text-orange-500 mr-2" />
+                    <span>Grow your network</span>
+                  </div>
+                </div>
+                
+                <div className="flex space-x-3">
+                  <Link
+                    to="/apply-core"
+                    className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
+                    onClick={() => setShowCorePopup(false)}
+                  >
+                    Apply Now
+                  </Link>
+                  <button
+                    onClick={() => setShowCorePopup(false)}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300"
+                  >
+                    Maybe Later
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

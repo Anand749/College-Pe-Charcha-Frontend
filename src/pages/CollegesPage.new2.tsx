@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Calendar, ArrowRight, Search, Filter, Building, GraduationCap, Sparkles, TrendingUp, Grid, List, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Search, Filter, Building, GraduationCap, Sparkles, TrendingUp, Grid, List, ChevronLeft, ChevronRight } from 'lucide-react';
 import { colleges } from '../data/colleges';
 
 const CollegesPage: React.FC = () => {
@@ -64,58 +64,27 @@ const CollegesPage: React.FC = () => {
                 alt={filteredColleges[currentSlide]?.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
                 <div className="absolute bottom-10 left-10 right-10 text-white">
-                  {/* College Name and Basic Info */}
-                  <h2 className="text-5xl font-bold mb-3">{filteredColleges[currentSlide]?.name}</h2>
-                  <p className="text-xl text-orange-200 mb-6">{filteredColleges[currentSlide]?.fullName}</p>
-                  
-                  {/* Key Info */}
-                  <div className="flex gap-6 mb-8">
-                    <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                      <MapPin className="w-5 h-5 mr-2 text-orange-400" />
-                      <span className="text-lg">{filteredColleges[currentSlide]?.location}</span>
-                    </div>
-                    <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                      <Calendar className="w-5 h-5 mr-2 text-orange-400" />
-                      <span className="text-lg">Est. {filteredColleges[currentSlide]?.established}</span>
-                    </div>
-                  </div>
-
-                  {/* Highlights */}
-                  <div className="mb-8">
-                    <h3 className="text-lg font-semibold text-orange-400 mb-3">Highlights</h3>
-                    <div className="flex flex-wrap gap-3">
-                      {filteredColleges[currentSlide]?.highlights.slice(0, 4).map((highlight, index) => (
-                        <div
-                          key={index}
-                          className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-sm"
-                        >
-                          {highlight}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
+                  <h2 className="text-4xl font-bold mb-4">{filteredColleges[currentSlide]?.name}</h2>
+                  <p className="text-xl mb-6">{filteredColleges[currentSlide]?.fullName}</p>
                   <div className="flex gap-4">
-                    <Link
-                      to={`/colleges/${filteredColleges[currentSlide]?.id}`}
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl"
-                    >
-                      Get Details
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                    <a
-                      href={filteredColleges[currentSlide]?.whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-lg hover:shadow-xl"
-                    >
-                      Talk to Senior
-                      <MessageCircle className="ml-2 w-5 h-5" />
-                    </a>
+                    <div className="flex items-center">
+                      <MapPin className="w-5 h-5 mr-2" />
+                      {filteredColleges[currentSlide]?.location}
+                    </div>
+                    <div className="flex items-center">
+                      <Calendar className="w-5 h-5 mr-2" />
+                      Est. {filteredColleges[currentSlide]?.established}
+                    </div>
                   </div>
+                  <Link
+                    to={`/colleges/${filteredColleges[currentSlide]?.id}`}
+                    className="inline-flex items-center mt-6 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -259,24 +228,13 @@ const CollegesPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex gap-3">
-                <Link 
-                  to={`/colleges/${college.id}`}
-                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-md hover:shadow-lg text-sm"
-                >
-                  Get Details
-                  <ArrowRight size={16} className="ml-1" />
-                </Link>
-                <a
-                  href={college.whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg text-sm"
-                >
-                  Talk to Senior
-                  <MessageCircle size={16} className="ml-1" />
-                </a>
-              </div>
+              <Link 
+                to={`/colleges/${college.id}`}
+                className="inline-flex items-center text-blue-500 hover:text-blue-600"
+              >
+                View Details
+                <ArrowRight size={16} className="ml-1" />
+              </Link>
             </div>
           </motion.div>
         ))}
@@ -287,7 +245,7 @@ const CollegesPage: React.FC = () => {
         <div className="text-center mt-8">
           <button
             onClick={() => setShowAllColleges(!showAllColleges)}
-            className="inline-flex items-center bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl"
+            className="inline-flex items-center bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
           >
             {showAllColleges ? 'Show Less' : 'Show More'}
             <ArrowRight size={16} className="ml-1" />

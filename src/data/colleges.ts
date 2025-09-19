@@ -6,6 +6,17 @@ import hardik from '../assets/core/hardik.jpg';
 import devesh from '../assets/core/devesh.jpg';
 import jiya from '../assets/core/jiya.jpg';
 
+// College images
+import coepImage from '../assets/coep.webp';
+import pictImage from '../assets/pict.webp';
+import pict2Image from '../assets/pict-2.jpg';
+import pict3Image from '../assets/pict-3.jpg';
+import dypitImage from '../assets/dypit.jpg';
+import pccoeImage from '../assets/pccoe.jpg';
+import vitImage from '../assets/vit.jpg';
+import vjtiImage from '../assets/vjti.jpg';
+import wceImage from '../assets/wce.jpg';
+
 import harsh from '../assets/heads/College Heads/harsh.jpg';
 // import saurab from '../assets/heads/College Heads/saurab.jpg';
 import venugopal from '../assets/heads/College Heads/venugopal.jpg';
@@ -78,7 +89,7 @@ export const colleges: College[] = [
     fullName: 'College of Engineering Pune',
     location: 'Pune',
     established: 1854,
-    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    image: coepImage,
     description: 'COEP is a prestigious autonomous government engineering institute in Pune renowned for its legacy, academics, and innovation culture.',
     highlights: ['Historic campus', 'Tier-1 accreditation ', 'One of India\'s top college', 'Excellent placements'],
     pros: ['Very strong placements', 'Large and well-maintained campus', 'Experienced faculty', 'Strong alumni network'],
@@ -94,7 +105,7 @@ export const colleges: College[] = [
     fullName: 'Pune Institute of Computer Technology',
     location: 'Pune',
     established: 1983,
-    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    image: pictImage,
     description: 'Premier institute known for excellence in computer science and IT education with outstanding placement records.',
     highlights: ['Top IT placements', 'Industry partnerships', 'Modern infrastructure', 'Innovation hub'],
     pros: ['Excellent IT placements', 'Modern labs', 'Industry exposure', 'Active student community'],
@@ -145,7 +156,7 @@ export const colleges: College[] = [
     fullName: 'Veermata Jijabai Technological Institute',
     location: 'Mumbai',
     established: 1887,
-    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    image: vjtiImage,
     description: 'VJTI is government-aided, autonomous under Mumbai University, and known for academic excellence and strong placements.',
     highlights: ['Historic Legacy & Autonomy', 'Placement Excellence', 'Vibrant Campus & Facilities', 'Alumni & Industry Linkages'],
     pros: ['Excellent Placement Outcomes', 'Rich Legacy & Autonomy', 'Affordability & Support', 'Influential Alumni & Industry Ties'],
@@ -211,7 +222,7 @@ export const colleges: College[] = [
     fullName: 'Walchand College of Engineering',
     location: 'Sangli',
     established: 1947,
-    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    image: wceImage,
     description: 'Walchand College is a prominent autonomous engineering institution located on a sprawling ~90-acre campus in Sangli, Maharashtra.',
     highlights: ['Historic & autonomous legacy', 'Vast and green campus', 'Includes one of Asia’s largest Library ', 'Strong placements'],
     pros: ['Rich history and proud autonomy', 'Expansive, green, well-equipped campus', 'Strong placement records', 'Highly rated'],
@@ -291,7 +302,7 @@ export const colleges: College[] = [
     fullName: 'Vishwakarma Institute of Technology',
     location: 'Pune',
     established: 1983,
-    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    image: vitImage,
     description: 'VIT Pune is a top autonomous engineering college in Maharashtra, offering strong academics and industry exposure.',
     highlights: ['Autonomous under SPPU', 'Strong industry exposure & tie-ups', 'Active technical & cultural clubs', 'International collaborations' , 'Good placement record'],
     pros: ['Great exposure & research opportunities', 'Vibrant campus life', 'Strong alumni support', 'Good placements'],
@@ -397,9 +408,9 @@ export const colleges: College[] = [
     fullName: 'Dr. D. Y. Patil Institute of Technology',
     location: 'Pune',
     established: 1998,
-    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    image: dypitImage,
     description: 'Dr. D. Y. Patil Institute of Technology is one of the top engineering college in maharashtra is a premier private engineering college.',
-    highlights: ['Good Placement records', 'Internship opportunity', 'Active technical and cultural club ', 'DYPIT-Pimpri has secured MoUs with leading industry', 'Highest package 70 lakhs'],
+    highlights: ['Good Placement records', 'Internship opportunity', 'Active technical and cultural club ', 'MoUs with leading industry', 'Highest package 70 lakhs'],
     pros: ['Faculty is experienced and qualified', 'Strong academic reputation', 'College life is enriched with cultural event,Technical clubs and other activities'],
     cons: ['Limited campus size and space', 'College is strict about academics', 'Attendance is mandatory'],
     whatsappLink: 'https://chat.whatsapp.com/JaiqCJKk4EAKNjbeA9GD20?mode=ems_copy_c',
@@ -420,7 +431,7 @@ export const colleges: College[] = [
     fullName: 'Pimpri Chinchwad College of Engineering',
     location: 'Pune',
     established: 1999,
-    image: 'https://share.google/images/uwTHRf5LJn5jG60ob',
+    image: pccoeImage,
     description: 'PCCOE is a premier autonomous institute renowned for its strong industry-academia collaboration. Located in Pune, a major educational and automotive hub.',
     highlights: ['Good placements', 'Industry connections', 'Research opportunities', 'Student activities'],
     pros: ['Supports research and innovation', 'Have lot of clubs for learning experiences', 'Organizes many activities throughout  the year'],

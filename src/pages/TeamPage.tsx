@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap, ChevronLeft, ChevronRight, Play, Pause, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import arnav from '../assets/core/arnav.jpg';
@@ -65,7 +66,7 @@ interface TeamMember {
 }
 
 // A reusable, now stateful, component for the "List & Detail" showcase
-const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { title: string, members: TeamMember[], accentColor: string, initialVisibleCount?: number }) => {
+const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSlide = false }: { title: string, members: TeamMember[], accentColor: string, initialVisibleCount?: number, autoSlide?: boolean }) => {
   if (members.length === 0) {
     return null;
   }
@@ -74,17 +75,59 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
   const [selectedMember, setSelectedMember] = useState<TeamMember>(members[0]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isExpanded, setIsExpanded] = useState(false);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isPlaying, setIsPlaying] = useState(autoSlide);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [showAllModal, setShowAllModal] = useState(false);
   
   const accentTextClass = `text-${accentColor}-600`;
   const accentBgClass = `bg-${accentColor}-100`;
+
+  // Auto-slide functionality
+  useEffect(() => {
+    if (isPlaying && members.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % members.length);
+        setSelectedMember(members[(currentIndex + 1) % members.length]);
+      }, 3000); // Change every 3 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, members, currentIndex]);
+
+  const nextMember = () => {
+    const nextIndex = (currentIndex + 1) % members.length;
+    setCurrentIndex(nextIndex);
+    setSelectedMember(members[nextIndex]);
+  };
+
+  const prevMember = () => {
+    const prevIndex = (currentIndex - 1 + members.length) % members.length;
+    setCurrentIndex(prevIndex);
+    setSelectedMember(members[prevIndex]);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   // Determine if the "View More" button is needed and which members to show
   const canBeTruncated = initialVisibleCount && members.length > initialVisibleCount;
   const visibleMembers = canBeTruncated && !isExpanded ? members.slice(0, initialVisibleCount) : members;
 
+  // Fixed height for better consistency
+  const getDynamicHeight = () => {
+    return 600; // Fixed height for better UX
+  };
+
   return (
     <section className="mb-16">
-      <div className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100 md:h-[640px]">
+      <div 
+        className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100"
+        style={{ minHeight: `${getDynamicHeight()}px` }}
+      >
         
         {/* Left Panel: Scrollable List of Members */}
         <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
@@ -100,7 +143,7 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
                     selectedMember.id === member.id ? accentBgClass : 'hover:bg-gray-100'
                   }`}
                 >
-                  <img src={member.photo} alt={member.name} className="w-14 h-14 rounded-2xl object-cover flex-shrink-0" />
+                  <img src={member.photo} alt={member.name} className="w-16 h-16 rounded-2xl object-cover flex-shrink-0 shadow-md hover:shadow-lg transition-shadow duration-300" />
                   <div>
                     <p className="font-bold text-gray-900 text-lg">{member.name}</p>
                     <p className={`text-sm font-semibold ${accentTextClass}`}>{member.role}</p>
@@ -114,18 +157,60 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
           {canBeTruncated && (
             <div className="p-6 border-t border-gray-200">
               <button 
-                onClick={() => setIsExpanded(!isExpanded)} 
-                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-gray-600 hover:text-gray-900 py-3 rounded-2xl hover:bg-gray-100 transition-all duration-300"
+                onClick={() => setShowAllModal(true)} 
+                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-orange-600 hover:text-orange-700 py-3 rounded-2xl hover:bg-orange-50 transition-all duration-300 transform hover:scale-105"
               >
-                <span>{isExpanded ? 'View Less' : `View All ${members.length} Members`}</span>
-                {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                <span>View All {members.length} Members</span>
+                <ChevronDown size={16} />
               </button>
             </div>
           )}
         </div>
         
         {/* Right Panel: Detailed View of Selected Member */}
-        <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16 overflow-y-auto">
+        <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16 overflow-y-auto relative">
+          {/* Navigation Controls */}
+          {members.length > 1 && (
+            <div className="absolute top-4 right-4 flex space-x-2 z-10">
+              <button
+                onClick={prevMember}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                <ChevronLeft className="h-4 w-4 text-gray-600" />
+              </button>
+              <button
+                onClick={togglePlayPause}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                {isPlaying ? <Pause className="h-4 w-4 text-gray-600" /> : <Play className="h-4 w-4 text-gray-600" />}
+              </button>
+              <button
+                onClick={nextMember}
+                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-110"
+              >
+                <ChevronRight className="h-4 w-4 text-gray-600" />
+              </button>
+            </div>
+          )}
+
+          {/* Progress Indicators */}
+          {members.length > 1 && (
+            <div className="absolute top-4 left-4 flex space-x-1 z-10">
+              {members.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    setSelectedMember(members[index]);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-orange-500 w-6' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedMember.id}
@@ -136,7 +221,7 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
               className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12"
             >
               <div className="w-full lg:w-1/3">
-                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-3xl shadow-2xl w-full aspect-square object-cover" />
+                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-3xl shadow-2xl w-full max-w-sm mx-auto lg:mx-0 aspect-square object-cover hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="w-full lg:w-2/3">
                 <p className={`text-sm font-semibold ${accentTextClass} uppercase tracking-wider`}>{selectedMember.role}</p>
@@ -156,6 +241,46 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
           </AnimatePresence>
         </div>
       </div>
+
+      {/* All Members Modal */}
+      {showAllModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden">
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">All {title} Members</h2>
+              <button
+                onClick={() => setShowAllModal(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-100"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {members.map((member) => (
+                  <div
+                    key={member.id}
+                    className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors cursor-pointer"
+                    onClick={() => {
+                      setSelectedMember(member);
+                      setShowAllModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <img src={member.photo} alt={member.name} className="w-12 h-12 rounded-xl object-cover" />
+                      <div>
+                        <h3 className="font-semibold text-gray-900">{member.name}</h3>
+                        <p className={`text-sm ${accentTextClass}`}>{member.role}</p>
+                        <p className="text-xs text-gray-500">{member.college}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
@@ -257,6 +382,7 @@ const collegeMentors = teamMembers.filter(member =>
           members={coreTeam} 
           accentColor="orange"
           initialVisibleCount={4}
+          autoSlide={true}
         />
 
         {/* Showcase 2: College Heads */}
@@ -265,6 +391,7 @@ const collegeMentors = teamMembers.filter(member =>
           members={collegeHeads} 
           accentColor="orange"
           initialVisibleCount={4}
+          autoSlide={true}
         />
         {/*mentors*/}
         <TeamShowcase 
@@ -272,8 +399,20 @@ const collegeMentors = teamMembers.filter(member =>
           members={collegeMentors} 
           accentColor="orange"
           initialVisibleCount={4}
+          autoSlide={true}
         />
         
+        {/* Join Our Team Section */}
+        <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
+          <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
+          <Link 
+            to="/apply-core"
+            className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Apply Now
+          </Link>
+        </div>
       </div>
     </div>
   );

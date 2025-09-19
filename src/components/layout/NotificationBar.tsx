@@ -1,29 +1,98 @@
-import React, { useState } from 'react';
-import { X, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, AlertCircle, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const NotificationBar = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+
+  const newsItems = [
+    {
+      id: 1,
+      text: "🎉 Core Team Recruitment 2025-26: Applications are now open for Core Team positions!",
+      link: "/apply-core",
+      linkText: "Apply Now",
+    },
+    {
+      id: 2,
+      text: "📚 New Resources Available: Check out our latest college guides and admission tips!",
+      link: "/resources",
+      linkText: "View Resources",
+    },
+    {
+      id: 3,
+      text: "🎓 Expert Sessions: Join our upcoming webinars with industry professionals!",
+      link: "/events",
+      linkText: "Register Now",
+    },
+    {
+      id: 4,
+      text: "🤝 Mentorship Program: Connect with seniors from your dream colleges!",
+      link: "/colleges",
+      linkText: "Find Mentor",
+    },
+  ];
+
+  // rotate news every 4s; start immediately on mount
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentNewsIndex((prev) => (prev + 1) % newsItems.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [newsItems.length]);
 
   if (!isVisible) return null;
 
+  const currentNews = newsItems[currentNewsIndex] || newsItems[0];
+
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-4 shadow-lg relative z-40">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <AlertCircle className="h-5 w-5 flex-shrink-0" />
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold">Latest Updates:</span>
-            <span className="text-red-100">
-             New session with seniors from top companies – Coming Soon!  
-            </span>
+    <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 text-white py-3 px-4 shadow-xl relative z-40 overflow-hidden">
+      <div className="max-w-7xl mx-auto flex items-center justify-between min-w-0">
+        <div className="flex items-center space-x-3 flex-1 min-w-0">
+          <div className="flex items-center space-x-2 flex-shrink-0">
+            <AlertCircle className="h-5 w-5 animate-pulse text-orange-100" />
+            <span className="text-orange-100 font-semibold text-xs hidden sm:block">LATEST:</span>
+          </div>
+
+          {/* Ticker + Action button container */}
+          <div className="flex items-center flex-1 min-w-0 space-x-4">
+            <div className="flex items-center overflow-hidden flex-1 min-w-0">
+              <div className="flex items-center space-x-6 whitespace-nowrap animate-marquee-continuous min-w-0">
+                <span className="font-semibold text-sm sm:text-base text-white truncate">{currentNews.text}</span>
+                <ChevronRight className="h-3 w-3 animate-bounce text-orange-100" />
+                <span className="font-semibold text-sm sm:text-base text-white truncate">{currentNews.text}</span>
+                <ChevronRight className="h-3 w-3 animate-bounce text-orange-100" />
+              </div>
+            </div>
+
+            {/* Action button placed at the end of the ticker so it sits after the message */}
+            <div className="flex-shrink-0">
+              <Link
+                to={currentNews.link}
+                className="animate-float-rotate bg-white/95 backdrop-blur-sm text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-white hover:scale-110 transition-all duration-300 transform shadow-lg hover:shadow-xl border border-orange-200"
+                style={{ zIndex: 2 }}
+              >
+                {currentNews.linkText}
+              </Link>
+            </div>
           </div>
         </div>
+
         <button
           onClick={() => setIsVisible(false)}
-          className="text-white hover:text-red-100 transition-colors duration-200 p-1"
+          className="text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 p-1.5 ml-3 flex-shrink-0 rounded-full hover:scale-110"
         >
-          <X className="h-5 w-5" />
+          <X className="h-4 w-4" />
         </button>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="absolute bottom-0 left-0 h-1 bg-white/30 w-full">
+        <div
+          className="h-full bg-white animate-progress-bar"
+          style={{ animationDuration: '4s' }}
+        />
       </div>
     </div>
   );
