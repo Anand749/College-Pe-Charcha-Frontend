@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS } from '../config/api.config';
 

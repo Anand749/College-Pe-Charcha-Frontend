@@ -39,7 +39,14 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/apply-core" element={<CoreApplicationPage />} />
+            <Route 
+              path="/apply-core" 
+              element={
+                <ProtectedRoute>
+                  <CoreApplicationPage />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </main>
           <Footer />
