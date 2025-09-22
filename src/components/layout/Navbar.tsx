@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/useAuth';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
   const { user, signInWithGoogle, logout } = useAuth();
+  const navigate = useNavigate();
   
   const handleAuth = async () => {
     try {
@@ -20,7 +22,7 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'College Predictor', path: '/predictor' },
+    // { name: 'College Predictor', path: '/predictor' },
     { name: 'Colleges', path: '/colleges' },
     { name: 'Resources', path: '/resources' },
     { name: 'Events', path: '/events' },
@@ -30,7 +32,7 @@ const Navbar = () => {
   ];
 
   const specialLinks = [
-    { name: 'Apply for Team', path: '/apply-core', isSpecial: true },
+    { name: 'Apply Now', path: '/apply-core', isSpecial: true },
   ];
 
   return (
@@ -56,14 +58,20 @@ const Navbar = () => {
                 </Link>
               ))}
               {specialLinks.map((link) => (
-                <Link
+                <button
                   key={link.name}
-                  to={link.path}
+                  onClick={() => {
+                    if (user) {
+                      navigate(link.path);
+                    } else {
+                      setShowSignInModal(true);
+                    }
+                  }}
                   className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden group whitespace-nowrap"
                 >
                   <span className="relative z-10">{link.name}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </Link>
+                </button>
               ))}
             </div>
           </div>
@@ -109,6 +117,33 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform transition-all">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Sign In Required</h2>
+            <p className="text-gray-600 mb-6 text-center">You need to sign in to apply for the team.</p>
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => {
+                  signInWithGoogle();
+                  setShowSignInModal(false);
+                }}
+                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:from-orange-600 hover:to-orange-700 transform hover:scale-105 shadow-lg"
+              >
+                Sign In with Google
+              </button>
+              <button
+                onClick={() => setShowSignInModal(false)}
+                className="text-gray-600 hover:text-gray-800 px-6 py-3 rounded-xl font-medium transition-all duration-300"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden">
@@ -124,14 +159,20 @@ const Navbar = () => {
               </Link>
             ))}
             {specialLinks.map((link) => (
-              <Link
+              <button
                 key={link.name}
-                to={link.path}
-                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  if (user) {
+                    navigate(link.path);
+                  } else {
+                    setShowSignInModal(true);
+                  }
+                }}
+                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg w-full"
               >
                 {link.name}
-              </Link>
+              </button>
             ))}
             <button
               onClick={handleAuth}
