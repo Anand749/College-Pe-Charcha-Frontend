@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { X, AlertCircle, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuthModal } from '../../hooks/useAuthModal';
+import AuthModal from '../AuthModal';
 
 const NotificationBar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+  const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
 
   const newsItems = [
     {
@@ -12,6 +15,7 @@ const NotificationBar = () => {
       text: "🎉 Core Team Recruitment 2025-26: Applications are now open for Core Team positions!",
       link: "/apply-core",
       linkText: "Apply Now",
+      requiresAuth: true,
     },
     {
       id: 2,
@@ -68,13 +72,24 @@ const NotificationBar = () => {
 
             {/* Action button placed at the end of the ticker so it sits after the message */}
             <div className="flex-shrink-0">
-              <Link
-                to={currentNews.link}
+              <button
+                onClick={() => {
+                  if (currentNews.requiresAuth) {
+                    handleApplyNowClick(currentNews.link);
+                  } else {
+                    window.location.href = currentNews.link;
+                  }
+                }}
                 className="animate-float-rotate bg-white/95 backdrop-blur-sm text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-white hover:scale-110 transition-all duration-300 transform shadow-lg hover:shadow-xl border border-orange-200"
                 style={{ zIndex: 2 }}
               >
                 {currentNews.linkText}
-              </Link>
+              </button>
+              <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
+                redirectPath={currentNews.link}
+              />
             </div>
           </div>
         </div>

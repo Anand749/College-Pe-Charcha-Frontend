@@ -5,7 +5,7 @@ import { auth, googleProvider } from '../config/firebase';
 export interface AuthContextType {
   user: User | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: () => Promise<any>;
   logout: () => Promise<void>;
 }
 
@@ -34,7 +34,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       // Try to sign in with popup
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      
+      // If we have a redirect path stored, navigate there
+      const redirectPath = window.sessionStorage.getItem('redirectPath');
+      if (redirectPath) {
+        window.location.href = redirectPath;
+        window.sessionStorage.removeItem('redirectPath');
+      }
+
+      return result;
     } catch (error) {
       const firebaseError = error as { code?: string, message: string };
       console.error('Error signing in with Google:', firebaseError.message);

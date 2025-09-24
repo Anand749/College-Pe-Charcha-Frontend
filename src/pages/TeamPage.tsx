@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap, ChevronLeft, ChevronRight, Play, Pause, X } from 'lucide-react';
+import { useAuthModal } from '../hooks/useAuthModal';
+import AuthModal from '../components/AuthModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import arnav from '../assets/core/arnav.jpg';
@@ -287,6 +289,7 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
 
 
 const TeamPage = () => {
+  const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
   const teamMembers: TeamMember[] = [
     // Core Team Members
     { id: '1', name: 'Anand Chapke', role: 'Founder & Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Passionate about bridging the gap between aspirants and achievers.', photo: anand, linkedin: 'https://www.linkedin.com/in/anand-chapke-623930281?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', instagram: 'https://www.instagram.com/myself_techzdada11?igsh=dnBkbnpnODJzNW0=', email:'anand.chapke23@vit.edu'},
@@ -406,12 +409,16 @@ const collegeMentors = teamMembers.filter(member =>
         <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
           <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
-          <Link 
-            to="/apply-core"
+          <button 
+            onClick={() => handleApplyNowClick()}
             className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
           >
             Apply Now
-          </Link>
+          </button>
+          <AuthModal 
+            isOpen={isAuthModalOpen} 
+            onClose={() => setIsAuthModalOpen(false)} 
+          />
         </div>
       </div>
     </div>

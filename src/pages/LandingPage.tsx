@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuthModal } from '../hooks/useAuthModal';
+import AuthModal from '../components/AuthModal';
 import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight, Linkedin, Instagram, Sparkles, TrendingUp, Award, X, Play, Pause } from 'lucide-react';
 import teamPhoto1 from '../assets/team-photo-1.jpg';
 import arnav from '../assets/core/arnav.jpg';
@@ -236,6 +238,7 @@ const LandingPage: React.FC = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [showCorePopup, setShowCorePopup] = useState(false);
+  const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
 
   const testimonials = [
     { id: 1, name: "Priya Sharma", college: "COEP Pune", rating: 5, text: "College Pe Charcha helped me connect with seniors who guided me through the entire admission process. The AI predictor was spot-on!", avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150" },
@@ -501,13 +504,15 @@ const LandingPage: React.FC = () => {
                 </div>
                 
                 <div className="flex space-x-3">
-                  <Link
-                    to="/apply-core"
+                  <button
+                    onClick={() => {
+                      setShowCorePopup(false);
+                      handleApplyNowClick();
+                    }}
                     className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
-                    onClick={() => setShowCorePopup(false)}
                   >
                     Apply Now
-                  </Link>
+                  </button>
                   <button
                     onClick={() => setShowCorePopup(false)}
                     className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300"
@@ -520,6 +525,11 @@ const LandingPage: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </div>
   );
 };
