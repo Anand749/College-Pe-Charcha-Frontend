@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS } from '../config/api.config';
 
-const domains = ['Marketing', 'Operations', 'Research', 'Design'];
+const domains = ['Marketing', 'Operations', 'Research', 'Design','Editing','Other'];
 
 const CoreApplicationPage = () => {
   const { user } = useAuth();
@@ -108,16 +108,16 @@ const CoreApplicationPage = () => {
           className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-orange-100"
         >
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Core Team Application</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Lead the CPC Team</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join the CPC Core Team for 2025-26 and help shape the future of college guidance!
+            Join the CPC Team as Executive for 2025-26 and help shape the future of college guidance!
           </p>
         </div>
 
         {submitStatus === 'success' ? (
           <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg">
             <h3 className="font-semibold mb-2">Application Submitted Successfully!</h3>
-            <p>Thank you for applying to be a part of the CPC Core Team. We'll review your application and get back to you soon.</p>
+            <p>Thank you for applying to be a part of the CPC Executive Team. We'll review your application and get back to you soon.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -272,7 +272,7 @@ const CoreApplicationPage = () => {
 
               <div>
                 <label htmlFor="whyCore" className="block text-sm font-medium text-gray-700 mb-1">
-                  Why Do You Want to be a Core Member? *
+                  Why Do You Want to be a Executive Member? *
                 </label>
                 <textarea
                   id="whyCore"

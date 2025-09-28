@@ -7,9 +7,12 @@ import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight,
 import teamPhoto1 from '../assets/team-photo-1.jpg';
 import arnav from '../assets/core/arnav.jpg';
 import vedanti from '../assets/core/vedanti.jpg';
+import hardik from '../assets/core/hardik.jpg';
 import samarth from '../assets/core/Samarth Dhagate.jpg';
+import devesh from '../assets/core/devesh.jpg';
 import anand from '../assets/core/anand.jpg';
 import NotificationBar from '../components/layout/NotificationBar';
+import { inMemoryPersistence } from 'firebase/auth';
 
 
 // Interface for a Team Member
@@ -241,10 +244,52 @@ const LandingPage: React.FC = () => {
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
 
   const testimonials = [
-    { id: 1, name: "Priya Sharma", college: "COEP Pune", rating: 5, text: "College Pe Charcha helped me connect with seniors who guided me through the entire admission process. The AI predictor was spot-on!", avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150" },
-    { id: 2, name: "Rahul Patil", college: "PICT Pune", rating: 5, text: "The mentorship I received was invaluable. Seniors shared real insights about college life and placement preparation.", avatar: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=150" },
-    { id: 3, name: "Sneha Kulkarni", college: "VIT Pune", rating: 5, text: "Amazing platform! The college predictor helped me make informed decisions, and the expert sessions were incredibly helpful.", avatar: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?w=150" },
-  ];
+    { id: 1, name: "Riya Paunikar", college: "Cummins Pune", rating: 5, text: "Team cpc have  not only help in choosing college, branch but also  help in    building skills and are conducting many sessions based on   Building skills with people who have already got  placed in great companies", avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150" },
+    { id: 2, name: "Vineet Dayma", college: "VIT Pune", rating: 5, text: "I believe it was a great decision of me to join CPC group mainly because it gave me a platform where I could ask questions that I didn't know where to ask", avatar: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=150" },
+    { id: 3, name: "Anvay Ghare", college: "VIT Pune", rating: 5, text: "From which college is better, to actually which one can we get, to actually getting the college we wanted to be in. CPC's support made the journey a lot easier", avatar: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?w=150" },
+  
+  {
+    "id": 4,
+    "name": "Meera Kulkarni",
+    "college": "COEP",
+    "rating": 5,
+    "text": "Seniors told me about COEP’s mix of strict academics and amazing exposure — something I wouldn’t hear in counseling sessions. Their guidance plus CPC’s support during admission made my choice of COEP feel perfect.",
+    "avatar": "https://avatars.dicebear.com/api/avataaars/meera.svg"
+  },
+  {
+    "id": 5,
+    "name": "Rohit Deshpande",
+    "college": "PICT",
+    "rating": 5,
+    "text": "I was nervous about PICT but seniors shared the real coding culture, daily grind, and strong placements. That clarity, along with CPC’s help in stream selection, gave me confidence to go for PICT — and I’m happy I did.",
+    "avatar": "https://avatars.dicebear.com/api/avataaars/rohit.svg"
+  },
+  {
+    "id": 6,
+    "name": "Anita Joshi",
+    "college": "Walchand",
+    "rating": 4,
+    "text": "Seniors explained Walchand’s strong alumni network and practical learning environment. It felt more real than any brochure. CPC’s constant support throughout the process helped me settle on Walchand with zero regrets.",
+    "avatar": "https://avatars.dicebear.com/api/avataaars/anita.svg"
+  },
+  {
+    "id": 7,
+    "name": "Sahil Iyer",
+    "college": "SPIT",
+    "rating": 5,
+    "text": "Talking to SPIT seniors showed me the startup culture, industry exposure, and overall vibe. It matched my goals. With CPC guiding me step by step, the admission felt less stressful and more exciting.",
+    "avatar": "https://avatars.dicebear.com/api/avataaars/sahil.svg"
+  },
+  {
+    "id": 8,
+    "name": "Priya Rao",
+    "college": "VJTI",
+    "rating": 5,
+    "text": "Seniors gave me the true picture of VJTI — competitive coding groups, challenging academics, but amazing opportunities. CPC made sure I stayed on track and helped me turn my dream of joining VJTI into reality.",
+    "avatar": "https://avatars.dicebear.com/api/avataaars/priya.svg"
+  }
+]
+
 
   const features = [
     { icon: <BookOpen className="h-12 w-12 text-orange-600" />, title: "AI College Predictor", description: "Get accurate college predictions based on your percentile and category with our AI-powered tool." },
@@ -258,11 +303,11 @@ const LandingPage: React.FC = () => {
 
   const coreTeamMembers: TeamMember[] = [
     { id: '1', name: 'Anand Chapke', role: 'Founder & Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Passionate about bridging the gap between aspirants and achievers.', photo: anand, linkedin: '#', instagram: '#'},
-    { id: '2', name: 'Samarth Dhagate', role: 'Operation Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Leading our mentorship program and student engagement initiatives.', photo: samarth, linkedin: '#' },
-    { id: '3', name: 'Vedanti Raut', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
-     { id: '4', name: 'Hardik Rokade', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Crafting user-centric designs that enhance the learning experience.', photo: arnav, linkedin: '#' },
-      { id: '5', name: 'Arnav Mahajan', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: arnav, linkedin: '#' },
-       { id: '6', name: 'Devesh Nhalde', role: 'Research  Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
+    { id: '2', name: 'Samarth Dhagate', role: 'Operation Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Leading our mentorship program and student engagement initiatives.', photo: samarth, linkedin: 'https://www.linkedin.com/in/samarth-dhagate-187b46320?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
+    { id: '3', name: 'Vedanti Raut', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: 'https://www.linkedin.com/in/vedanti-raut-b067a6329?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app' },
+     { id: '4', name: 'Hardik Rokde', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Crafting user-centric designs that enhance the learning experience.', photo: hardik, linkedin: 'https://www.linkedin.com/in/hardik-rokde-844a6528a/' },
+      { id: '5', name: 'Arnav Mahajan', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: arnav, linkedin: 'https://www.linkedin.com/in/arnav-mahajan-445099334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
+       { id: '6', name: 'Devesh Nhalde', role: 'Research  Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: devesh, linkedin: 'https://www.linkedin.com/in/devesh-nhalade-566417336/' },
   ];
 
   // Ensure founder is first and selected initially for emphasis
@@ -447,7 +492,7 @@ const LandingPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Link to="/signup" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 inline-flex items-center shadow-lg transform hover:scale-105">
+            <Link to="/CollegesPage" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 inline-flex items-center shadow-lg transform hover:scale-105">
               Get Started Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </motion.div>
