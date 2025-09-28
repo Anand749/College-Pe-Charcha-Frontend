@@ -528,7 +528,7 @@ const LandingPage: React.FC = () => {
                 <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Users className="h-10 w-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Join Our Core Team!</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Lead Our Team!</h3>
                 <p className="text-gray-600 mb-6">
                   We're looking for passionate students to join our mission of helping aspiring engineers find their dream colleges.
                 </p>
@@ -545,6 +545,10 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center text-sm text-gray-600">
                     <TrendingUp className="h-4 w-4 text-orange-500 mr-2" />
                     <span>Grow your network</span>
+                  </div>
+                   <div className="flex items-center text-sm text-gray-600">
+                    <Award className="h-4 w-4 text-orange-500 mr-2" />
+                    <span>Get Letter of Appreciation</span>
                   </div>
                 </div>
                 

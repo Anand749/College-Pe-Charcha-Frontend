@@ -12,7 +12,7 @@ const NotificationBar = () => {
   const newsItems = [
     {
       id: 1,
-      text: "🎉 Core Team Recruitment 2025-26: Applications are now open for Core Team positions!",
+      text: "🎉  Team Recruitment 2025-26: Applications are now open for Executive positions!",
       link: "/apply-core",
       linkText: "Apply Now",
       requiresAuth: true,
