@@ -12,7 +12,7 @@ const colleges = [
 
 const branches = [
   'CS', 'IT', 'ENTC', 'CS WITH SPEC', 'MECH', 'CIVIL',
-  'INSTRU', 'CHEMICAL'
+  'INSTRU', 'CHEMICAL','ELECTRICAL','OTHER'
 ];
 
 const roles = [
