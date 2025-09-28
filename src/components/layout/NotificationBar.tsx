@@ -1,112 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { X, AlertCircle, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { X, ArrowRight } from 'lucide-react';
 import { useAuthModal } from '../../hooks/useAuthModal';
 import AuthModal from '../AuthModal';
 
 const NotificationBar = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
 
-  const newsItems = [
-    {
-      id: 1,
-      text: "🎉  Team Recruitment 2025-26: Applications are now open for Executive positions!",
-      link: "/apply-core",
-      linkText: "Apply Now",
-      requiresAuth: true,
-    },
-    {
-      id: 2,
-      text: "📚 New Resources Available: Check out our latest college guides and admission tips!",
-      link: "/resources",
-      linkText: "View Resources",
-    },
-    {
-      id: 3,
-      text: "🎓 Expert Sessions: Join our upcoming webinars with industry professionals!",
-      link: "/events",
-      linkText: "Register Now",
-    },
-    {
-      id: 4,
-      text: "🤝 Mentorship Program: Connect with seniors from your dream colleges!",
-      link: "/colleges",
-      linkText: "Find Mentor",
-    },
-  ];
-
-  // rotate news every 4s; start immediately on mount
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentNewsIndex((prev) => (prev + 1) % newsItems.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [newsItems.length]);
+  const recruitmentInfo = {
+    id: 1,
+    text: "NOW RECRUITING: Executive Team applications for the 2025-26 session are open.",
+    link: "/apply-core",
+    linkText: "Apply Now",
+    requiresAuth: true,
+  };
 
   if (!isVisible) return null;
 
-  const currentNews = newsItems[currentNewsIndex] || newsItems[0];
-
   return (
-    <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 text-white py-3 px-4 shadow-xl relative z-40 overflow-hidden">
-      <div className="max-w-7xl mx-auto flex items-center justify-between min-w-0">
-        <div className="flex items-center space-x-3 flex-1 min-w-0">
-          <div className="flex items-center space-x-2 flex-shrink-0">
-            <AlertCircle className="h-5 w-5 animate-pulse text-orange-100" />
-            <span className="text-orange-100 font-semibold text-xs hidden sm:block">LATEST:</span>
+    // --- CHANGE 1: Switched to a vibrant orange background theme ---
+    // Added a slightly darker orange border for depth.
+    <div className="bg-orange-600 text-white py-3 px-4 shadow-xl relative z-40 overflow-hidden border-b-2 border-orange-700">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        {/* 'LIVE' indicator still pops nicely against orange */}
+        <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black-900 opacity-90"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
           </div>
+          <span className="bg-red-600 text-white text-xs font-bold uppercase px-2 py-1 rounded-md">
+            Live
+          </span>
+        </div>
 
-          {/* Ticker + Action button container */}
-          <div className="flex items-center flex-1 min-w-0 space-x-4">
-            <div className="flex items-center overflow-hidden flex-1 min-w-0">
-              <div className="flex items-center space-x-6 whitespace-nowrap animate-marquee-continuous min-w-0">
-                <span className="font-semibold text-sm sm:text-base text-white truncate">{currentNews.text}</span>
-                <ChevronRight className="h-3 w-3 animate-bounce text-orange-100" />
-                <span className="font-semibold text-sm sm:text-base text-white truncate">{currentNews.text}</span>
-                <ChevronRight className="h-3 w-3 animate-bounce text-orange-100" />
-              </div>
-            </div>
-
-            {/* Action button placed at the end of the ticker so it sits after the message */}
-            <div className="flex-shrink-0">
-              <button
-                onClick={() => {
-                  if (currentNews.requiresAuth) {
-                    handleApplyNowClick(currentNews.link);
-                  } else {
-                    window.location.href = currentNews.link;
-                  }
-                }}
-                className="animate-float-rotate bg-white/95 backdrop-blur-sm text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-white hover:scale-110 transition-all duration-300 transform shadow-lg hover:shadow-xl border border-orange-200"
-                style={{ zIndex: 2 }}
-              >
-                {currentNews.linkText}
-              </button>
-              <AuthModal
-                isOpen={isAuthModalOpen}
-                onClose={() => setIsAuthModalOpen(false)}
-                redirectPath={currentNews.link}
-              />
-            </div>
+        {/* --- CHANGE 2: Marquee text updated for contrast --- */}
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <div className="flex items-center whitespace-nowrap animate-marquee">
+            {/* Main text is now bright white for readability */}
+            <p className="text-sm sm:text-base font-semibold text-white">{recruitmentInfo.text}</p>
+            {/* Separator uses a lighter orange for a subtle, on-brand look */}
+            <span className="mx-6 text-orange-200">•</span>
+            <p className="text-sm sm:text-base font-semibold text-white">{recruitmentInfo.text}</p>
+            <span className="mx-6 text-orange-200">•</span>
           </div>
         </div>
 
-        <button
-          onClick={() => setIsVisible(false)}
-          className="text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 p-1.5 ml-3 flex-shrink-0 rounded-full hover:scale-110"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 h-1 bg-white/30 w-full">
-        <div
-          className="h-full bg-white animate-progress-bar"
-          style={{ animationDuration: '4s' }}
+        {/* --- CHANGE 3: Buttons adjusted for the new theme --- */}
+        <div className="flex items-center gap-3 flex-shrink-0">
+          {/* This high-contrast button design works perfectly with the orange bg */}
+          <button
+            onClick={() => {
+              if (recruitmentInfo.requiresAuth) {
+                handleApplyNowClick(recruitmentInfo.link);
+              } else {
+                window.location.href = recruitmentInfo.link;
+              }
+            }}
+            className="group bg-white text-orange-700 px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-orange-100 hover:scale-105 transition-all duration-300 transform shadow-lg flex items-center gap-2"
+          >
+            {recruitmentInfo.linkText}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+          
+          {/* Close button colors updated for visibility on orange */}
+          <button
+            onClick={() => setIsVisible(false)}
+            className="text-orange-100 hover:text-white hover:bg-orange-700 transition-all duration-200 p-1.5 rounded-full"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          redirectPath={recruitmentInfo.link}
         />
       </div>
     </div>
