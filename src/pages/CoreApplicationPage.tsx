@@ -1,14 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/useAuth';
-import { useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS } from '../config/api.config';
+import Team from '../assets/general/teamstructure.png';
 
-const domains = ['Marketing', 'Operations', 'Research', 'Design'];
+const colleges = [
+  'COEP', 'PICT', 'SPIT', 'VJTI', 'CUMMINS', 'DJ-SANGHAVI', 
+  'VIT', 'PCCOE', 'DYP', 'WALCHAND', 'JSPM', 'SINHGAD', 
+  'AISSMS', 'OTHER'
+];
+
+const branches = [
+  'CS', 'IT', 'ENTC', 'CS WITH SPEC', 'MECH', 'CIVIL', 
+  'INSTRU', 'CHEMICAL'
+];
+
+const roles = [
+  'Marketing', 'Operations', 'Research', 'Design', 'Content Creation',
+  'Social Media', 'Event Management', 'Technical', 'Outreach', 'Finance'
+];
 
 const CoreApplicationPage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: user?.displayName || '',
@@ -16,7 +29,8 @@ const CoreApplicationPage = () => {
     college: '',
     year: '',
     branch: '',
-    preferredDomain: '',
+    preferredRoles: [] as string[],
+    whatsappNumber: '',
     experience: '',
     futurePlans: '',
     whyCore: ''
@@ -27,15 +41,43 @@ const CoreApplicationPage = () => {
   const [errors, setErrors] = useState<{
     email?: string;
     confirmEmail?: string;
+    whatsappNumber?: string;
     general?: string;
   }>({});
+  
+
 
   const validateForm = () => {
     const newErrors: {
+      whatsappNumber?: string;
       general?: string;
     } = {};
 
-    // Add any other validation rules here if needed
+    // Validate all required fields
+    if (!formData.name.trim()) {
+      newErrors.general = 'Name is required';
+    } else if (!formData.college) {
+      newErrors.general = 'College selection is required';
+    } else if (!formData.year) {
+      newErrors.general = 'Current year is required';
+    } else if (!formData.branch) {
+      newErrors.general = 'Branch selection is required';
+    } else if (formData.preferredRoles.length === 0) {
+      newErrors.general = 'Please select at least one preferred role';
+    } else if (!formData.whatsappNumber.trim()) {
+      newErrors.general = 'WhatsApp number is required';
+    } else if (!formData.experience.trim()) {
+      newErrors.general = 'Experience field is required';
+    } else if (!formData.futurePlans.trim()) {
+      newErrors.general = 'Future plans field is required';
+    } else if (!formData.whyCore.trim()) {
+      newErrors.general = 'Why you want to be a core member is required';
+    }
+
+    // Validate WhatsApp number format
+    if (formData.whatsappNumber && !/^\d{10}$/.test(formData.whatsappNumber)) {
+      newErrors.whatsappNumber = 'WhatsApp number must be exactly 10 digits';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -49,13 +91,23 @@ const CoreApplicationPage = () => {
     }));
     
     // Clear errors when user types
-    if (name === 'email' || name === 'confirmEmail') {
+    if (name === 'email' || name === 'confirmEmail' || name === 'whatsappNumber') {
       setErrors(prev => ({
         ...prev,
         [name]: undefined
       }));
     }
   };
+
+  const handleRoleChange = (role: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      preferredRoles: checked 
+        ? [...prev.preferredRoles, role]
+        : prev.preferredRoles.filter(r => r !== role)
+    }));
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +122,7 @@ const CoreApplicationPage = () => {
     
     try {
       console.log('Submitting to:', API_ENDPOINTS.CORE_APPLICATIONS);
+      console.log('Form data being sent:', JSON.stringify(formData, null, 2));
       const response = await fetch(API_ENDPOINTS.CORE_APPLICATIONS, {
         method: 'POST',
         headers: {
@@ -108,16 +161,35 @@ const CoreApplicationPage = () => {
           className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-orange-100"
         >
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Core Team Application</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Executive Team Application</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join the CPC Core Team for 2025-26 and help shape the future of college guidance!
+            Join the CPC Executive Team for 2025-26 and help shape the future of college guidance!
           </p>
+        </div>
+
+        {/* Team Hierarchy Section */}
+        <div className="mb-8 p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border border-green-200">
+          <h2 className="text-2xl font-bold text-green-800 mb-4 text-center">CPC Team Structure</h2>
+          <p className="text-green-700 text-center mb-6">
+            Understand the organizational hierarchy and executive roles in CPC
+          </p>
+          <div className="flex justify-center">
+            <img 
+              src={Team}  
+              alt="CPC Team Hierarchy - Core Team with Operations, Marketing, and Research departments"
+              className="max-w-full h-auto rounded-lg shadow-lg border border-green-300"
+              style={{ maxHeight: '500px' }}
+            />
+          </div>
+          <div className="mt-4 text-sm text-green-600 text-center">
+            <p>As an Executive, you'll lead one of the three main departments: Operations, Marketing, or Research</p>
+          </div>
         </div>
 
         {submitStatus === 'success' ? (
           <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg">
             <h3 className="font-semibold mb-2">Application Submitted Successfully!</h3>
-            <p>Thank you for applying to be a part of the CPC Core Team. We'll review your application and get back to you soon.</p>
+            <p>Thank you for applying to be a part of the CPC Executive Team. We'll review your application and get back to you soon.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -159,16 +231,19 @@ const CoreApplicationPage = () => {
                 <label htmlFor="college" className="block text-sm font-medium text-gray-700 mb-1">
                   College *
                 </label>
-                <input
-                  type="text"
+                <select
                   id="college"
                   name="college"
                   required
                   value={formData.college}
                   onChange={handleChange}
                   className="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
-                  placeholder="Enter your college name"
-                />
+                >
+                  <option value="">Select your college</option>
+                  {colleges.map(college => (
+                    <option key={college} value={college}>{college}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -196,16 +271,19 @@ const CoreApplicationPage = () => {
                   <label htmlFor="branch" className="block text-sm font-medium text-gray-700 mb-1">
                     Branch *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="branch"
                     name="branch"
                     required
                     value={formData.branch}
                     onChange={handleChange}
                     className="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
-                    placeholder="Your branch"
-                  />
+                  >
+                    <option value="">Select your branch</option>
+                    {branches.map(branch => (
+                      <option key={branch} value={branch}>{branch}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -215,22 +293,49 @@ const CoreApplicationPage = () => {
               <h2 className="text-xl font-semibold text-gray-800">Role Preferences</h2>
               
               <div>
-                <label htmlFor="preferredDomain" className="block text-sm font-medium text-gray-700 mb-1">
-                  Preferred Domain *
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Preferred Roles * (Select multiple)
                 </label>
-                <select
-                  id="preferredDomain"
-                  name="preferredDomain"
-                  required
-                  value={formData.preferredDomain}
-                  onChange={handleChange}
-                  className="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
-                >
-                  <option value="">Select Domain</option>
-                  {domains.map(domain => (
-                    <option key={domain} value={domain}>{domain}</option>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {roles.map(role => (
+                    <label key={role} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.preferredRoles.includes(role)}
+                        onChange={(e) => handleRoleChange(role, e.target.checked)}
+                        className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 focus:ring-2"
+                      />
+                      <span className="text-sm text-gray-700">{role}</span>
+                    </label>
                   ))}
-                </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-800">Contact Information</h2>
+              
+              <div>
+                <label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                  WhatsApp Number *
+                </label>
+                <input
+                  type="tel"
+                  id="whatsappNumber"
+                  name="whatsappNumber"
+                  required
+                  value={formData.whatsappNumber}
+                  onChange={handleChange}
+                  maxLength={10}
+                  className={`form-input w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 ${
+                    errors.whatsappNumber ? 'border-red-300' : 'border-gray-300'
+                  }`}
+                  placeholder="Enter 10-digit WhatsApp number"
+                />
+                {errors.whatsappNumber && (
+                  <p className="text-red-500 text-sm mt-1">{errors.whatsappNumber}</p>
+                )}
               </div>
             </div>
 
@@ -272,7 +377,7 @@ const CoreApplicationPage = () => {
 
               <div>
                 <label htmlFor="whyCore" className="block text-sm font-medium text-gray-700 mb-1">
-                  Why Do You Want to be a Core Member? *
+                  Why Do You Want to be an Executive? *
                 </label>
                 <textarea
                   id="whyCore"
@@ -282,7 +387,7 @@ const CoreApplicationPage = () => {
                   onChange={handleChange}
                   rows={4}
                   className="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 resize-none"
-                  placeholder="Tell us why you want to join the core team..."
+                  placeholder="Tell us why you want to join the executive team..."
                 />
               </div>
             </div>
@@ -304,14 +409,16 @@ const CoreApplicationPage = () => {
                     Submitting...
                   </div>
                 ) : (
-                  'Submit Application'
+                  'Submit Executive Application'
                 )}
               </button>
             </div>
 
             {(submitStatus === 'error' || errors.general) && (
-              <div className="text-red-600 text-center">
-                {errors.general || 'There was an error submitting your application. Please try again.'}
+              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
+                <p className="text-center">
+                  {errors.general || 'There was an error submitting your application. Please try again.'}
+                </p>
               </div>
             )}
           </form>
