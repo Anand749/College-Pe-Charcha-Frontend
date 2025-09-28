@@ -16,8 +16,8 @@ const branches = [
 ];
 
 const roles = [
-  'Marketing', 'Operations', 'Research', 'Design', 'Content Creation',
-  'Social Media', 'Event Management', 'Technical', 'Outreach', 'Finance'
+  'Marketing', 'Operations', 'Research', 'Design',
+  'Social Media', 'Technical',
 ];
 
 const CoreApplicationPage = () => {
