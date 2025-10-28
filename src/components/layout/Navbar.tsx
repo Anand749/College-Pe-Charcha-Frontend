@@ -23,16 +23,18 @@ const Navbar = () => {
 
   const navLinks = [
     // { name: 'College Predictor', path: '/predictor' },
-    { name: 'Colleges', path: '/colleges' },
+    { name: 'Compare-Colleges', path: '/compare' },
+    { name: 'College-Predictor', path: '/predictor' },
     { name: 'Resources', path: '/resources' },
     { name: 'Events', path: '/events' },
+    { name: 'Colleges', path: '/colleges' },
     { name: 'About Us', path: '/about' },
     { name: 'Team', path: '/team' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
   const specialLinks = [
-    { name: 'Apply Now', path: '/apply-core', isSpecial: true },
+    // { name: 'Apply Now', path: '/apply-core', isSpecial: true },
   ];
 
   return (

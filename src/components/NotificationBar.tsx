@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const NotificationBar: React.FC = () => {
   const notifications = [
-    "🔔 Recruitment for Mentors and College Heads will be opening very soon! Stay tuned for updates.",
-    "📢 Want to join our team? Apply for Core Team positions now! Click on 'Join Team' to apply."
+    "🔔 Use College Predictor to find your best-fit colleges based on your unique profile!",
+    "📢Use College Predictor to find your best-fit colleges based on your unique profile!"
   ];
 
   const [currentNotificationIndex, setCurrentNotificationIndex] = useState(0);

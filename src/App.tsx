@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import CollegePredictorPage from './pages/CollegePredictorPage';
+import CollegeComparison from './pages/CollegeComparison';
 import NotificationBar from './components/NotificationBar';
 import CollegesPage from './pages/CollegesPage';
 import CollegeDetailPage from './pages/CollegeDetailPage';
@@ -33,6 +34,7 @@ function App() {
             <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/predictor" element={<CollegePredictorPage />} />
+            <Route path="/compare" element={<CollegeComparison />} />
             <Route path="/colleges" element={<CollegesPage />} />
             <Route path="/colleges/:collegeName" element={<CollegeDetailPage />} />
             <Route path="/resources" element={<ResourcesPage />} />

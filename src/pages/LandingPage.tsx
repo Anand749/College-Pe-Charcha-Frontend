@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, useHref } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthModal } from '../hooks/useAuthModal';
 import AuthModal from '../components/AuthModal';
@@ -10,9 +10,10 @@ import vedanti from '../assets/core/vedanti.jpg';
 import hardik from '../assets/core/hardik.jpg';
 import samarth from '../assets/core/Samarth Dhagate.jpg';
 import devesh from '../assets/core/devesh.jpg';
+import { useNavigate } from 'react-router-dom';
 import anand from '../assets/core/anand.jpg';
 import NotificationBar from '../components/layout/NotificationBar';
-import { inMemoryPersistence } from 'firebase/auth';
+import { inMemoryPersistence, linkWithPopup } from 'firebase/auth';
 
 
 // Interface for a Team Member
@@ -376,10 +377,10 @@ const LandingPage: React.FC = () => {
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
               <Link to="/predictor" className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center justify-center w-fit shadow-lg transform hover:scale-105">
-                Try AI Predictor <ArrowRight className="ml-2 h-5 w-5" />
+                College Predictor <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <Link to="/colleges" className="border-2 border-orange-600 text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300 w-fit">
-                Find Your Mentor
+              <Link to="/compare" className="border-2 border-orange-600 text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300 w-fit">
+                Compare Colleges <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </motion.div>
           </div>
@@ -524,49 +525,50 @@ const LandingPage: React.FC = () => {
                 <X className="h-6 w-6" />
               </button>
               
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <Users className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Lead Our Team!</h3>
-                <p className="text-gray-600 mb-6">
-                  We're looking for passionate students to join our mission of helping aspiring engineers find their dream colleges.
-                </p>
-                
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Sparkles className="h-4 w-4 text-orange-500 mr-2" />
-                    <span>Lead impactful initiatives</span>
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Users className="h-10 w-10 text-white" />
                   </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Award className="h-4 w-4 text-orange-500 mr-2" />
-                    <span>Build your leadership skills</span>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">College Predictor and Comparison</h3>
+                  <p className="text-gray-600 mb-6">
+   Find your best-fit college using real cutoff data. 
+  </p>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Sparkles className="h-4 w-4 text-orange-500 mr-2" />
+                      <span>Predict based on your marks & category</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Award className="h-4 w-4 text-orange-500 mr-2" />
+                      <span>Compare colleges across all rounds</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <TrendingUp className="h-4 w-4 text-orange-500 mr-2" />
+                      <span>Check round-wise cutoff trends</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Award className="h-4 w-4 text-orange-500 mr-2" />
+                      <span>Get smart suggestions instantly</span>
+                    </div>
                   </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <TrendingUp className="h-4 w-4 text-orange-500 mr-2" />
-                    <span>Grow your network</span>
-                  </div>
-                   <div className="flex items-center text-sm text-gray-600">
-                    <Award className="h-4 w-4 text-orange-500 mr-2" />
-                    <span>Get Letter of Appreciation</span>
-                  </div>
-                </div>
                 
                 <div className="flex space-x-3">
                   <button
                     onClick={() => {
                       setShowCorePopup(false);
-                      handleApplyNowClick();
+                      useHref('/predictor');
+                      
                     }}
                     className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
                   >
-                    Apply Now
+                    Predictor
                   </button>
                   <button
-                    onClick={() => setShowCorePopup(false)}
+                    onClick={() => Router.push('/compare')}
                     className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300"
                   >
-                    Maybe Later
+                    Compare Colleges
                   </button>
                 </div>
               </div>
