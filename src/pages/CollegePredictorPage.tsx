@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable'; // <-- FIX 1: Changed import
+import autoTable from 'jspdf-autotable';
 
 import CAP01 from '../data/CAP_01_2024.json';
 import CAP02 from '../data/CAP_02_2024.json';
@@ -50,6 +50,20 @@ const initialFilters = {
     isPWD: false,
 };
 
+// Define a type for the flat preference object *used only for the PDF*
+type PreferenceItem = {
+  collegeCode: string;
+  collegeName: string;
+  branch_info: string;
+  matchedSeatCode: string;
+  bestCutoff: number;
+  bestCutoffRank: number;
+  district: string;
+  status: string;
+  level: string;
+};
+
+
 function PercentileDisplay() {
   const [availableBranches, setAvailableBranches] = useState<string[]>([]);
   const [capRound, setCapRound] = useState<string>('01');
@@ -78,7 +92,10 @@ function PercentileDisplay() {
   const [selectedBranch, setSelectedBranch] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  // --- STATE REVERTED ---
+  // This state now holds the college-grouped data for the UI
   const [filteredColleges, setFilteredColleges] = useState<any[]>([]);
+  
   const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
   
   const [isSearching, setIsSearching] = useState(false);
@@ -102,12 +119,12 @@ function PercentileDisplay() {
     const districtsSet = new Set();
 
     if (examType === "MHT-CET") {
-      Object.values(data).forEach((college) => {
+      Object.values(data).forEach((college: any) => {
         if (college.district) districtsSet.add(college.district);
         college.branches.forEach((branch) => branchesSet.add(branch.branch_info));
       });
     } else {
-      data.forEach((college) => {
+      data.forEach((college: any) => {
         if (college.District) districtsSet.add(college.District);
         college.Courses.forEach((course) => branchesSet.add(course["Course Name"]));
       });
@@ -130,7 +147,7 @@ function PercentileDisplay() {
     
     if (name === "examType") {
       setExamType(value);
-      setFilteredColleges([]);
+      setFilteredColleges([]); // Reverted
       setNoResultsFound(false);
       setFilters(initialFilters);
       return;
@@ -167,7 +184,7 @@ function PercentileDisplay() {
       setCapRound('01');
       setSelectedBranch('');
       setSelectedDistrict('');
-      setFilteredColleges([]);
+      setFilteredColleges([]); // Reverted
       setNoResultsFound(false);
       setPercentileError('');
       setRankError('');
@@ -201,9 +218,10 @@ function PercentileDisplay() {
     return "S";
   }
 
+  // --- applyFilters REVERTED to build college-grouped list ---
   const applyFilters = () => {
     setIsSearching(true);
-    setFilteredColleges([]);
+    setFilteredColleges([]); // Reverted
     setNoResultsFound(false);
     
     setTimeout(() => {
@@ -235,23 +253,23 @@ function PercentileDisplay() {
           if (capRound === "01") data = AI_CAP1; else if (capRound === "02") data = AI_CAP2; else data = AI_CAP3;
         }
 
-        let results = [];
+        let results = []; // This will be the college-grouped list
 
         if (examType === "MHT-CET") {
           let collegesToSearch = Object.entries(data);
 
           if (district.length > 0) {
-              collegesToSearch = collegesToSearch.filter(([_, info]) => district.includes(info.district));
+              collegesToSearch = collegesToSearch.filter(([_, info]: any) => district.includes(info.district));
           }
           if (universityType === "HU") {
-            collegesToSearch = collegesToSearch.filter(([_, info]) => info.level?.toLowerCase().includes("home university"));
+            collegesToSearch = collegesToSearch.filter(([_, info]: any) => info.level?.toLowerCase().includes("home university"));
           } else if (universityType === "OHU") {
-            collegesToSearch = collegesToSearch.filter(([_, info]) => info.level?.toLowerCase().includes("outside"));
+            collegesToSearch = collegesToSearch.filter(([_, info]: any) => info.level?.toLowerCase().includes("outside"));
           } else if (universityType === "SL") {
-            collegesToSearch = collegesToSearch.filter(([_, info]) => !info.level?.toLowerCase().includes("home university") && !info.level?.toLowerCase().includes("outside"));
+            collegesToSearch = collegesToSearch.filter(([_, info]: any) => !info.level?.toLowerCase().includes("home university") && !info.level?.toLowerCase().includes("outside"));
           }
 
-          results = collegesToSearch.map(([collegeName, collegeInfo]) => {
+          results = collegesToSearch.map(([collegeName, collegeInfo]: any) => {
             const eligibleBranches = collegeInfo.branches.map(currentBranch => {
               let bestAvailableSeatForBranch = { cutoffPercentile: -1, cutoffRank: Infinity, seatCode: null };
               
@@ -301,7 +319,7 @@ function PercentileDisplay() {
 
             if (finalEligibleBranches.length > 0) {
               return {
-                collegeName,
+                collegeName, // This is the full "CODE - NAME" key
                 status: collegeInfo.status,
                 level: collegeInfo.level,
                 district: collegeInfo.district,
@@ -312,8 +330,10 @@ function PercentileDisplay() {
             }
             return null;
           }).filter(Boolean);
+
         } else { // JEE (All India) logic
-           results = data.filter(college => {
+           
+           results = data.filter((college: any) => {
                const districtMatch = district.length === 0 || district.some(d => d === college.District);
                if (!districtMatch) return false;
                return college.Courses.some(course => {
@@ -325,7 +345,7 @@ function PercentileDisplay() {
                    if (filterType === 'percentile') return !isNaN(cutoffPercentile) && percentileValue >= cutoffPercentile;
                    else return !isNaN(cutoffRank) && rankValue <= cutoffRank;
                });
-            }).map(college => {
+            }).map((college: any) => {
                 const matchingCourses = college.Courses.filter(course => {
                     const branchMatch = branch.length === 0 || branch.some(b => b.trim().toLowerCase() === course["Course Name"].trim().toLowerCase());
                      if (!branchMatch) return false;
@@ -337,8 +357,13 @@ function PercentileDisplay() {
                 });
                 const getRank = c => parseInt(c["All India Merit"].split(" ")[0], 10);
                 const getPercentile = c => parseFloat(c["All India Merit"].split(" ")[1]?.replace(/[()]/g, ""));
+
+                // --- MODIFICATION: Create "CODE - NAME" string for JEE colleges ---
+                const collegeCode = college["Institute Code"] || 'JEE-AI';
+                const collegeName = `${collegeCode} - ${college["Institute Name"]}`;
+                
                 return {
-                    collegeName: college["Institute Name"],
+                    collegeName: collegeName, // Use the new combined name
                     status: matchingCourses[0]["Merit Exam"],
                     level: "All India",
                     district: college.District,
@@ -354,13 +379,15 @@ function PercentileDisplay() {
             });
         }
         
+        // Sort the colleges by their best cutoff
         if (filterType === 'percentile') {
             results.sort((a, b) => b.closingPercentile - a.closingPercentile);
         } else {
             results.sort((a, b) => a.closingRank - b.closingRank);
         }
         
-        setFilteredColleges(results.slice(0, 30));
+        setFilteredColleges(results.slice(0, 30)); // Set the college-grouped list, max 30
+        
         if (results.length === 0) {
             setNoResultsFound(true);
         }
@@ -368,23 +395,50 @@ function PercentileDisplay() {
     }, 100);
   }
   
-  // -----
-  // ----- FIX 2: Replaced the entire function below
-  // -----
+  // --- downloadPDFList UPDATED to flatten the college list first ---
   const downloadPDFList = () => {
-    if (filteredColleges.length === 0) {
+    if (filteredColleges.length === 0) { // Check the college list
       alert("No college data to download!");
       return;
     }
 
+    // --- NEW LOGIC: Create the flat preference list from the college list ---
+    const filteredPreferences: PreferenceItem[] = filteredColleges.flatMap(college => {
+      // Split college key "CODE - NAME" into parts
+      // This now works for both MHT-CET and JEE
+      const nameParts = college.collegeName.split(' - ');
+      const collegeCode = nameParts[0] || 'N/A';
+      const collegeNameOnly = nameParts.length > 1 ? nameParts.slice(1).join(' - ') : college.collegeName;
+
+      // Map each branch to the flat PreferenceItem structure
+      return college.branches.map(b => ({
+          collegeCode: collegeCode,
+          collegeName: collegeNameOnly,
+          branch_info: b.branch_info,
+          matchedSeatCode: b.matchedSeatCode,
+          bestCutoff: b.bestCutoff,
+          bestCutoffRank: b.bestCutoffRank,
+          district: college.district,
+          status: college.status,
+          level: college.level,
+      }));
+    });
+
+    // Sort the new flat list by cutoff
+    if (filterType === 'percentile') {
+        filteredPreferences.sort((a, b) => b.bestCutoff - a.bestCutoff);
+    } else {
+        filteredPreferences.sort((a, b) => a.bestCutoffRank - b.bestCutoffRank);
+    }
+    // --- END OF NEW LOGIC ---
+
+
     const doc = new jsPDF();
     let startY = 20;
 
-    // --- Main Title ---
+    // Add title and filters (same as before)
     doc.setFontSize(18);
-    doc.text("Your Predicted College List", 14, startY);
-
-    // --- Subtitle with Exam & Round Info ---
+    doc.text("Your Predicted Preference List", 14, startY);
     doc.setFontSize(12);
     doc.setTextColor(80);
     doc.text(
@@ -393,29 +447,21 @@ function PercentileDisplay() {
       startY + 7
     );
     startY += 15;
-
-    // --- Filters Applied (Meta Data) Section ---
     doc.setFontSize(11);
     doc.setTextColor(40);
     doc.text("Filters Applied:", 14, startY);
     startY += 7;
-
     doc.setFontSize(9);
     doc.setTextColor(60);
-
-    // Score/Rank
     const scoreText =
       filterType === "rank"
         ? `Your Rank: ${filters.rank}`
         : `Your Percentile: ${filters.percentile}`;
     doc.text(scoreText, 14, startY);
     startY += 5;
-
-    // MHT-CET Specific Filters
     if (examType === "MHT-CET") {
       doc.text(`Category: ${filters.caste} (${filters.gender})`, 14, startY);
       startY += 5;
-
       let special = [];
       if (filters.isDefence) special.push("Defence");
       if (filters.isPWD) special.push("PWD");
@@ -424,110 +470,73 @@ function PercentileDisplay() {
         startY += 5;
       }
     }
-
-    // Optional Branch Filters
     if (filters.branch.length > 0) {
       const branchText = `Preferred Branches: ${filters.branch.join(", ")}`;
-      // Split text if it's too long to fit on one line
       const splitBranchText = doc.splitTextToSize(branchText, 180);
       doc.text(splitBranchText, 14, startY);
       startY += splitBranchText.length * 5;
     }
-
-    // Optional District Filters
     if (filters.district.length > 0) {
       const districtText = `Preferred Locations: ${filters.district.join(", ")}`;
       const splitDistrictText = doc.splitTextToSize(districtText, 180);
       doc.text(splitDistrictText, 14, startY);
       startY += splitDistrictText.length * 5;
     }
+    startY += 5; 
 
-    startY += 5; // Add a final margin before the list starts
+    // --- Create One Big Table from the flat list ---
+    const tableColumn = [
+      "#",
+      "College Code",
+      "College Name",
+      "Branch",
+      "Seat Type",
+      filterType === "rank" ? "Cutoff Rank" : "Cutoff %ile",
+    ];
+    const tableRows = [];
 
-    // --- College List ---
-    filteredColleges.forEach((college, index) => {
-      // Estimate height of the college block to prevent bad page breaks
-      const collegeHeaderHeight = 12;
-      const tableHeaderHeight = 10;
-      const rowHeightEstimate = college.branches.length * 8;
-      const totalBlockHeight =
-        collegeHeaderHeight + tableHeaderHeight + rowHeightEstimate + 15; // +15 for margins
-
-      if (startY + totalBlockHeight > 280) {
-        // 280 is a safe margin on A4 (297)
-        doc.addPage();
-        startY = 20;
-      }
-
-      doc.setFontSize(14);
-      doc.setTextColor(40);
-      // Handle long college names that might need to wrap
-      const collegeNameLines = doc.splitTextToSize(
-        `${index + 1}. ${college.collegeName}`,
-        180
-      );
-      doc.text(collegeNameLines, 14, startY);
-      startY += collegeNameLines.length * 5 + 2; // Adjust Y based on lines
-
-      doc.setFontSize(10);
-      doc.setTextColor(100);
-      doc.text(
-        `District: ${college.district || "N/A"} | Status: ${college.status}`,
-        14,
-        startY
-      );
-      startY += 5;
-
-      const tableColumn = [
-        "#",
-        "Eligible Branch",
-        "Seat Type",
-        filterType === "rank" ? "Cutoff Rank" : "Cutoff %ile",
+    // Use the new filteredPreferences list we just created
+    filteredPreferences.forEach((item, index) => {
+      const rowData = [
+        index + 1,
+        item.collegeCode,
+        item.collegeName,
+        item.branch_info,
+        item.matchedSeatCode,
+        filterType === "rank"
+          ? (item.bestCutoffRank !== Infinity ? item.bestCutoffRank.toString() : 'N/A')
+          : (item.bestCutoff ? item.bestCutoff.toFixed(2) : 'N/A')
       ];
-      const tableRows = [];
-
-      college.branches.forEach((branch, i) => {
-        const branchData = [
-          i + 1,
-          branch.branch_info, // jspdf-autotable will handle wrapping
-          branch.matchedSeatCode,
-          filterType === "rank"
-            ? branch.bestCutoffRank !== Infinity
-              ? branch.bestCutoffRank.toString()
-              : "N/A"
-            : branch.bestCutoff
-            ? branch.bestCutoff.toFixed(2)
-            : "N/A",
-        ];
-        tableRows.push(branchData);
-      });
-
-      // *** THIS IS THE FIRST PART OF THE FIX ***
-      // We call autoTable(doc, ...) instead of doc.autoTable(...)
-      autoTable(doc, {
-        head: [tableColumn],
-        body: tableRows,
-        startY: startY,
-        theme: "grid",
-        headStyles: { fillColor: [246, 128, 20] }, // Your theme's orange
-        didDrawPage: (data) => {
-          // Update startY in case autotable creates a new page
-          startY = data.cursor.y;
-        },
-      });
-
-      // *** THIS IS THE SECOND PART OF THE FIX ***
-      // We use doc.lastAutoTable.finalY to get the correct Y position
-      startY = (doc as any).lastAutoTable.finalY + 15; // Add margin for the next college
+      tableRows.push(rowData);
     });
 
-    doc.save("CollegePeCharcha_Prediction_List.pdf");
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: startY,
+      theme: "grid",
+      headStyles: { fillColor: [246, 128, 20] },
+      columnStyles: {
+          0: { cellWidth: 10 },
+          1: { cellWidth: 25 },
+          2: { cellWidth: 65 },
+          3: { cellWidth: 45 },
+          4: { cellWidth: 20 },
+          5: { cellWidth: 20 },
+      },
+      didDrawPage: (data) => {
+        startY = data.cursor.y;
+      },
+    });
+
+    doc.save("CollegePeCharcha_Preference_List.pdf");
   };
 
+  // --- JSX RENDER REVERTED ---
   return (
     <div className="min-h-screen transition-colors duration-300 bg-orange-50">
       
-      {/* <UserNavbar /> */} {/* Assuming you have this component */}
+      {/* <UserNavbar /> */} 
 
       <div className="backdrop-blur-md border-b transition-colors duration-300 border-orange-100">
         <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
@@ -563,6 +572,7 @@ function PercentileDisplay() {
                 </div>
               </div>
 
+              {/* All filters are unchanged */}
               <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium transition-colors duration-300 text-gray-700">Select Exam Type</label>
@@ -728,6 +738,7 @@ function PercentileDisplay() {
             </div>
           </div>
 
+          {/* --- JSX RENDER REVERTED to college-grouped list --- */}
           <div className="lg:col-span-3">
             <div className="space-y-4 sm:space-y-6">
            {filteredColleges.length > 0 && (
@@ -764,7 +775,7 @@ function PercentileDisplay() {
                         <div className="text-left">
                           <div className="bg-[#f68014] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-xl inline-block">
                             <div className="text-xs font-medium opacity-90">{filterType === 'rank' ? 'Best Closing Rank' : 'Best Closing %ile'}</div>
-                            <div className="text-base sm:text-lg text-left font-bold">{filterType === 'rank' ? (college.closingRank !== Infinity ? college.closingRank : 'N/A') : college.closingPercentile.toFixed(2)}</div>
+                            <div className="text-base sm:text-lg text-left font-bold">{filterType === 'rank' ? (college.closingRank !== Infinity ? college.closingRank : 'N/A') : (college.closingPercentile ? college.closingPercentile.toFixed(2) : 'N/A')}</div>
                           </div>
                         </div>
                       </div>
