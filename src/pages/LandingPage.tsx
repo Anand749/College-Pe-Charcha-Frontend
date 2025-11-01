@@ -4,7 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthModal } from '../hooks/useAuthModal';
 import AuthModal from '../components/AuthModal';
 import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight, Linkedin, Instagram, Sparkles, TrendingUp, Award, X, Play, Pause } from 'lucide-react';
-import teamPhoto1 from '../assets/team-photo-1.jpg';
+import teamPhoto1 from '../assets/team-photo-3.jpg';
+import teamPhoto2 from '../assets/team-photo-1.jpg';
+import teamPhoto3 from '../assets/team-photo-2.jpg';
+import teamPhoto4 from '../assets/team-photo-4.jpg';
+import coep from '../assets/colleges/coep.webp';
+import pict from '../assets/colleges/pict.jpg';
+import vjti from '../assets/colleges/vjti.jpg';
 import arnav from '../assets/core/arnav.jpg';
 import vedanti from '../assets/core/vedanti.jpg';
 import hardik from '../assets/core/hardik.jpg';
@@ -300,6 +306,13 @@ const LandingPage: React.FC = () => {
 
   const heroImages = [
     teamPhoto1,
+    
+    teamPhoto2,
+    teamPhoto3,
+    teamPhoto4
+     
+     
+
   ];
 
   const coreTeamMembers: TeamMember[] = [
@@ -493,7 +506,7 @@ const LandingPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Link to="/CollegesPage" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 inline-flex items-center shadow-lg transform hover:scale-105">
+            <Link to="/colleges" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 inline-flex items-center shadow-lg transform hover:scale-105">
               Get Started Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </motion.div>
