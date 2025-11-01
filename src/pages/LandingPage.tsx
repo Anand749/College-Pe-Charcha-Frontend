@@ -307,9 +307,9 @@ const LandingPage: React.FC = () => {
   const heroImages = [
     teamPhoto1,
     
-    teamPhoto2,
-    teamPhoto3,
-    teamPhoto4
+      // teamPhoto2,
+      // teamPhoto3,
+      // teamPhoto4
      
      
 
