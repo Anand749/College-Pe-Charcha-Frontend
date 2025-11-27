@@ -34,32 +34,7 @@ const EventsPage = () => {
       lumaLink: 'https://lu.ma/tech-career-session',
       isUpcoming: true
     },
-    {
-      id: '2',
-      title: 'Product Management 101: From Engineer to PM',
-      description: 'Discover the transition from engineering to product management with insights from a Microsoft Product Manager.',
-      date: '2024-02-28',
-      time: '6:30 PM IST',
-      type: 'Workshop',
-      speaker: 'Priya Sharma',
-      company: 'Microsoft',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?w=400',
-      lumaLink: 'https://lu.ma/product-management-workshop',
-      isUpcoming: true
-    },
-    {
-      id: '3',
-      title: 'Startup Ecosystem in India: Opportunities & Challenges',
-      description: 'An interactive session with successful entrepreneurs about building startups in India.',
-      date: '2024-03-05',
-      time: '8:00 PM IST',
-      type: 'Webinar',
-      speaker: 'Arjun Patel',
-      company: 'Founder, TechStartup',
-      image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?w=400',
-      lumaLink: 'https://lu.ma/startup-ecosystem-webinar',
-      isUpcoming: true
-    },
+ 
    {
   "id": "4",
   "title": "Vision To Visionaries - Barclays",
@@ -71,7 +46,7 @@ const EventsPage = () => {
   "company": "Barclays",
   "image": Barclays,
   "lumaLink": "https://lu.ma/m0lzwsvg",
-  "isUpcoming": false,
+  "isUpcoming": false
 },
     {
   id: '5',
