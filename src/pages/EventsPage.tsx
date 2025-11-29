@@ -23,16 +23,17 @@ const EventsPage = () => {
   const events: Event[] = [
     {
       id: '1',
-      title: 'Breaking into Tech: A Software Engineer\'s Journey',
-      description: 'Learn from a Google software engineer about career paths, interview preparation, and what it takes to succeed in top tech companies.',
-      date: '2024-02-25',
+      title: 'Vision To Visionaries - PhonePe',
+      description: 'Learn from a PhonePe software engineer about career paths, interview preparation, and what it takes to succeed in top tech companies.',
+      date: '2025-12-20',
       time: '7:00 PM IST',
       type: 'Expert Session',
-      speaker: 'Rajesh Kumar',
-      company: 'Google',
-      image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=400',
-      lumaLink: 'https://lu.ma/tech-career-session',
+      speaker: 'Pratik Patil',
+      company: 'PhonePe',
+      image: 'https://static.tnnbt.in/thumb/msid-111113368,thumbsize-6696,width-1280,height-720,resizemode-75/111113368.jpg',
+      lumaLink: 'https://luma.com/ehi2o2e3',
       isUpcoming: true
+      
     },
  
    {

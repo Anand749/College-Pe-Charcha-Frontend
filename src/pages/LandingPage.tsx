@@ -249,52 +249,20 @@ const LandingPage: React.FC = () => {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [showCorePopup, setShowCorePopup] = useState(false);
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
+  const navigate = useNavigate();
 
   const testimonials = [
-    { id: 1, name: "Riya Paunikar", college: "Cummins Pune", rating: 5, text: "Team cpc have  not only help in choosing college, branch but also  help in    building skills and are conducting many sessions based on   Building skills with people who have already got  placed in great companies", avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150" },
-    { id: 2, name: "Vineet Dayma", college: "VIT Pune", rating: 5, text: "I believe it was a great decision of me to join CPC group mainly because it gave me a platform where I could ask questions that I didn't know where to ask", avatar: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=150" },
-    { id: 3, name: "Anvay Ghare", college: "VIT Pune", rating: 5, text: "From which college is better, to actually which one can we get, to actually getting the college we wanted to be in. CPC's support made the journey a lot easier", avatar: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?w=150" },
-  
-  {
-    "id": 4,
-    "name": "Meera Kulkarni",
-    "college": "COEP",
-    "rating": 5,
-    "text": "Seniors told me about COEP’s mix of strict academics and amazing exposure — something I wouldn’t hear in counseling sessions. Their guidance plus CPC’s support during admission made my choice of COEP feel perfect.",
-    "avatar": "https://avatars.dicebear.com/api/avataaars/meera.svg"
-  },
-  {
-    "id": 5,
-    "name": "Rohit Deshpande",
-    "college": "PICT",
-    "rating": 5,
-    "text": "I was nervous about PICT but seniors shared the real coding culture, daily grind, and strong placements. That clarity, along with CPC’s help in stream selection, gave me confidence to go for PICT — and I’m happy I did.",
-    "avatar": "https://avatars.dicebear.com/api/avataaars/rohit.svg"
-  },
-  {
-    "id": 6,
-    "name": "Anita Joshi",
-    "college": "Walchand",
-    "rating": 4,
-    "text": "Seniors explained Walchand’s strong alumni network and practical learning environment. It felt more real than any brochure. CPC’s constant support throughout the process helped me settle on Walchand with zero regrets.",
-    "avatar": "https://avatars.dicebear.com/api/avataaars/anita.svg"
-  },
-  {
-    "id": 7,
-    "name": "Sahil Iyer",
-    "college": "SPIT",
-    "rating": 5,
-    "text": "Talking to SPIT seniors showed me the startup culture, industry exposure, and overall vibe. It matched my goals. With CPC guiding me step by step, the admission felt less stressful and more exciting.",
-    "avatar": "https://avatars.dicebear.com/api/avataaars/sahil.svg"
-  },
-  {
-    "id": 8,
-    "name": "Priya Rao",
-    "college": "VJTI",
-    "rating": 5,
-    "text": "Seniors gave me the true picture of VJTI — competitive coding groups, challenging academics, but amazing opportunities. CPC made sure I stayed on track and helped me turn my dream of joining VJTI into reality.",
-    "avatar": "https://avatars.dicebear.com/api/avataaars/priya.svg"
-  }
+    { id: 1, name: "Riya Paunikar", college: "Cummins Pune", rating: 5, text: "Team CPC not only helped me choose the right college and branch, they ran skill-building sessions with seniors who had already got placed — that guidance made a huge difference." },
+    { id: 2, name: "Vineet Dayma", college: "VIT Pune", rating: 5, text: "Joining CPC was the best decision — it gave me a place to ask honest questions and get real answers from seniors." },
+    { id: 3, name: "Anvay Ghare", college: "VIT Pune", rating: 5, text: "From choosing which colleges to realistically aim for to getting into the one I wanted, CPC's support made the whole process a lot easier." },
+    { id: 4, name: "Meera Kulkarni", college: "COEP", rating: 5, text: "Seniors gave me insights about COEP’s academics and exposure that I couldn't find anywhere else. CPC's help during admissions made choosing COEP feel perfect." },
+    { id: 5, name: "Rohit Deshpande", college: "PICT", rating: 5, text: "Seniors shared the real coding culture and placement outlook at PICT — that clarity plus CPC's guidance helped me confidently choose PICT." },
+    { id: 6, name: "Anita Joshi", college: "Walchand", rating: 4, text: "Practical insights from seniors and CPC's continued support helped me decide on Walchand without any doubts." },
+    { id: 7, name: "Sahil Iyer", college: "SPIT", rating: 5, text: "Seniors painted a clear picture of SPIT's startup culture and industry exposure — CPC guided me every step of the way." },
+    { id: 8, name: "Priya Rao", college: "VJTI", rating: 5, text: "Real student experiences showed me the opportunities at VJTI. CPC kept me focused and helped make the admission possible." },
+    { id: 9, name: "Karan Patel", college: "ICT Mumbai", rating: 5, text: "Detailed round-wise cutoff discussions and honest senior feedback helped me tailor my choices and get a seat I was proud of." },
+    { id: 10, name: "Nisha Kulkarni", college: "DYP", rating: 5, text: "CPC's mentor sessions helped me prepare for college life and understand placement trends — extremely practical and motivating." },
+    { id: 11, name: "Rajat Sharma", college: "COEP", rating: 4, text: "The group's alumni network and clear insights into branch-wise strengths helped me pick a branch aligned with my goals." }
 ]
 
 
@@ -469,7 +437,6 @@ const LandingPage: React.FC = () => {
               exit={{ opacity: 0, y: -20 }}
               className="bg-white rounded-3xl shadow-2xl p-12 text-center border border-orange-100"
             >
-              <img src={testimonials[currentTestimonial].avatar} alt={testimonials[currentTestimonial].name} className="w-20 h-20 rounded-3xl mx-auto mb-6 object-cover shadow-lg" />
               <div className="flex justify-center mb-6">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (<Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />))}
               </div>
@@ -578,7 +545,7 @@ const LandingPage: React.FC = () => {
                     Predictor
                   </button>
                   <button
-                    onClick={() => Router.push('/compare')}
+                    onClick={() => navigate('/compare')}
                     className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300"
                   >
                     Compare Colleges
