@@ -1,6 +1,5 @@
 import apiClient from '../config/api.config';
 import { ApiResponse, BackendTeamMemberFull } from '../types/api.types';
-
 // Frontend team member interface (matching existing TeamPage interface)
 export interface TeamMember {
     id: string;
@@ -14,7 +13,6 @@ export interface TeamMember {
     instagram?: string;
     email?: string;
 }
-
 /**
  * Transform backend team member data to frontend TeamMember interface
  */
@@ -25,12 +23,9 @@ const transformTeamMemberData = (backendMember: BackendTeamMemberFull): TeamMemb
         case 'Founder':
             displayRole = 'Founder & Lead';
             break;
-<<<<<<< HEAD
         case 'Executive':
             displayRole = 'Executive Team Member';
             break;
-=======
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
         case 'Core':
             displayRole = 'Core Team Member';
             break;
@@ -43,7 +38,6 @@ const transformTeamMemberData = (backendMember: BackendTeamMemberFull): TeamMemb
         default:
             displayRole = backendMember.Role.charAt(0).toUpperCase() + backendMember.Role.slice(1);
     }
-
     return {
         id: backendMember._id,
         name: backendMember.name,
@@ -55,56 +49,46 @@ const transformTeamMemberData = (backendMember: BackendTeamMemberFull): TeamMemb
         linkedin: backendMember.LinkedinURL,
     };
 };
-
 /**
  * Fetch all team members from the API
  */
 export const getAllTeamMembers = async (): Promise<TeamMember[]> => {
     try {
         const response = await apiClient.get<ApiResponse<BackendTeamMemberFull[]>>('/api/team');
-
         if (!response.data.success || !response.data.data) {
             throw new Error('Failed to fetch team members');
         }
-
         // Transform and filter active team members
         const teamMembers = response.data.data
             .filter(member => member.isActive)
             .map(transformTeamMemberData);
-
         return teamMembers;
     } catch (error) {
         console.error('Error fetching team members:', error);
         throw error;
     }
 };
-
 /**
  * Cache management
  */
 let teamMembersCache: TeamMember[] | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
 /**
  * Get team members with caching
  */
 export const getTeamMembersWithCache = async (forceRefresh: boolean = false): Promise<TeamMember[]> => {
     const now = Date.now();
-
     // Return cached data if valid and not forcing refresh
     if (!forceRefresh && teamMembersCache && (now - cacheTimestamp) < CACHE_DURATION) {
         return teamMembersCache;
     }
-
     // Fetch fresh data
     const teamMembers = await getAllTeamMembers();
     teamMembersCache = teamMembers;
     cacheTimestamp = now;
-
     return teamMembers;
 };
-
 /**
  * Clear cache
  */

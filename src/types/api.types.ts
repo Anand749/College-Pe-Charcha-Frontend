@@ -1,7 +1,5 @@
 // TypeScript interfaces for API responses
-
 // ========== COLLEGE TYPES ==========
-
 // Backend College Schema (as stored in MongoDB)
 export interface BackendCollege {
     _id: string;
@@ -21,7 +19,6 @@ export interface BackendCollege {
     createdAt: string;
     updatedAt: string;
 }
-
 // Backend Team Member Schema (for mentor details)
 export interface BackendTeamMember {
     _id: string;
@@ -38,7 +35,6 @@ export interface BackendTeamMember {
     order?: number;
     isActive: boolean;
 }
-
 // API Response wrapper
 export interface ApiResponse<T> {
     success: boolean;
@@ -46,26 +42,20 @@ export interface ApiResponse<T> {
     data: T;
     message?: string;
 }
-
 // Error response
 export interface ApiError {
     success: false;
     message: string;
     error?: string;
 }
-
 // ========== TEAM MEMBER TYPES ==========
-
 export interface BackendTeamMemberFull {
     _id: string;
     name: string;
     college_name: string;
     year_academic: string;
-<<<<<<< HEAD
     Role: 'Founder' | 'Executive' | 'Core' | 'mentor' | 'collegeHead';
-=======
     Role: 'Founder' | 'Core' | 'mentor' | 'collegeHead';
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
     branch: string;
     Tagline: string;
     LinkedinURL: string;
@@ -74,9 +64,7 @@ export interface BackendTeamMemberFull {
     createdAt: string;
     updatedAt: string;
 }
-
 // ========== RESOURCE TYPES ==========
-
 export interface BackendResource {
     _id: string;
     name: string;
@@ -92,9 +80,7 @@ export interface BackendResource {
     createdAt: string;
     updatedAt: string;
 }
-
 // ========== EVENT TYPES ==========
-
 export interface BackendEvent {
     _id: string;
     event_name: string;

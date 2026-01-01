@@ -6,13 +6,11 @@ import AuthModal from '../components/AuthModal';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTeamMembers } from '../hooks/useTeamMembers';
 import { TeamMember } from '../services/team.service';
-
 // A reusable, now stateful, component for the "List & Detail" showcase
 const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSlide = false }: { title: string, members: TeamMember[], accentColor: string, initialVisibleCount?: number, autoSlide?: boolean }) => {
   if (members.length === 0) {
     return null;
   }
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [selectedMember, setSelectedMember] = useState<TeamMember>(members[0]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -23,10 +21,8 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
   const [isPlaying, setIsPlaying] = useState(autoSlide);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showAllModal, setShowAllModal] = useState(false);
-
   const accentTextClass = `text-${accentColor}-600`;
   const accentBgClass = `bg-${accentColor}-100`;
-
   // Auto-slide functionality
   useEffect(() => {
     if (isPlaying && members.length > 1) {
@@ -34,43 +30,35 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
         setCurrentIndex((prev) => (prev + 1) % members.length);
         setSelectedMember(members[(currentIndex + 1) % members.length]);
       }, 3000); // Change every 3 seconds
-
       return () => clearInterval(interval);
     }
   }, [isPlaying, members, currentIndex]);
-
   const nextMember = () => {
     const nextIndex = (currentIndex + 1) % members.length;
     setCurrentIndex(nextIndex);
     setSelectedMember(members[nextIndex]);
   };
-
   const prevMember = () => {
     const prevIndex = (currentIndex - 1 + members.length) % members.length;
     setCurrentIndex(prevIndex);
     setSelectedMember(members[prevIndex]);
   };
-
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
-
   // Determine if the "View More" button is needed and which members to show
   const canBeTruncated = initialVisibleCount && members.length > initialVisibleCount;
   const visibleMembers = canBeTruncated && !isExpanded ? members.slice(0, initialVisibleCount) : members;
-
   // Fixed height for better consistency
   const getDynamicHeight = () => {
     return 600; // Fixed height for better UX
   };
-
   return (
     <section className="mb-16">
       <div
         className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100"
         style={{ minHeight: `${getDynamicHeight()}px` }}
       >
-
         {/* Left Panel: Scrollable List of Members */}
         <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
           {/* This inner div will now scroll because its parent has a fixed height */}
@@ -93,7 +81,6 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
               ))}
             </div>
           </div>
-
           {/* "View More" Button */}
           {canBeTruncated && (
             <div className="p-6 border-t border-gray-200">
@@ -107,7 +94,6 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
             </div>
           )}
         </div>
-
         {/* Right Panel: Detailed View of Selected Member */}
         <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16 overflow-y-auto relative">
           {/* Navigation Controls */}
@@ -133,7 +119,6 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
               </button>
             </div>
           )}
-
           {/* Progress Indicators */}
           {members.length > 1 && (
             <div className="absolute top-4 left-4 flex space-x-1 z-10">
@@ -150,7 +135,6 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
               ))}
             </div>
           )}
-
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedMember.id}
@@ -181,7 +165,6 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
           </AnimatePresence>
         </div>
       </div>
-
       {/* All Members Modal */}
       {showAllModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -224,14 +207,10 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
     </section>
   );
 };
-
-
 const TeamPage = () => {
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
-
   // Fetch team members from API
   const { teamMembers, loading, error, refresh } = useTeamMembers();
-
   // Show loading state
   if (loading) {
     return (
@@ -243,7 +222,6 @@ const TeamPage = () => {
       </div>
     );
   }
-
   // Show error state
   if (error) {
     return (
@@ -266,7 +244,6 @@ const TeamPage = () => {
       </div>
     );
   }
-
   // Only show Core Team members, sorted by priority
   const coreTeam = teamMembers
     .filter(member =>
@@ -280,11 +257,8 @@ const TeamPage = () => {
         if (role.includes('Executive')) return 3;
         return 4;
       };
-
       return getPriority(a.role) - getPriority(b.role);
     });
-
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       <div className="text-center py-12">
@@ -307,10 +281,7 @@ const TeamPage = () => {
           The passionate students dedicated to guiding the next generation.
         </motion.p>
       </div>
-
       <div className="max-w-7xl w-full mx-auto p-4 md:p-8">
-<<<<<<< HEAD
-
   {/* Core Team */ }
   {
     coreTeam.length > 0 && (
@@ -323,8 +294,6 @@ const TeamPage = () => {
       />
     )
   }
-=======
-
         {/* Showcase 1: Core Team */}
         <TeamShowcase
           title="Core Team"
@@ -333,7 +302,6 @@ const TeamPage = () => {
           initialVisibleCount={4}
           autoSlide={true}
         />
-
         {/* Showcase 2: College Heads */}
         <TeamShowcase
           title="College Heads"
@@ -350,8 +318,6 @@ const TeamPage = () => {
           initialVisibleCount={4}
           autoSlide={true}
         />
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
-
   {/* Join Our Team Section */ }
   <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
     <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
@@ -371,6 +337,4 @@ const TeamPage = () => {
     </div >
   );
 };
-
 export default TeamPage;
-

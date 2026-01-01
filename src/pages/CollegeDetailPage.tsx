@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-<<<<<<< HEAD
 import { MapPin, Calendar, Users, MessageCircle, CheckCircle, XCircle, GraduationCap, X, BookOpen } from 'lucide-react';
-=======
 import { MapPin, Calendar, Users, MessageCircle, Linkedin, Instagram, CheckCircle, XCircle, GraduationCap, X } from 'lucide-react';
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 import { getCollegeByName } from '../services/college.service';
 import { College } from '../data/colleges';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorDisplay from '../components/ErrorDisplay';
-
 const CollegeDetailPage = () => {
   const { collegeName } = useParams();
   const [college, setCollege] = useState<College | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAllMentors, setShowAllMentors] = useState(false);
-
   useEffect(() => {
     const fetchCollege = async () => {
       if (!collegeName) {
@@ -24,7 +19,6 @@ const CollegeDetailPage = () => {
         setLoading(false);
         return;
       }
-
       try {
         setLoading(true);
         const data = await getCollegeByName(collegeName);
@@ -35,15 +29,12 @@ const CollegeDetailPage = () => {
         setLoading(false);
       }
     };
-
     fetchCollege();
   }, [collegeName]);
-
   // Loading state
   if (loading) {
     return <LoadingSpinner message="Loading college details..." />;
   }
-
   // Error state
   if (error) {
     return (
@@ -52,7 +43,6 @@ const CollegeDetailPage = () => {
       </div>
     );
   }
-
   // Not found state
   if (!college) {
     return (
@@ -66,7 +56,6 @@ const CollegeDetailPage = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50">
       {/* Hero Section */}
@@ -93,7 +82,6 @@ const CollegeDetailPage = () => {
           </div>
         </div>
       </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -102,7 +90,6 @@ const CollegeDetailPage = () => {
             <div className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">About {college.name}</h2>
               <p className="text-gray-600 mb-6">{college.description}</p>
-
               {/* Highlights */}
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Key Highlights</h3>
@@ -116,7 +103,6 @@ const CollegeDetailPage = () => {
                 </div>
               </div>
             </div>
-
             {/* Pros and Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl shadow-lg p-6">
@@ -133,7 +119,6 @@ const CollegeDetailPage = () => {
                   ))}
                 </ul>
               </div>
-
               <div className="bg-white rounded-xl shadow-lg p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                   <XCircle className="h-6 w-6 text-red-600 mr-2" />
@@ -149,7 +134,6 @@ const CollegeDetailPage = () => {
                 </ul>
               </div>
             </div>
-
             {/* Mentors Section */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="flex items-center justify-between mb-6">
@@ -164,7 +148,6 @@ const CollegeDetailPage = () => {
                   {college.mentors.length} Available
                 </div>
               </div>
-
               {college.mentors.length > 0 ? (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -180,11 +163,7 @@ const CollegeDetailPage = () => {
                       .slice(0, 4)
                       .map((mentor) => {
                         const isCollegeHead = mentor.branch === 'College Head' || mentor.branch.includes('College Head');
-<<<<<<< HEAD
-=======
                         const showBranch = mentor.branch && mentor.branch !== 'Mentor' && mentor.branch !== 'College Head';
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
-
                         return (
                           <div
                             key={mentor.id}
@@ -210,13 +189,8 @@ const CollegeDetailPage = () => {
                                   )}
                                 </div>
                               </div>
-
-<<<<<<< HEAD
-=======
                               {/* Name */}
                               <h3 className="font-bold text-gray-900 text-base mb-1">{mentor.name}</h3>
-
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                               {/* Role Badge */}
                               <div className={`px-2.5 py-1 rounded-full text-xs font-semibold mb-2 ${isCollegeHead
                                 ? 'bg-orange-100 text-orange-700'
@@ -224,8 +198,6 @@ const CollegeDetailPage = () => {
                                 }`}>
                                 {isCollegeHead ? 'College Head' : 'Mentor'}
                               </div>
-
-<<<<<<< HEAD
                               {/* Department/Branch */}
                               {mentor.btranch && (
                                 <p className="text-gray-600 text-xs flex items-center justify-center whitespace-nowrap">
@@ -233,7 +205,6 @@ const CollegeDetailPage = () => {
                                   <span className="truncate">{mentor.btranch}</span>
                                 </p>
                               )}
-=======
                               {/* Branch/Department */}
                               {showBranch && (
                                 <p className="text-gray-600 text-xs mb-2 flex items-center justify-center">
@@ -241,13 +212,11 @@ const CollegeDetailPage = () => {
                                   {mentor.branch}
                                 </p>
                               )}
-
                               {/* Academic Year */}
                               <p className="text-gray-500 text-xs mb-3 flex items-center justify-center">
                                 <Calendar className="h-3 w-3 mr-1" />
                                 {mentor.year}
                               </p>
-
                               {/* Connect Button */}
                               {mentor.linkedin && (
                                 <a
@@ -260,13 +229,11 @@ const CollegeDetailPage = () => {
                                   <span>Connect on LinkedIn</span>
                                 </a>
                               )}
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                             </div>
                           </div>
                         );
                       })}
                   </div>
-
                   {/* Show All Mentors Button */}
                   {college.mentors.length > 4 && (
                     <div className="text-center pt-2">
@@ -288,7 +255,6 @@ const CollegeDetailPage = () => {
               )}
             </div>
           </div>
-
           {/* Sidebar */}
           <div className="space-y-6">
             {/* CTA Card */}
@@ -307,7 +273,6 @@ const CollegeDetailPage = () => {
                 Join WhatsApp Group
               </a>
             </div>
-
             {/* Quick Stats */}
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Stats</h3>
@@ -326,7 +291,6 @@ const CollegeDetailPage = () => {
                 </div>
               </div>
             </div>
-
             {/* Related Colleges */}
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Other Colleges</h3>
@@ -348,7 +312,6 @@ const CollegeDetailPage = () => {
           </div>
         </div>
       </div>
-
       {/* All Mentors Modal */}
       {showAllMentors && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setShowAllMentors(false)}>
@@ -366,7 +329,6 @@ const CollegeDetailPage = () => {
                 <X className="h-6 w-6" />
               </button>
             </div>
-
             {/* Modal Content */}
             <div className="p-6 overflow-y-auto max-h-[calc(85vh-100px)]">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -381,11 +343,7 @@ const CollegeDetailPage = () => {
                   })
                   .map((mentor) => {
                     const isCollegeHead = mentor.branch === 'College Head' || mentor.branch.includes('College Head');
-<<<<<<< HEAD
-=======
                     const showBranch = mentor.branch && mentor.branch !== 'Mentor' && mentor.branch !== 'College Head';
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
-
                     return (
                       <div
                         key={mentor.id}
@@ -398,7 +356,6 @@ const CollegeDetailPage = () => {
                             className={`w-14 h-14 rounded-xl object-cover flex-shrink-0 ${isCollegeHead ? 'ring-2 ring-orange-400' : ''}`}
                           />
                           <div className="flex-1 min-w-0">
-<<<<<<< HEAD
                             <p className={`text-xs font-medium ${isCollegeHead ? 'text-orange-600' : 'text-blue-600'}`}>
                               {isCollegeHead ? 'College Head' : 'Mentor'}
                             </p>
@@ -406,7 +363,6 @@ const CollegeDetailPage = () => {
                               <p className="text-xs text-gray-500">{mentor.btranch}</p>
                             )}
                           </div>
-=======
                             <h3 className="font-semibold text-gray-900 text-sm truncate">{mentor.name}</h3>
                             <p className={`text-xs font-medium ${isCollegeHead ? 'text-orange-600' : 'text-blue-600'}`}>
                               {isCollegeHead ? 'College Head' : 'Mentor'}
@@ -427,7 +383,6 @@ const CollegeDetailPage = () => {
                               <Linkedin className="h-4 w-4 text-blue-600" />
                             </a>
                           )}
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                         </div>
                       </div>
                     );
@@ -440,5 +395,4 @@ const CollegeDetailPage = () => {
     </div>
   );
 };
-
 export default CollegeDetailPage;
