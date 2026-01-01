@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Calendar, Clock, Users, ExternalLink, MapPin } from 'lucide-react';
 import Barclays from '../assets/Barclays_1.png';
 import { Link } from 'react-router-dom';
+import { useEvents } from '../hooks/useEvents';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorDisplay from '../components/ErrorDisplay';
 
 interface Event {
   id: string;
@@ -20,114 +23,25 @@ interface Event {
 const EventsPage = () => {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
 
-  const events: Event[] = [
-    {
-      id: '1',
-      title: 'Vision To Visionaries - PhonePe',
-      description: 'Learn from a PhonePe software engineer about career paths, interview preparation, and what it takes to succeed in top tech companies.',
-      date: '2025-12-20',
-      time: '7:00 PM IST',
-      type: 'Expert Session',
-      speaker: 'Pratik Patil',
-      company: 'PhonePe',
-      image: 'https://static.tnnbt.in/thumb/msid-111113368,thumbsize-6696,width-1280,height-720,resizemode-75/111113368.jpg',
-      lumaLink: 'https://luma.com/ehi2o2e3',
-      isUpcoming: true
-      
-    },
- 
-   {
-  "id": "4",
-  "title": "Vision To Visionaries - Barclays",
-  "description": "Exclusive session with Vaishnav Bhor (Barclays) where you’ll learn skills for success, balancing academics, coding, insider placement tips, and more.",
-  "date": "2025-08-21",
-  "time": "7:00 PM IST",
-  "type": "Expert Session",
-  "speaker": "Vaishnav Bhor",
-  "company": "Barclays",
-  "image": Barclays,
-  "lumaLink": "https://lu.ma/m0lzwsvg",
-  "isUpcoming": false
-},
-    {
-  id: '5',
-  title: 'SPIT Mumbai: Reality of Placements',
-  description: 'A candid student review on placements, recruitment trends, and the current scenario at SPIT Mumbai.',
-  date: '2025-07-12', // adjust if there's an actual release or event date
-  time: '7:00 PM IST', // you can customize or omit if not time-bound
-  type: 'Session',    // 'Expert Session' or 'Webinar' depending on style
-  speaker: 'Harsh Patil',
-  company: 'SPIT',
-  image: 'https://i.ytimg.com/vi/yvwO-e_lt1w/maxresdefault.jpg', // Poster image from the video
-  lumaLink: 'https://www.youtube.com/watch?v=yvwO-e_lt1w',      // Direct link to the video
-  isUpcoming: false  // Set to false if it's already available as a recording
-},
-{
-  id: '6',
-  title: "VIT Pune: Honest Review – Intake Vs Placement",
-  description: "A detailed student perspective on admission intake and placement trends at VIT Pune.",
-  date: "2025-07-01", // or omit if not time-bound
-  time: "7:00 PM IST",
-  type: "Session",
-  speaker: "Venugopal Baheti",
-  company: "VIT",
-  image: "https://i.ytimg.com/vi/h2SuxMpibyU/maxresdefault.jpg",
-  lumaLink: "https://www.youtube.com/watch?v=h2SuxMpibyU",
-  isUpcoming: false
-},
-{
-  id: '7',
-  title: "Everything about Cummins College of Engineering, Pune",
-  date: "2025-06-27", // or omit if not time-bound
-  time: "7:00 PM IST",
-  type: "Session",
-  speaker: "Samiksha",
-  company: "CUMMINS",
-  image: "https://i.ytimg.com/vi/eQJDpP8K3_0/maxresdefault.jpg",
-  lumaLink: "https://www.youtube.com/watch?v=eQJDpP8K3_0",
-  isUpcoming: false,
-  description: "Insights into placement trends, career opportunities, and student experiences."
+  // Fetch events from API
+  const { events, loading, error, refresh } = useEvents();
 
-}
-,
-{
-  id: '8',
-  title: "Everything about VJTI Mumbai- Honest Review",
-  description: "Detailed discussion on placements, career prospects, and growth opportunities at VJTI Mumbai",
-  date: "2025-06-27", // or omit if not time-bound
-  time: "7:00 PM IST",
-  type: "Session",
-  speaker: "Yash Bhate",
-  company: "VJTI",
-  image: "https://i.ytimg.com/vi/czYCooJeciE/maxresdefault.jpg",
-  lumaLink: "https://www.youtube.com/watch?v=czYCooJeciE",
-  isUpcoming: false
-}
-,
-{
-  id: '9',
-  title: "VIT CS vs PICT ENTC",
-  description: "Comparative analysis of VIT Pune Computer Science and PICT Electronics & Telecommunication, covering academics, placements, and campus life to help students decide wisely.",
+  // Loading state
+  if (loading) {
+    return <LoadingSpinner message="Loading events..." />;
+  }
 
-  date: "2025-06-27", // or omit if not time-bound
-  time: "7:00 PM IST",
-  type: "Session",
-  speaker: "Pranav,Jay,Anuraj",
-  company: "PICT",
-  image: "https://i.ytimg.com/vi/vNy4opIcWJU/maxresdefault.jpg",
-  lumaLink: "https://www.youtube.com/watch?v=vNy4opIcWJU",
-  isUpcoming: false
-}
-  
-  ];
-
+  // Error state
+  if (error) {
+    return <ErrorDisplay message={error} onRetry={refresh} />;
+  }
   const upcomingEvents = events.filter(event => event.isUpcoming);
   const pastEvents = events.filter(event => !event.isUpcoming);
   const displayEvents = activeTab === 'upcoming' ? upcomingEvents : pastEvents;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IN', { 
+    return date.toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -142,7 +56,7 @@ const EventsPage = () => {
             Events & Expert Sessions
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join exclusive sessions with industry experts, successful professionals, and gain insights 
+            Join exclusive sessions with industry experts, successful professionals, and gain insights
             that can shape your career journey.
           </p>
         </div>
@@ -152,21 +66,19 @@ const EventsPage = () => {
           <div className="bg-white rounded-lg p-1 shadow-md">
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                activeTab === 'upcoming' 
-                  ? 'bg-orange-600 text-white' 
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${activeTab === 'upcoming'
+                  ? 'bg-orange-600 text-white'
                   : 'text-gray-600 hover:text-orange-600'
-              }`}
+                }`}
             >
               Upcoming Events ({upcomingEvents.length})
             </button>
             <button
               onClick={() => setActiveTab('past')}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                activeTab === 'past' 
-                  ? 'bg-orange-600 text-white' 
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${activeTab === 'past'
+                  ? 'bg-orange-600 text-white'
                   : 'text-gray-600 hover:text-orange-600'
-              }`}
+                }`}
             >
               Past Events ({pastEvents.length})
             </button>
@@ -184,11 +96,10 @@ const EventsPage = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    event.type === 'Expert Session' ? 'bg-orange-100 text-orange-800' :
-                    event.type === 'Workshop' ? 'bg-blue-100 text-blue-800' :
-                    'bg-green-100 text-green-800'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${event.type === 'Expert Session' ? 'bg-orange-100 text-orange-800' :
+                      event.type === 'Workshop' ? 'bg-blue-100 text-blue-800' :
+                        'bg-green-100 text-green-800'
+                    }`}>
                     {event.type}
                   </span>
                 </div>
@@ -200,16 +111,16 @@ const EventsPage = () => {
                   </div>
                 )}
               </div>
-              
+
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
                   {event.title}
                 </h3>
-                
+
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                   {event.description}
                 </p>
-                
+
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-gray-600">
                     <Calendar className="h-4 w-4 mr-2" />
@@ -227,16 +138,15 @@ const EventsPage = () => {
                     )}
                   </div>
                 </div>
-                
+
                 <a
                   href={event.lumaLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors ${
-                    event.isUpcoming 
-                      ? 'bg-orange-600 text-white hover:bg-orange-700' 
+                  className={`w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors ${event.isUpcoming
+                      ? 'bg-orange-600 text-white hover:bg-orange-700'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
+                    }`}
                 >
                   {event.isUpcoming ? 'Register Now' : 'View Details'}
                   <ExternalLink className="h-4 w-4 ml-2" />
@@ -253,8 +163,8 @@ const EventsPage = () => {
               No {activeTab} events
             </h3>
             <p className="text-gray-600">
-              {activeTab === 'upcoming' 
-                ? 'Stay tuned for exciting upcoming sessions!' 
+              {activeTab === 'upcoming'
+                ? 'Stay tuned for exciting upcoming sessions!'
                 : 'Check back later for past event recordings.'}
             </p>
           </div>
@@ -268,10 +178,10 @@ const EventsPage = () => {
           <p className="text-lg mb-6 text-orange-100">
             Are you an industry expert or successful professional? Share your knowledge with aspiring students.
           </p>
-                     <Link
-             to="/contact"
-             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200 inline-flex items-center"
-           >
+          <Link
+            to="/contact"
+            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200 inline-flex items-center"
+          >
             <Calendar className="h-5 w-5 mr-2" />
             Partner With Us
           </Link>

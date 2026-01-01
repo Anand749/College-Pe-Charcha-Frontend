@@ -76,6 +76,7 @@ export interface Mentor {
   id: string;
   name: string;
   branch: string;
+  btranch?: string; // Department/Branch of study
   year: string;
   photo: string;
   linkedin?: string;
@@ -96,8 +97,8 @@ export const colleges: College[] = [
     cons: ['High admission cutoffs', 'Heavy academic schedule', 'Higher fees than other government colleges'],
     whatsappLink: 'https://chat.whatsapp.com/KRwgjOcjeVX7hD24FTbJmK?mode=ems_copy_c',
     mentors: []
-    
-    
+
+
   },
   {
     id: 'pict',
@@ -118,7 +119,7 @@ export const colleges: College[] = [
         branch: 'Computer Engineering',
         year: 'Third Year',
         photo: pranav,
-         
+
       },
       {
         id: '2',
@@ -213,7 +214,7 @@ export const colleges: College[] = [
         year: 'Second Year',
         photo: akshat
       }
-      
+
     ]
   },
   {
@@ -250,7 +251,7 @@ export const colleges: College[] = [
         year: 'Second Year',
         photo: pratik
       }
-      
+
     ]
   },
   {
@@ -304,10 +305,10 @@ export const colleges: College[] = [
     established: 1983,
     image: vitImage,
     description: 'VIT Pune is a top autonomous engineering college in Maharashtra, offering strong academics and industry exposure.',
-    highlights: ['Autonomous under SPPU', 'Strong industry exposure & tie-ups', 'Active technical & cultural clubs', 'International collaborations' , 'Good placement record'],
+    highlights: ['Autonomous under SPPU', 'Strong industry exposure & tie-ups', 'Active technical & cultural clubs', 'International collaborations', 'Good placement record'],
     pros: ['Great exposure & research opportunities', 'Vibrant campus life', 'Strong alumni support', 'Good placements'],
     cons: ['Highly competitive admissions', 'Crowded infrastructure', 'Uneven branch opportunities', 'Strict rules'],
-          whatsappLink: 'https://chat.whatsapp.com/E6S01xdg1AuDURz9fbyeV8?mode=ems_copy_c',
+    whatsappLink: 'https://chat.whatsapp.com/E6S01xdg1AuDURz9fbyeV8?mode=ems_copy_c',
     mentors: [
       {
         id: '18',
@@ -335,7 +336,7 @@ export const colleges: College[] = [
         name: 'Arnav Mahajan',
         branch: 'Computer Engineering',
         year: 'Second Year',
-        photo: arnav 
+        photo: arnav
       },
       {
         id: '22',
@@ -422,7 +423,7 @@ export const colleges: College[] = [
         year: 'Third Year',
         photo: vedant
       }
-      
+
     ]
   },
   {
@@ -476,47 +477,47 @@ export const colleges: College[] = [
     ]
   },
   {
-  id: 'jspm',
-  name: 'JSPM',
-  fullName: 'Jayawant Shikshan Prasarak Mandal',
-  location: 'Pune',
-  established: 1999,
-  image: 'https://images.pexels.com/photos/3184312/pexels-photo-3184312.jpeg?w=800',
-  description: 'JSPM holds \'A\' grade accreditation from NAAC and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design.',
-  highlights: ['\'A\' grade NAAC accreditation', 'Robust placement', 'Award-winning institute', 'Comprehensive academic offerings '],
-  pros: ['Autonomous ', 'NAAC Accredited and NBA-accredited programs', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations', 'Active student clubs '],
-  cons: ['Strict attendance policies', 'Campus infrastructure is functional but not very impressive', 'Accessibility is limited'],
-  whatsappLink: 'https://chat.whatsapp.com/FakeLinkForJSPM',
-  mentors: [
-    {
-      id: '37',
-      name: 'Aditya Patel',
-      branch: 'Computer Engineering',
-      year: 'Second Year',
-      photo: aditya
-    },
-    {
-      id: '38',
-      name: 'Avdhoot Patankar',
-      branch: 'Computer Engineering',
-      year: 'Second Year',
-      photo: avdhoot
-    }
-  ]
-},
-{
-  id: 'scoe',
-  name: 'SCOE',
-  fullName: 'Sinhgad College of Engineering',
-  location: 'Pune',
-  established: 1996,
-  image: 'https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?w=800',
-  description: ' A well-known college under the Sinhgad Institutes umbrella, recognized for its large campus, a wide range of engineering programs.',
-  highlights: ['Extensive infrastructure', 'Decent placement record', 'Active campus with numerous clubs and events'],
-  pros: ['Excellent infrastructure, including a large library and sports complex', 'On-campus hostel facilities are available', '​Lively atmosphere with various fests and clubs'],
-  cons: ['Average salary packages are moderate', 'Limited placements for core engineering branches', 'Some students have reported issues with college administration'],
-  whatsappLink: 'https://chat.whatsapp.com/FakeLinkForSCOE',
-  mentors: [
+    id: 'jspm',
+    name: 'JSPM',
+    fullName: 'Jayawant Shikshan Prasarak Mandal',
+    location: 'Pune',
+    established: 1999,
+    image: 'https://images.pexels.com/photos/3184312/pexels-photo-3184312.jpeg?w=800',
+    description: 'JSPM holds \'A\' grade accreditation from NAAC and approved by AICTE and UGC, with a strong emphasis on modern, industry-relevant curriculum design.',
+    highlights: ['\'A\' grade NAAC accreditation', 'Robust placement', 'Award-winning institute', 'Comprehensive academic offerings '],
+    pros: ['Autonomous ', 'NAAC Accredited and NBA-accredited programs', 'Recognized as a Nodal Center for Virtual Labs (IIT Bombay)', 'Strong industry collaborations', 'Active student clubs '],
+    cons: ['Strict attendance policies', 'Campus infrastructure is functional but not very impressive', 'Accessibility is limited'],
+    whatsappLink: 'https://chat.whatsapp.com/FakeLinkForJSPM',
+    mentors: [
+      {
+        id: '37',
+        name: 'Aditya Patel',
+        branch: 'Computer Engineering',
+        year: 'Second Year',
+        photo: aditya
+      },
+      {
+        id: '38',
+        name: 'Avdhoot Patankar',
+        branch: 'Computer Engineering',
+        year: 'Second Year',
+        photo: avdhoot
+      }
+    ]
+  },
+  {
+    id: 'scoe',
+    name: 'SCOE',
+    fullName: 'Sinhgad College of Engineering',
+    location: 'Pune',
+    established: 1996,
+    image: 'https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?w=800',
+    description: ' A well-known college under the Sinhgad Institutes umbrella, recognized for its large campus, a wide range of engineering programs.',
+    highlights: ['Extensive infrastructure', 'Decent placement record', 'Active campus with numerous clubs and events'],
+    pros: ['Excellent infrastructure, including a large library and sports complex', 'On-campus hostel facilities are available', '​Lively atmosphere with various fests and clubs'],
+    cons: ['Average salary packages are moderate', 'Limited placements for core engineering branches', 'Some students have reported issues with college administration'],
+    whatsappLink: 'https://chat.whatsapp.com/FakeLinkForSCOE',
+    mentors: [
       // {
       //   id: '39',
       //   name: 'Rohan Kulkarni',
@@ -531,58 +532,58 @@ export const colleges: College[] = [
       //   year: 'Second Year',
       //   photo: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=200'
       // }
-  ]
-},
-{
-  id: 'djsce',
-  name: 'DJ Sanghvi',
-  fullName: 'Dwarkadas J. Sanghvi College of Engineering',
-  location: 'Mumbai',
-  established: 1994,
-  image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
-  description: 'D. J. Sanghvi College of Engineering is a reputed private autonomous institute affiliated to the University of Mumbai and accredited by NAAC and NBA.',
-  highlights: ['\'A\' Grade by NAAC and DTE', 'Strong placement record', 'Active student chapters'],
-  pros: ['Excellent placements with a high salary package', 'Modern infrastructure with well-equipped labs', 'Highly qualified and experienced faculty', 'Vibrant committee culture with various clubs', 'Prime location in Mumbai'],
-  cons: ['Small campus with limited outdoor facilities', 'No on-campus hostel accommodation', 'Strict attendance policy in certain departments', 'Significant number of seats reserved for the Gujarati linguistic minority'],
-  whatsappLink: 'https://chat.whatsapp.com/FakeLinkForDJSanghvi',
-  mentors: [
-    // {
-    //   id: '41',
-    //   name: 'Aarav Mehta',
-    //   branch: 'Computer Engineering',
-    //   year: 'Third Year',
-    //   photo: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?w=200'
-    // },
-    // {
-    //   id: '42',
-    //   name: 'Riya Shah',
-    //   branch: 'Information Technology',
-    //   year: 'Second Year',
-    //   photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=200'
-    // }
-  ]
-},
+    ]
+  },
+  {
+    id: 'djsce',
+    name: 'DJ Sanghvi',
+    fullName: 'Dwarkadas J. Sanghvi College of Engineering',
+    location: 'Mumbai',
+    established: 1994,
+    image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
+    description: 'D. J. Sanghvi College of Engineering is a reputed private autonomous institute affiliated to the University of Mumbai and accredited by NAAC and NBA.',
+    highlights: ['\'A\' Grade by NAAC and DTE', 'Strong placement record', 'Active student chapters'],
+    pros: ['Excellent placements with a high salary package', 'Modern infrastructure with well-equipped labs', 'Highly qualified and experienced faculty', 'Vibrant committee culture with various clubs', 'Prime location in Mumbai'],
+    cons: ['Small campus with limited outdoor facilities', 'No on-campus hostel accommodation', 'Strict attendance policy in certain departments', 'Significant number of seats reserved for the Gujarati linguistic minority'],
+    whatsappLink: 'https://chat.whatsapp.com/FakeLinkForDJSanghvi',
+    mentors: [
+      // {
+      //   id: '41',
+      //   name: 'Aarav Mehta',
+      //   branch: 'Computer Engineering',
+      //   year: 'Third Year',
+      //   photo: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?w=200'
+      // },
+      // {
+      //   id: '42',
+      //   name: 'Riya Shah',
+      //   branch: 'Information Technology',
+      //   year: 'Second Year',
+      //   photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=200'
+      // }
+    ]
+  },
 
-{
-  id: 'aissms',
-  name: 'AISSMS',
-  fullName: 'All India Shri Shivaji Memorial Society',
-  location: 'Pune',
-  established: 1992,
-  image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
-  description: 'AISSMS College of Engineering is a prominent private engineering college affiliated with Savitribai Phule Pune University.',
-  highlights: ['\'A+\' Grade by NAAC', 'Well-equipped labs', 'Decent placements', 'Active student clubs'],
-  pros: ['Modern labs, good library', 'Experienced and knowledgeable teachers', 'Decent placement record', 'Active student clubs and a vibrant atmosphere'],
-  cons: ['Heavy academic schedule', 'Lack of proper guidance', 'Placement process can be "taxing" for students'],
-  whatsappLink: 'https://chat.whatsapp.com/FakeLinkForAISSMS',
-  mentors: [
-    
-  ]
-},
+  {
+    id: 'aissms',
+    name: 'AISSMS',
+    fullName: 'All India Shri Shivaji Memorial Society',
+    location: 'Pune',
+    established: 1992,
+    image: 'https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?w=800',
+    description: 'AISSMS College of Engineering is a prominent private engineering college affiliated with Savitribai Phule Pune University.',
+    highlights: ['\'A+\' Grade by NAAC', 'Well-equipped labs', 'Decent placements', 'Active student clubs'],
+    pros: ['Modern labs, good library', 'Experienced and knowledgeable teachers', 'Decent placement record', 'Active student clubs and a vibrant atmosphere'],
+    cons: ['Heavy academic schedule', 'Lack of proper guidance', 'Placement process can be "taxing" for students'],
+    whatsappLink: 'https://chat.whatsapp.com/FakeLinkForAISSMS',
+    mentors: [
 
-  
-  
-  
+    ]
+  },
+
+
+
+
 ];
 
 export const getCollegeByName = (collegeName: string): College | undefined => {

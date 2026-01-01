@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { Download, Lock, FileText, Star, Users, Loader2 } from 'lucide-react';
- 
-import list from '../assets/general/list.png'
-import list1 from '../files/top20.pdf'
-import list2 from '../files/clist.pdf'
- 
+import { useState } from 'react';
+import { Download, Lock, FileText, Star, Users } from 'lucide-react';
+import { useResources } from '../hooks/useResources';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorDisplay from '../components/ErrorDisplay';
+
+
+
 
 interface Resource {
   id: string;
@@ -22,88 +22,76 @@ interface Resource {
 }
 
 const ResourcesPage = () => {
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Fetch resources from API
+  const { resources, loading, error, refresh } = useResources();
   const [showModal, setShowModal] = useState(false);
-  // Load resources from backend
-  useEffect(() => {
-    const loadResources = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/resources');
-        const data = await response.json();
-        setResources(data);
-      } catch (error) {
-        console.error('Failed to load resources:', error);
-        // Fallback to static data
-        setResources([
-          {
-            id: '1',
-            title: 'College Preference List for CAP Rounds',
-            description: 'Expertly curated preference list for CAP rounds including top colleges from Mumbai, Pune, and Sangli. Built from seniors\' real experiences, placement insights, and college reviews to help students make the best choice.',
-            category: 'Admission Guidance',
-            isPremium: true,
-            price: 199,
-            downloads: '1K+',
-            rating: 4.9,
-            previewImage: list,
-            lastUpdated: '2025-08-10',
-            fileUrl: list2
-          },
-          {
-            id: '2',
-            title: 'Top 20 Engineering Colleges in Maharashtra',
-            description: 'Comprehensive list and analysis of the top 20 engineering colleges in Maharashtra, covering rankings, placements, infrastructure, and student reviews.',
-            category: 'College Rankings',
-            isPremium: false,
-            price: 0,
-            downloads: '2.4K+',
-            rating: 4.8,
-            previewImage: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
-            lastUpdated: '2025-07-15',
-            fileUrl: list1
-          }
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-    loadResources();
-  }, []);
+  // Loading state
+  if (loading) {
+    return <LoadingSpinner message="Loading resources..." />;
+  }
 
-  // Auth and payments removed
-  useEffect(() => {
-    // no-op
-  }, [resources]);
-
-  // Payments removed
+  // Error state
+  if (error) {
+    return <ErrorDisplay message={error} onRetry={refresh} />;
+  }
 
   const handleDownload = async (resource: Resource) => {
     if (resource.isPremium) {
       setShowModal(true);
       return;
     }
-    // Direct download for free resources
+
     try {
       if (resource.fileUrl) {
+        // Show loading state could be added here if we had a specific state for it
+        let downloadUrl = resource.fileUrl;
+
+        // For Cloudinary URLs, ensure we get the file content
+        // We do NOT add fl_attachment here because we are fetching the blob directly
+        // and we want the raw file content, not a "Content-Disposition" header wrapper
+        // which might conflict with fetch/blob creation in some cases.
+
+        const response = await fetch(downloadUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.href = resource.fileUrl;
-        link.download = resource.title + '.pdf';
+        link.href = url;
+
+        // Ensure accurate extension
+        let filename = resource.title;
+        if (!filename.toLowerCase().endsWith('.pdf')) {
+          filename += '.pdf'; // Default to PDF if not specified, or could extract from blob.type
+        }
+
+        link.setAttribute('download', filename);
         document.body.appendChild(link);
         link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
         document.body.removeChild(link);
       } else {
         setShowModal(true);
       }
     } catch (error) {
       console.error('Download failed:', error);
-      alert('Download failed. Please try again.');
+
+      // Fallback to simple link if fetch fails (e.g. due to CORS)
+      if (resource.fileUrl) {
+        window.open(resource.fileUrl, '_blank');
+      } else {
+        alert('Download failed. Please try again.');
+      }
     }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IN', { 
+    return date.toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'short',
       year: 'numeric'
@@ -111,22 +99,10 @@ const ResourcesPage = () => {
   };
 
   const categories = ['All', ...new Set(resources.map(r => r.category))];
-  const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredResources = selectedCategory === 'All' 
-    ? resources 
+  const filteredResources = selectedCategory === 'All'
+    ? resources
     : resources.filter(r => r.category === selectedCategory);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 text-orange-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading resources...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50 py-12">
@@ -136,7 +112,7 @@ const ResourcesPage = () => {
             Resource Hub
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Access curated guides, rankings, and insights to make informed decisions about your engineering career. 
+            Access curated guides, rankings, and insights to make informed decisions about your engineering career.
             All resources are created by our expert team and updated regularly.
           </p>
         </div>
@@ -147,11 +123,10 @@ const ResourcesPage = () => {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                selectedCategory === category
-                  ? 'bg-orange-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-orange-50 hover:text-orange-600 border border-gray-200'
-              }`}
+              className={`px-4 py-2 rounded-full font-medium transition-colors ${selectedCategory === category
+                ? 'bg-orange-600 text-white'
+                : 'bg-white text-gray-600 hover:bg-orange-50 hover:text-orange-600 border border-gray-200'
+                }`}
             >
               {category}
             </button>
@@ -180,16 +155,16 @@ const ResourcesPage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
                   {resource.title}
                 </h3>
-                
+
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                   {resource.description}
                 </p>
-                
+
                 {/* Stats */}
                 <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
                   <div className="flex items-center">
@@ -201,11 +176,11 @@ const ResourcesPage = () => {
                     <span>{resource.rating}</span>
                   </div>
                 </div>
-                
+
                 <div className="text-xs text-gray-500 mb-4">
                   Last updated: {formatDate(resource.lastUpdated)}
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div>
                     {resource.isPremium ? (
@@ -218,14 +193,13 @@ const ResourcesPage = () => {
                       </span>
                     )}
                   </div>
-                  
+
                   <button
                     onClick={() => handleDownload(resource)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-colors text-sm flex items-center ${
-                      resource.isPremium
-                        ? 'bg-orange-600 text-white hover:bg-orange-700'
-                        : 'bg-green-600 text-white hover:bg-green-700'
-                    }`}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors text-sm flex items-center ${resource.isPremium
+                      ? 'bg-orange-600 text-white hover:bg-orange-700'
+                      : 'bg-green-600 text-white hover:bg-green-700'
+                      }`}
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Download
