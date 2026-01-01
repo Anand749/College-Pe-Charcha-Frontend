@@ -36,7 +36,7 @@ function App() {
             <Route path="/predictor" element={<CollegePredictorPage />} />
             <Route path="/compare" element={<CollegeComparison />} />
             <Route path="/colleges" element={<CollegesPage />} />
-            <Route path="/colleges/:collegeName" element={<CollegeDetailPage />} />
+            <Route path="/colleges/:collegeName" element={<CollegeDetailPage />} />  //dynamic routing for college details
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/events" element={<EventsPage />} />
