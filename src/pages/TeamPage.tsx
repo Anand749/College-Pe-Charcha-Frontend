@@ -231,7 +231,6 @@ const TeamPage = () => {
 
   // Fetch team members from API
   const { teamMembers, loading, error, refresh } = useTeamMembers();
-<<<<<<< HEAD
 
   // Show loading state
   if (loading) {
@@ -284,56 +283,6 @@ const TeamPage = () => {
 
       return getPriority(a.role) - getPriority(b.role);
     });
-=======
-
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading team members...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Show error state
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-xl shadow-lg max-w-md">
-          <div className="text-red-500 mb-4">
-            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">Failed to load team members</h3>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button
-            onClick={refresh}
-            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Separate members into their respective sections
-  const coreTeam = teamMembers.filter(member =>
-    !member.role.includes('College Head') && !member.role.includes('College Mentor')
-  );
-
-  const collegeHeads = teamMembers.filter(member =>
-    member.role.includes('College Head')
-  );
-
-  const collegeMentors = teamMembers.filter(member =>
-    member.role.includes('College Mentor')
-  );
->>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 
 
   return (
@@ -362,16 +311,18 @@ const TeamPage = () => {
       <div className="max-w-7xl w-full mx-auto p-4 md:p-8">
 <<<<<<< HEAD
 
-        {/* Core Team */}
-        {coreTeam.length > 0 && (
-          <TeamShowcase
-            title="Core Team"
-            members={coreTeam}
-            accentColor="orange"
-            initialVisibleCount={4}
-            autoSlide={true}
-          />
-        )}
+  {/* Core Team */ }
+  {
+    coreTeam.length > 0 && (
+      <TeamShowcase
+        title="Core Team"
+        members={coreTeam}
+        accentColor="orange"
+        initialVisibleCount={4}
+        autoSlide={true}
+      />
+    )
+  }
 =======
 
         {/* Showcase 1: Core Team */}
@@ -401,23 +352,23 @@ const TeamPage = () => {
         />
 >>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 
-        {/* Join Our Team Section */}
-        <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
-          <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
-          <button
-            onClick={() => handleApplyNowClick()}
-            className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-          >
-            Apply Now
-          </button>
-          <AuthModal
-            isOpen={isAuthModalOpen}
-            onClose={() => setIsAuthModalOpen(false)}
-          />
-        </div>
-      </div>
-    </div>
+  {/* Join Our Team Section */ }
+  <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
+    <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
+    <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
+    <button
+      onClick={() => handleApplyNowClick()}
+      className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+    >
+      Apply Now
+    </button>
+    <AuthModal
+      isOpen={isAuthModalOpen}
+      onClose={() => setIsAuthModalOpen(false)}
+    />
+  </div>
+      </div >
+    </div >
   );
 };
 
