@@ -61,7 +61,11 @@ export interface BackendTeamMemberFull {
     name: string;
     college_name: string;
     year_academic: string;
+<<<<<<< HEAD
     Role: 'Founder' | 'Executive' | 'Core' | 'mentor' | 'collegeHead';
+=======
+    Role: 'Founder' | 'Core' | 'mentor' | 'collegeHead';
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
     branch: string;
     Tagline: string;
     LinkedinURL: string;

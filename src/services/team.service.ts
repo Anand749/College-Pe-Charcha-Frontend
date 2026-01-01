@@ -25,9 +25,12 @@ const transformTeamMemberData = (backendMember: BackendTeamMemberFull): TeamMemb
         case 'Founder':
             displayRole = 'Founder & Lead';
             break;
+<<<<<<< HEAD
         case 'Executive':
             displayRole = 'Executive Team Member';
             break;
+=======
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
         case 'Core':
             displayRole = 'Core Team Member';
             break;

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { MapPin, Calendar, Users, MessageCircle, CheckCircle, XCircle, GraduationCap, X, BookOpen } from 'lucide-react';
+=======
+import { MapPin, Calendar, Users, MessageCircle, Linkedin, Instagram, CheckCircle, XCircle, GraduationCap, X } from 'lucide-react';
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 import { getCollegeByName } from '../services/college.service';
 import { College } from '../data/colleges';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -176,6 +180,10 @@ const CollegeDetailPage = () => {
                       .slice(0, 4)
                       .map((mentor) => {
                         const isCollegeHead = mentor.branch === 'College Head' || mentor.branch.includes('College Head');
+<<<<<<< HEAD
+=======
+                        const showBranch = mentor.branch && mentor.branch !== 'Mentor' && mentor.branch !== 'College Head';
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 
                         return (
                           <div
@@ -203,6 +211,12 @@ const CollegeDetailPage = () => {
                                 </div>
                               </div>
 
+<<<<<<< HEAD
+=======
+                              {/* Name */}
+                              <h3 className="font-bold text-gray-900 text-base mb-1">{mentor.name}</h3>
+
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                               {/* Role Badge */}
                               <div className={`px-2.5 py-1 rounded-full text-xs font-semibold mb-2 ${isCollegeHead
                                 ? 'bg-orange-100 text-orange-700'
@@ -211,6 +225,7 @@ const CollegeDetailPage = () => {
                                 {isCollegeHead ? 'College Head' : 'Mentor'}
                               </div>
 
+<<<<<<< HEAD
                               {/* Department/Branch */}
                               {mentor.btranch && (
                                 <p className="text-gray-600 text-xs flex items-center justify-center whitespace-nowrap">
@@ -218,6 +233,34 @@ const CollegeDetailPage = () => {
                                   <span className="truncate">{mentor.btranch}</span>
                                 </p>
                               )}
+=======
+                              {/* Branch/Department */}
+                              {showBranch && (
+                                <p className="text-gray-600 text-xs mb-2 flex items-center justify-center">
+                                  <GraduationCap className="h-3 w-3 mr-1" />
+                                  {mentor.branch}
+                                </p>
+                              )}
+
+                              {/* Academic Year */}
+                              <p className="text-gray-500 text-xs mb-3 flex items-center justify-center">
+                                <Calendar className="h-3 w-3 mr-1" />
+                                {mentor.year}
+                              </p>
+
+                              {/* Connect Button */}
+                              {mentor.linkedin && (
+                                <a
+                                  href={mentor.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-lg transition-all w-full font-medium text-xs text-white bg-orange-600 hover:bg-orange-700 shadow-sm"
+                                >
+                                  <Linkedin className="h-3.5 w-3.5" />
+                                  <span>Connect on LinkedIn</span>
+                                </a>
+                              )}
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                             </div>
                           </div>
                         );
@@ -338,6 +381,10 @@ const CollegeDetailPage = () => {
                   })
                   .map((mentor) => {
                     const isCollegeHead = mentor.branch === 'College Head' || mentor.branch.includes('College Head');
+<<<<<<< HEAD
+=======
+                    const showBranch = mentor.branch && mentor.branch !== 'Mentor' && mentor.branch !== 'College Head';
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
 
                     return (
                       <div
@@ -351,6 +398,7 @@ const CollegeDetailPage = () => {
                             className={`w-14 h-14 rounded-xl object-cover flex-shrink-0 ${isCollegeHead ? 'ring-2 ring-orange-400' : ''}`}
                           />
                           <div className="flex-1 min-w-0">
+<<<<<<< HEAD
                             <p className={`text-xs font-medium ${isCollegeHead ? 'text-orange-600' : 'text-blue-600'}`}>
                               {isCollegeHead ? 'College Head' : 'Mentor'}
                             </p>
@@ -358,6 +406,28 @@ const CollegeDetailPage = () => {
                               <p className="text-xs text-gray-500">{mentor.btranch}</p>
                             )}
                           </div>
+=======
+                            <h3 className="font-semibold text-gray-900 text-sm truncate">{mentor.name}</h3>
+                            <p className={`text-xs font-medium ${isCollegeHead ? 'text-orange-600' : 'text-blue-600'}`}>
+                              {isCollegeHead ? 'College Head' : 'Mentor'}
+                            </p>
+                            {showBranch && (
+                              <p className="text-xs text-gray-500 truncate">{mentor.branch}</p>
+                            )}
+                            <p className="text-xs text-gray-400">{mentor.year}</p>
+                          </div>
+                          {mentor.linkedin && (
+                            <a
+                              href={mentor.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-shrink-0 p-2 rounded-lg bg-white hover:bg-blue-50 transition-colors border border-gray-200"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Linkedin className="h-4 w-4 text-blue-600" />
+                            </a>
+                          )}
+>>>>>>> 99426e45564adf0d3be20994f962f56ff560d11f
                         </div>
                       </div>
                     );
