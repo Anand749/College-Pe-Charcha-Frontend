@@ -282,18 +282,18 @@ const TeamPage = () => {
         </motion.p>
       </div>
       <div className="max-w-7xl w-full mx-auto p-4 md:p-8">
-  {/* Core Team */ }
-  {
-    coreTeam.length > 0 && (
-      <TeamShowcase
-        title="Core Team"
-        members={coreTeam}
-        accentColor="orange"
-        initialVisibleCount={4}
-        autoSlide={true}
-      />
-    )
-  }
+        {/* Core Team */}
+        {
+          coreTeam.length > 0 && (
+            <TeamShowcase
+              title="Core Team"
+              members={coreTeam}
+              accentColor="orange"
+              initialVisibleCount={4}
+              autoSlide={true}
+            />
+          )
+        }
         {/* Showcase 1: Core Team */}
         <TeamShowcase
           title="Core Team"
@@ -302,37 +302,22 @@ const TeamPage = () => {
           initialVisibleCount={4}
           autoSlide={true}
         />
-        {/* Showcase 2: College Heads */}
-        <TeamShowcase
-          title="College Heads"
-          members={collegeHeads}
-          accentColor="orange"
-          initialVisibleCount={4}
-          autoSlide={true}
-        />
-        {/*mentors*/}
-        <TeamShowcase
-          title="College Mentors"
-          members={collegeMentors}
-          accentColor="orange"
-          initialVisibleCount={4}
-          autoSlide={true}
-        />
-  {/* Join Our Team Section */ }
-  <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
-    <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
-    <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
-    <button
-      onClick={() => handleApplyNowClick()}
-      className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-    >
-      Apply Now
-    </button>
-    <AuthModal
-      isOpen={isAuthModalOpen}
-      onClose={() => setIsAuthModalOpen(false)}
-    />
-  </div>
+
+        {/* Join Our Team Section */}
+        <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Want to Join Our Team?</h2>
+          <p className="text-lg text-gray-600 mb-6">Be part of something extraordinary! We're looking for passionate individuals to join our community.</p>
+          <button
+            onClick={() => handleApplyNowClick()}
+            className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Apply Now
+          </button>
+          <AuthModal
+            isOpen={isAuthModalOpen}
+            onClose={() => setIsAuthModalOpen(false)}
+          />
+        </div>
       </div >
     </div >
   );
