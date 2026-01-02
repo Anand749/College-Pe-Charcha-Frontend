@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { X, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthModal } from '../../hooks/useAuthModal';
 import AuthModal from '../AuthModal';
 
 const NotificationBar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
 
   // ✅ Multiple messages here
@@ -24,7 +26,7 @@ const NotificationBar = () => {
       linkText: "Compare Now",
       requiresAuth: false,
     }
-     
+
   ];
 
   const currentInfo = recruitmentInfoList[currentIndex];
@@ -42,7 +44,7 @@ const NotificationBar = () => {
   return (
     <div className="bg-orange-600 text-white py-3 px-4 shadow-xl relative z-40 overflow-hidden border-b-2 border-orange-700">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        
+
         {/* LIVE Indicator */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <div className="relative flex h-3 w-3">
@@ -75,7 +77,7 @@ const NotificationBar = () => {
               if (currentInfo.requiresAuth) {
                 handleApplyNowClick(currentInfo.link);
               } else {
-                window.location.href = currentInfo.link;
+                navigate(currentInfo.link);
               }
             }}
             className="group bg-white text-orange-700 px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-orange-100 hover:scale-105 transition-all duration-300 transform shadow-lg flex items-center gap-2"
