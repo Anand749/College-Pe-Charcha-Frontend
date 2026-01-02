@@ -153,11 +153,39 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount, autoSl
                 <p className="text-xl font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
                 <p className="text-gray-700 leading-relaxed text-lg">{selectedMember.bio}</p>
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <p className="text-sm font-semibold text-gray-500 mb-4">Connect:</p>
-                  <div className="flex space-x-6">
-                    {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={24} /><span>LinkedIn</span></a>}
-                    {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={24} /><span>Instagram</span></a>}
-                    {selectedMember.email && <a href={`mailto:${selectedMember.email}`} className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"><Mail size={24} /><span>Email</span></a>}
+                  <p className="text-sm font-semibold text-gray-500 mb-4">Connect On:</p>
+                  <div className="flex flex-wrap gap-4">
+                    {selectedMember.linkedin && (
+                      <a
+                        href={selectedMember.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                      >
+                        <Linkedin size={20} />
+                        <span className="font-medium">LinkedIn</span>
+                      </a>
+                    )}
+                    {selectedMember.instagram && (
+                      <a
+                        href={selectedMember.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                      >
+                        <Instagram size={20} />
+                        <span className="font-medium">Instagram</span>
+                      </a>
+                    )}
+                    {selectedMember.email && (
+                      <a
+                        href={`mailto:${selectedMember.email}`}
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                      >
+                        <Mail size={20} />
+                        <span className="font-medium">Email</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -244,21 +272,22 @@ const TeamPage = () => {
       </div>
     );
   }
-  // Only show Core Team members, sorted by priority
+  // Only show Core Team members (Founders + Core), sorted by priority
   const coreTeam = teamMembers
     .filter(member =>
-      member.role.includes('Core Team Member') || member.role.includes('Founder') || member.role.includes('Executive')
+      member.role.includes('Core Team Member') || member.role.includes('Founder')
     )
     .sort((a, b) => {
-      // Define priority order: Founder (1), Core (2), Executive (3)
+      // Define priority order: Founder (1), Core (2)
       const getPriority = (role: string) => {
         if (role.includes('Founder')) return 1;
         if (role.includes('Core Team Member')) return 2;
-        if (role.includes('Executive')) return 3;
-        return 4;
+        return 3;
       };
       return getPriority(a.role) - getPriority(b.role);
     });
+
+  const executiveTeam = teamMembers.filter(member => member.role.includes('Executive'));
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       <div className="text-center py-12">
@@ -294,14 +323,18 @@ const TeamPage = () => {
             />
           )
         }
-        {/* Showcase 1: Core Team */}
-        <TeamShowcase
-          title="Core Team"
-          members={coreTeam}
-          accentColor="orange"
-          initialVisibleCount={4}
-          autoSlide={true}
-        />
+        {/* Executive Team */}
+        {
+          executiveTeam.length > 0 && (
+            <TeamShowcase
+              title="Executive Team"
+              members={executiveTeam}
+              accentColor="orange"
+              initialVisibleCount={4}
+              autoSlide={true}
+            />
+          )
+        }
 
         {/* Join Our Team Section */}
         <div className="mt-16 text-center bg-gradient-to-r from-orange-100 via-orange-50 to-orange-100 rounded-lg p-8 shadow-lg">
