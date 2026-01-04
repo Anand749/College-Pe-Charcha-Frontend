@@ -26,17 +26,11 @@ const transformCollegeData = (backendCollege: BackendCollege, mentors: Mentor[] 
  * Transform backend team member to frontend Mentor interface
  */
 const transformMentorData = (backendMember: BackendTeamMemberFull): Mentor => {
-    // Determine display role for badge
-    let displayRole = 'Mentor';
-    if (backendMember.Role === 'collegeHead') {
-        displayRole = 'College Head';
-    }
-
     return {
         id: backendMember._id,
         name: backendMember.name,
-        branch: displayRole, // Role for UI badges
-        btranch: backendMember.branch || undefined, // Department/Branch from backend
+        branch: backendMember.branch || backendMember.Role || 'N/A', // Department/Branch from backend
+        btranch: backendMember.Role, // Store role (mentor/collegeHead) in btranch for display logic
         year: backendMember.year_academic || 'Contact for details',
         photo: backendMember.photo || 'https://via.placeholder.com/150',
         linkedin: backendMember.LinkedinURL,

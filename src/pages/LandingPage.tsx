@@ -79,7 +79,7 @@ const LandingPage = () => {
           minHeight: '100vh',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-start pt-32" style={{ minHeight: '100vh' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center" style={{ minHeight: '100vh' }}>
           <div className="text-left max-w-2xl">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -143,37 +143,40 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 to-orange-100">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Students Say</h2>
-            <p className="text-xl text-gray-600">Real experiences from students who found their path</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Success Stories from Students Like You</h2>
+            <p className="text-xl text-gray-600">Join thousands of students who found their dream colleges with our guidance</p>
           </motion.div>
           <div className="relative max-w-4xl mx-auto">
-            <motion.div
-              key={currentTestimonial}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="bg-white rounded-3xl shadow-2xl p-12 text-center border border-orange-100"
-            >
-              <div className="flex justify-center mb-6">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (<Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />))}
-              </div>
-              <p className="text-xl text-gray-700 mb-6 italic leading-relaxed">"{testimonials[currentTestimonial].text}"</p>
-              <div className="font-semibold text-gray-900 text-lg">{testimonials[currentTestimonial].name}</div>
-              <div className="text-orange-600 font-medium">{testimonials[currentTestimonial].college}</div>
-            </motion.div>
-            <button onClick={prevTestimonial} className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-all duration-300"><ChevronLeft className="h-6 w-6 text-gray-600" /></button>
-            <button onClick={nextTestimonial} className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-all duration-300"><ChevronRight className="h-6 w-6 text-gray-600" /></button>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-2xl p-12 text-center border-2 border-orange-100"
+              >
+                <div className="flex justify-center mb-6">
+                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (<Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />))}
+                </div>
+                <p className="text-xl md:text-2xl text-gray-800 mb-8 italic leading-relaxed font-medium">"{testimonials[currentTestimonial].text}"</p>
+                <div className="font-bold text-gray-900 text-xl mb-1">{testimonials[currentTestimonial].name}</div>
+                <div className="text-orange-600 font-semibold text-lg">{testimonials[currentTestimonial].college}</div>
+              </motion.div>
+            </AnimatePresence>
+            <button onClick={prevTestimonial} className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-white rounded-full p-4 shadow-xl hover:shadow-2xl hover:bg-orange-50 transition-all duration-300 border-2 border-orange-200"><ChevronLeft className="h-6 w-6 text-orange-600" /></button>
+            <button onClick={nextTestimonial} className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 bg-white rounded-full p-4 shadow-xl hover:shadow-2xl hover:bg-orange-50 transition-all duration-300 border-2 border-orange-200"><ChevronRight className="h-6 w-6 text-orange-600" /></button>
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-orange-600 to-orange-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

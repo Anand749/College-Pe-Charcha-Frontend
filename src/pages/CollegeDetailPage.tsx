@@ -154,13 +154,13 @@ const CollegeDetailPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {[...college.mentors]
                       .sort((a, b) => {
-                        const aIsHead = a.branch.includes('College Head');
-                        const bIsHead = b.branch.includes('College Head');
+                        const aIsHead = a.btranch === 'collegeHead';
+                        const bIsHead = b.btranch === 'collegeHead';
                         return aIsHead === bIsHead ? 0 : aIsHead ? -1 : 1;
                       })
                       .slice(0, 4)
                       .map((mentor) => {
-                        const isCollegeHead = mentor.branch.includes('College Head');
+                        const isCollegeHead = mentor.btranch === 'collegeHead';
                         return (
                           <div
                             key={mentor.id}
@@ -174,14 +174,12 @@ const CollegeDetailPage = () => {
                                   {isCollegeHead ? <GraduationCap className="h-4 w-4" /> : <Users className="h-3 w-3" />}
                                 </div>
                               </div>
-                              <h3 className="font-bold text-gray-900 text-base mb-1">{mentor.name}</h3>
                               <div className={`px-2.5 py-1 rounded-full text-xs font-semibold mb-2 ${isCollegeHead ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>
                                 {isCollegeHead ? 'College Head' : 'Mentor'}
                               </div>
-                              <p className="text-gray-600 text-xs truncate flex items-center justify-center">
-                                <BookOpen className="h-3 w-3 mr-1" /> {mentor.branch}
+                              <p className="text-gray-700 text-sm font-medium flex items-center justify-center">
+                                <BookOpen className="h-3 w-3 mr-1 flex-shrink-0" /> <span className="truncate">{mentor.branch}</span>
                               </p>
-                              <p className="text-gray-500 text-xs mt-1">{mentor.year}</p>
                             </div>
                           </div>
                         );
@@ -241,21 +239,20 @@ const CollegeDetailPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[...college.mentors]
                   .sort((a, b) => {
-                    const aIsHead = a.branch.includes('College Head');
-                    const bIsHead = b.branch.includes('College Head');
+                    const aIsHead = a.btranch === 'collegeHead';
+                    const bIsHead = b.btranch === 'collegeHead';
                     return aIsHead === bIsHead ? 0 : aIsHead ? -1 : 1;
                   })
                   .map((m) => {
-                    const isHead = m.branch.includes('College Head');
+                    const isHead = m.btranch === 'collegeHead';
                     return (
                       <div key={m.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200 flex items-center space-x-4">
                         <img src={m.photo} alt={m.name} className={`w-14 h-14 rounded-xl object-cover ${isHead ? 'ring-2 ring-orange-400' : ''}`} />
                         <div className="min-w-0">
-                          <h3 className="font-semibold text-gray-900 truncate text-sm">{m.name}</h3>
                           <p className={`text-xs font-bold ${isHead ? 'text-orange-600' : 'text-blue-600'}`}>
                             {isHead ? 'College Head' : 'Mentor'}
                           </p>
-                          <p className="text-xs text-gray-500 truncate">{m.branch}</p>
+                          <h3 className="font-semibold text-gray-900 truncate text-sm">{m.branch}</h3>
                         </div>
                       </div>
                     );
