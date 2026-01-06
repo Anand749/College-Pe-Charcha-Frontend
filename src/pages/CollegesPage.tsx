@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Calendar, ArrowRight, Search, Filter, Building, GraduationCap, Sparkles, TrendingUp, Grid, List, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { useColleges } from '../hooks/useColleges';
-import { CollegesPageSkeleton } from '../components/SkeletonLoaders';
+import { CollegesPageSkeleton } from '../components/SkeletonLoaders.tsx';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 const CollegesPage: React.FC = () => {

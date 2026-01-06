@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Download, Lock, FileText, Star, Users } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
-import { ResourcesPageSkeleton } from '../components/SkeletonLoaders';
+import { ResourcesPageSkeleton } from '../components/SkeletonLoaders.tsx';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 

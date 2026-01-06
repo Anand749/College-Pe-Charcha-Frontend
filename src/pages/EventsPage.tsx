@@ -3,7 +3,7 @@ import { Calendar, Clock, Users, ExternalLink, MapPin } from 'lucide-react';
 import Barclays from '../assets/Barclays_1.png';
 import { Link } from 'react-router-dom';
 import { useEvents } from '../hooks/useEvents';
-import { EventsPageSkeleton } from '../components/SkeletonLoaders';
+import { EventsPageSkeleton } from '../components/SkeletonLoaders.tsx';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 interface Event {

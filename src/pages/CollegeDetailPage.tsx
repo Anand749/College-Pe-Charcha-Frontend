@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Calendar, Users, MessageCircle, CheckCircle, XCircle, GraduationCap, X, BookOpen } from 'lucide-react';
+import { MapPin, Calendar, Users, MessageCircle, CheckCircle, XCircle, GraduationCap, X, BookOpen, Award } from 'lucide-react';
 import { getCollegeByName } from '../services/college.service';
 import { College } from '../data/colleges';
-import { CollegeDetailSkeleton } from '../components/SkeletonLoaders';
+import { CollegeDetailSkeleton } from '../components/SkeletonLoaders.tsx';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 const CollegeDetailPage = () => {
@@ -84,74 +84,80 @@ const CollegeDetailPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">About {college.name}</h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">{college.description}</p>
-              <div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Key Highlights</h3>
-                <div className="grid grid-cols-1 gap-2 sm:gap-3">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+            {/* About Section - Professional Clean Design */}
+            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 sm:p-8 border border-gray-100">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">About {college.name}</h2>
+              <p className="text-base text-gray-700 leading-relaxed mb-6">{college.description}</p>
+
+              <div className="mt-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Key Highlights</h3>
+                <div className="grid grid-cols-2 gap-3">
                   {college.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-start text-gray-700">
-                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm sm:text-base">{highlight}</span>
+                    <div key={index} className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                      <span className="text-sm text-gray-800">{highlight}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:gap-6">
-              <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
-                  <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 mr-2" />
+            {/* Pros and Cons - Side by Side Professional Layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Pros Card */}
+              <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <CheckCircle className="h-6 w-6 text-green-600 mr-2" />
                   Pros
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {college.pros.map((pro, index) => (
-                    <li key={index} className="text-sm sm:text-base text-gray-700 flex items-start">
-                      <span className="text-green-600 mr-2 flex-shrink-0">•</span>
-                      <span>{pro}</span>
+                    <li key={index} className="flex items-start text-gray-700">
+                      <span className="text-green-600 mr-2 flex-shrink-0 font-bold">✓</span>
+                      <span className="text-sm">{pro}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
-                  <XCircle className="h-5 w-5 sm:h-6 sm:w-6 text-red-600 mr-2" />
+
+              {/* Cons Card */}
+              <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <XCircle className="h-6 w-6 text-red-600 mr-2" />
                   Cons
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {college.cons.map((con, index) => (
-                    <li key={index} className="text-sm sm:text-base text-gray-700 flex items-start">
-                      <span className="text-red-600 mr-2 flex-shrink-0">•</span>
-                      <span>{con}</span>
+                    <li key={index} className="flex items-start text-gray-700">
+                      <span className="text-red-600 mr-2 flex-shrink-0 font-bold">✕</span>
+                      <span className="text-sm">{con}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
-            {/* Mentors Preview Section - Mobile Optimized */}
-            <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+            {/* Mentors Section - Professional */}
+            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 sm:p-8 border border-gray-100">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
                 <div className="flex-1">
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex items-center">
-                    <Users className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 text-orange-600" />
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                    <Users className="h-6 w-6 text-orange-600 mr-2" />
                     Connect With Our Team
                   </h2>
-                  <p className="text-gray-600 text-xs sm:text-sm mt-1">Get guidance from college heads and mentors</p>
+                  <p className="text-gray-600 text-sm mt-1">Get guidance from college heads and mentors</p>
                 </div>
-                <div className="bg-orange-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-md whitespace-nowrap">
+                <div className="bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm">
                   {college.mentors.length} Available
                 </div>
               </div>
 
               {college.mentors.length > 0 ? (
                 <div className="space-y-6">
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[...college.mentors]
                       .sort((a, b) => {
                         const aIsHead = a.btranch === 'collegeHead';
@@ -164,21 +170,30 @@ const CollegeDetailPage = () => {
                         return (
                           <div
                             key={mentor.id}
-                            className={`rounded-xl p-3 sm:p-4 md:p-5 border-2 transition-all duration-300 hover:shadow-lg active:scale-95 ${isCollegeHead ? 'bg-orange-50 border-orange-400' : 'bg-white border-gray-200'
+                            className={`rounded-xl p-4 border-2 transition-all hover:shadow-md ${isCollegeHead
+                              ? 'bg-orange-50 border-orange-300'
+                              : 'bg-blue-50 border-blue-300'
                               }`}
                           >
                             <div className="flex flex-col items-center text-center">
-                              <div className="relative mb-2 sm:mb-3">
-                                <img src={mentor.photo} alt={mentor.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover ring-2 ring-gray-200" />
-                                <div className={`absolute -bottom-1 -right-1 rounded-full p-1 sm:p-1.5 ${isCollegeHead ? 'bg-orange-600' : 'bg-blue-600'} text-white`}>
-                                  {isCollegeHead ? <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4" /> : <Users className="h-2 w-2 sm:h-3 sm:w-3" />}
+                              <div className="relative mb-3">
+                                <img
+                                  src={mentor.photo}
+                                  alt={mentor.name}
+                                  className="w-20 h-20 rounded-full object-cover ring-2 ring-white shadow-md"
+                                />
+                                <div className={`absolute -bottom-1 -right-1 rounded-full p-1.5 shadow-md ${isCollegeHead ? 'bg-orange-600' : 'bg-blue-600'
+                                  } text-white`}>
+                                  {isCollegeHead ? <GraduationCap className="h-3 w-3" /> : <Users className="h-2.5 w-2.5" />}
                                 </div>
                               </div>
-                              <div className={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-1 sm:mb-2 ${isCollegeHead ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>
+                              <div className={`px-2.5 py-1 rounded-full text-xs font-semibold mb-2 ${isCollegeHead ? 'bg-orange-600 text-white' : 'bg-blue-600 text-white'
+                                }`}>
                                 {isCollegeHead ? 'College Head' : 'Mentor'}
                               </div>
-                              <p className="text-gray-700 text-xs sm:text-sm font-medium flex items-center justify-center w-full">
-                                <BookOpen className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-1 flex-shrink-0" /> <span className="truncate">{mentor.branch}</span>
+                              <p className="text-gray-800 text-xs font-medium flex items-center justify-center w-full">
+                                <BookOpen className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">{mentor.branch}</span>
                               </p>
                             </div>
                           </div>
@@ -186,36 +201,68 @@ const CollegeDetailPage = () => {
                       })}
                   </div>
                   {college.mentors.length > 4 && (
-                    <div className="text-center pt-2 sm:pt-3">
-                      <button onClick={() => setShowAllMentors(true)} className="touch-target bg-orange-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold hover:bg-orange-700 active:scale-95 transition-all">
+                    <div className="text-center">
+                      <button
+                        onClick={() => setShowAllMentors(true)}
+                        className="bg-orange-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-orange-700 transition-colors shadow-sm"
+                      >
                         View All {college.mentors.length} Mentors
                       </button>
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="text-center py-16 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-                  <Users className="h-16 w-16 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-700 font-semibold">No mentors available yet</p>
+                <div className="text-center py-12 bg-gray-50 rounded-lg">
+                  <Users className="h-12 w-12 text-gray-300 mx-auto mb-2" />
+                  <p className="text-gray-600 font-medium">No mentors available yet</p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-4 sm:space-y-6">
-            <div className="bg-gradient-to-br from-orange-600 to-orange-700 text-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
-              <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Talk With Seniors</h3>
-              <p className="mb-4 sm:mb-6 text-sm sm:text-base text-orange-100">Connect with current students for authentic insights.</p>
-              <a href={college.whatsappLink} target="_blank" rel="noopener noreferrer" className="touch-target bg-white text-orange-600 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold flex items-center justify-center w-full hover:bg-orange-50 active:scale-95 transition-all">
-                <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" /> Join WhatsApp Group
+          {/* Sidebar - Professional */}
+          <div className="space-y-6">
+            {/* WhatsApp Card */}
+            <div className="bg-gradient-to-br from-orange-600 to-orange-700 text-white rounded-xl shadow-md p-6">
+              <h3 className="text-xl font-bold mb-3 flex items-center">
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Talk With Seniors
+              </h3>
+              <p className="mb-5 text-orange-100 text-sm">
+                Connect with current students for authentic insights.
+              </p>
+              <a
+                href={college.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-orange-600 px-5 py-2.5 rounded-lg font-semibold flex items-center justify-center hover:bg-orange-50 transition-colors shadow-sm"
+              >
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Join WhatsApp Group
               </a>
             </div>
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Quick Stats</h3>
+
+            {/* Quick Stats Card */}
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+              <h3 className="text-lg font-bold mb-4 flex items-center text-gray-900">
+                <Award className="h-5 w-5 text-orange-600 mr-2" />
+                Quick Stats
+              </h3>
               <div className="space-y-3">
-                <div className="flex justify-between"><span className="text-gray-600">Location</span><span className="font-medium">{college.location}</span></div>
-                <div className="flex justify-between"><span className="text-gray-600">Established</span><span className="font-medium">{college.established}</span></div>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="text-gray-700 font-medium text-sm flex items-center">
+                    <MapPin className="h-4 w-4 mr-2 text-orange-600" />
+                    Location
+                  </span>
+                  <span className="font-semibold text-gray-900">{college.location}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="text-gray-700 font-medium text-sm flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-orange-600" />
+                    Established
+                  </span>
+                  <span className="font-semibold text-gray-900">{college.established}</span>
+                </div>
               </div>
             </div>
           </div>
