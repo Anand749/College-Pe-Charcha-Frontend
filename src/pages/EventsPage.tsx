@@ -3,7 +3,7 @@ import { Calendar, Clock, Users, ExternalLink, MapPin } from 'lucide-react';
 import Barclays from '../assets/Barclays_1.png';
 import { Link } from 'react-router-dom';
 import { useEvents } from '../hooks/useEvents';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { EventsPageSkeleton } from '../components/SkeletonLoaders';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 interface Event {
@@ -26,9 +26,9 @@ const EventsPage = () => {
   // Fetch events from API
   const { events, loading, error, refresh } = useEvents();
 
-  // Loading state
+  // Loading state - show skeleton instead of blank page
   if (loading) {
-    return <LoadingSpinner message="Loading events..." />;
+    return <EventsPageSkeleton />;
   }
 
   // Error state
@@ -67,8 +67,8 @@ const EventsPage = () => {
             <button
               onClick={() => setActiveTab('upcoming')}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${activeTab === 'upcoming'
-                  ? 'bg-orange-600 text-white'
-                  : 'text-gray-600 hover:text-orange-600'
+                ? 'bg-orange-600 text-white'
+                : 'text-gray-600 hover:text-orange-600'
                 }`}
             >
               Upcoming Events ({upcomingEvents.length})
@@ -76,8 +76,8 @@ const EventsPage = () => {
             <button
               onClick={() => setActiveTab('past')}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${activeTab === 'past'
-                  ? 'bg-orange-600 text-white'
-                  : 'text-gray-600 hover:text-orange-600'
+                ? 'bg-orange-600 text-white'
+                : 'text-gray-600 hover:text-orange-600'
                 }`}
             >
               Past Events ({pastEvents.length})
@@ -97,8 +97,8 @@ const EventsPage = () => {
                 />
                 <div className="absolute top-4 right-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${event.type === 'Expert Session' ? 'bg-orange-100 text-orange-800' :
-                      event.type === 'Workshop' ? 'bg-blue-100 text-blue-800' :
-                        'bg-green-100 text-green-800'
+                    event.type === 'Workshop' ? 'bg-blue-100 text-blue-800' :
+                      'bg-green-100 text-green-800'
                     }`}>
                     {event.type}
                   </span>
@@ -144,8 +144,8 @@ const EventsPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors ${event.isUpcoming
-                      ? 'bg-orange-600 text-white hover:bg-orange-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-orange-600 text-white hover:bg-orange-700'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                 >
                   {event.isUpcoming ? 'Register Now' : 'View Details'}

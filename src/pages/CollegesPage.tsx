@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Calendar, ArrowRight, Search, Filter, Building, GraduationCap, Sparkles, TrendingUp, Grid, List, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { useColleges } from '../hooks/useColleges';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { CollegesPageSkeleton } from '../components/SkeletonLoaders';
 import ErrorDisplay from '../components/ErrorDisplay';
 
 const CollegesPage: React.FC = () => {
@@ -99,8 +99,8 @@ const CollegesPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-50 min-h-screen">
-      {/* Loading State */}
-      {loading && <LoadingSpinner message="Loading colleges..." />}
+      {/* Loading State - Show skeleton instead of blank page */}
+      {loading && <CollegesPageSkeleton />}
 
       {/* Error State */}
       {error && !loading && <ErrorDisplay message={error} onRetry={refresh} />}
