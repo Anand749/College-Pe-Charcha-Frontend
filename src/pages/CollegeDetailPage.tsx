@@ -146,7 +146,7 @@ const CollegeDetailPage = () => {
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-gray-900 flex items-center">
                     <Users className="h-6 w-6 text-orange-600 mr-2" />
-                    Connect With Our Team
+                    Meet Our Team
                   </h2>
                   <p className="text-gray-600 text-sm mt-1">Get guidance from college heads and mentors</p>
                 </div>
