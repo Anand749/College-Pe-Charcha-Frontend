@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-import CAP01 from '../data/CAP_01_2024.json';
-import CAP02 from '../data/CAP_02_2024.json';
-import CAP03 from '../data/CAP_03_2024.json';
-import AI_CAP1 from '../data/AI_CAP1.json';
-import AI_CAP2 from '../data/AI_CAP2.json';
-import AI_CAP3 from '../data/AI_CAP3.json';
+// import CAP01 from '../data/CAP_01_2024.json';
+// import CAP02 from '../data/CAP_02_2024.json';
+// import CAP03 from '../data/CAP_03_2024.json';
+// import AI_CAP1 from '../data/AI_CAP1.json';
+// import AI_CAP2 from '../data/AI_CAP2.json';
+// import AI_CAP3 from '../data/AI_CAP3.json';
+
+
+import CAP01 from '../Data for College Predictor/cap1_2025_formatted.json';
+import CAP02 from '../Data for College Predictor/cap2_2025_formatted.json';
+import CAP03 from '../Data for College Predictor/cap3_2025_formatted.json';
+import CAP04 from '../Data for College Predictor/cap4_2025_formatted.json';
+import AI_CAP1 from '../Data for College Predictor/AI_CAP1_25-26.json';
+import AI_CAP2 from '../Data for College Predictor/AI_CAP2_25-26.json';
+import AI_CAP3 from '../Data for College Predictor/AI_CAP3_25-26.json';
+import AI_CAP4 from '../Data for College Predictor/AI_CAP4_25-26.json';
+
+
 
 import {
   GraduationCap,
@@ -66,7 +78,7 @@ type PreferenceItem = {
 
 function PercentileDisplay() {
   const [availableBranches, setAvailableBranches] = useState<string[]>([]);
-  const [capRound, setCapRound] = useState<string>('01');
+  const [capRound, setCapRound] = useState<string>('1');
   const [examType, setExamType] = useState<string>('MHT-CET');
   const [filterType, setFilterType] = useState<string>('percentile');
 
@@ -106,13 +118,15 @@ function PercentileDisplay() {
   useEffect(() => {
     let data;
     if (examType === "MHT-CET") {
-      if (capRound === "01") data = CAP01;
-      else if (capRound === "02") data = CAP02;
-      else data = CAP03;
+      if (capRound === "1") data = CAP01;
+      else if (capRound === "2") data = CAP02;
+      else if (capRound === "3") data = CAP03;
+      else data = CAP04;
     } else {
-      if (capRound === "01") data = AI_CAP1;
-      else if (capRound === "02") data = AI_CAP2;
-      else data = AI_CAP3;
+      if (capRound === "1") data = AI_CAP1;
+      else if (capRound === "2") data = AI_CAP2;
+      else if (capRound === "3") data = AI_CAP3;
+      else data = AI_CAP4;
     }
 
     const branchesSet = new Set();
@@ -248,9 +262,9 @@ function PercentileDisplay() {
 
       let data;
       if (examType === "MHT-CET") {
-        if (capRound === "01") data = CAP01; else if (capRound === "02") data = CAP02; else data = CAP03;
+        if (capRound === "1") data = CAP01; else if (capRound === "2") data = CAP02; else if (capRound === "3") data = CAP03; else data = CAP04;
       } else {
-        if (capRound === "01") data = AI_CAP1; else if (capRound === "02") data = AI_CAP2; else data = AI_CAP3;
+        if (capRound === "1") data = AI_CAP1; else if (capRound === "2") data = AI_CAP2; else if (capRound === "3") data = AI_CAP3; else data = AI_CAP4;
       }
 
       let results = []; // This will be the college-grouped list
@@ -590,12 +604,12 @@ function PercentileDisplay() {
 
                 <div className="space-y-2 sm:space-y-3">
                   <label className="block text-sm font-medium transition-colors duration-300 text-gray-700">CAP Round</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {["01", "02", "03"].map((round) => (
+                  <div className="grid grid-cols-4 gap-2">
+                    {["1", "2", "3", "4"].map((round) => (
                       <label key={round} className="relative">
                         <input type="radio" name="capRound" value={round} checked={capRound === round} onChange={() => setCapRound(round)} className="peer sr-only" />
                         <div className="px-2 sm:px-3 py-1.5 sm:py-2 border rounded-lg text-center cursor-pointer transition-all peer-checked:bg-[#f68014] peer-checked:text-white peer-checked:border-[#f68014] bg-gray-100 border-orange-200 hover:border-orange-300">
-                          <span className="text-xs sm:text-sm font-medium">CAP_{round}</span>
+                          <span className="text-xs sm:text-sm font-medium">{round}</span>
                         </div>
                       </label>
                     ))}
