@@ -41,12 +41,14 @@ import {
  
 
 // Import CAP data files
-import CAP01 from '../data/CAP_01_2024.json';
-import CAP02 from '../data/CAP_02_2024.json';
-import CAP03 from '../data/CAP_03_2024.json';
-import AI_CAP1 from '../data/AI_CAP1.json';
-import AI_CAP2 from '../data/AI_CAP2.json';
-import AI_CAP3 from '../data/AI_CAP3.json';
+import CAP01 from '../Data for College Predictor/cap1_2025_formatted.json';
+import CAP02 from '../Data for College Predictor/cap2_2025_formatted.json';
+import CAP03 from '../Data for College Predictor/cap3_2025_formatted.json';
+import CAP04 from '../Data for College Predictor/cap4_2025_formatted.json';
+import AI_CAP1 from '../Data for College Predictor/AI_CAP1_25-26.json';
+import AI_CAP2 from '../Data for College Predictor/AI_CAP2_25-26.json';
+import AI_CAP3 from '../Data for College Predictor/AI_CAP3_25-26.json';
+import AI_CAP4 from '../Data for College Predictor/AI_CAP4_25-26.json';
 
 // Register Chart.js components
 ChartJS.register(
