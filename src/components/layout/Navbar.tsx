@@ -22,9 +22,7 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    // { name: 'College Predictor', path: '/predictor' },
-    { name: 'Compare-Colleges', path: '/compare' },
-    { name: 'College-Predictor', path: '/predictor' },
+    { name: 'CAP Round Tools', path: 'https://techzdada.in', external: true },
     { name: 'Resources', path: '/resources' },
     { name: 'Events', path: '/events' },
     { name: 'Colleges', path: '/colleges' },
@@ -49,16 +47,29 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-center overflow-hidden">
             <div className="flex items-center space-x-1 overflow-hidden min-w-0">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 relative group whitespace-nowrap"
-                >
-                  {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-              ))}
+              {navLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 relative group whitespace-nowrap"
+                  >
+                    {link.name}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 relative group whitespace-nowrap"
+                  >
+                    {link.name}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                )
+              )}
               {specialLinks.map((link) => (
                 <button
                   key={link.name}
@@ -150,16 +161,29 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 backdrop-blur-md border-t border-orange-100 shadow-lg">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 hover:scale-105"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 hover:scale-105"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 hover:scale-105"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
             {specialLinks.map((link) => (
               <button
                 key={link.name}
