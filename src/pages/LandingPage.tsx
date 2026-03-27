@@ -5,7 +5,7 @@ import { useAuthModal } from '../hooks/useAuthModal';
 import AuthModal from '../components/AuthModal';
 import { ArrowRight, Users, BookOpen, Calendar, Star, ChevronLeft, ChevronRight, Sparkles, TrendingUp, Award, X } from 'lucide-react';
 import teamPhoto1 from '../assets/team-photo-3.jpg';
-import { useNavigate } from 'react-router-dom';
+
 import NotificationBar from '../components/layout/NotificationBar';
 
 
@@ -14,7 +14,7 @@ const LandingPage = () => {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [showCorePopup, setShowCorePopup] = useState(false);
   const { isAuthModalOpen, setIsAuthModalOpen, handleApplyNowClick } = useAuthModal();
-  const navigate = useNavigate();
+
 
   const testimonials = [
     { id: 1, name: "Riya Paunikar", college: "Cummins Pune", rating: 5, text: "Team CPC not only helped me choose the right college and branch, they ran skill-building sessions with seniors who had already got placed — that guidance made a huge difference." },
@@ -260,7 +260,7 @@ const LandingPage = () => {
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
                   <Users className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">College Predictor and Comparison</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">College Predictor and Cutoff Analyzer</h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6">
                   Find your best-fit college using real cutoff data.
                 </p>
@@ -288,21 +288,20 @@ const LandingPage = () => {
                   <button
                     onClick={() => {
                       setShowCorePopup(false);
-                      navigate('/predictor');
-
+                      window.open('https://www.techzdada.in/college-predictor', '_blank');
                     }}
                     className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 active:scale-95 touch-manipulation"
                   >
-                    Predictor
+                    College Predictor
                   </button>
                   <button
                     onClick={() => {
                       setShowCorePopup(false);
-                      navigate('/compare');
+                      window.open('https://www.techzdada.in/cutoff-predictor', '_blank');
                     }}
                     className="flex-1 px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 touch-manipulation"
                   >
-                    Compare Colleges
+                    Analyze Cutoffs
                   </button>
                 </div>
               </div>
