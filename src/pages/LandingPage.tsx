@@ -31,11 +31,6 @@ const LandingPage = () => {
   ]
 
 
-  const features = [
-    { icon: <BookOpen className="h-12 w-12 text-orange-600" />, title: "AI College Predictor", description: "Get accurate college predictions based on your percentile and category with our AI-powered tool." },
-    { icon: <Users className="h-12 w-12 text-orange-600" />, title: "Direct Senior Connect", description: "Connect directly with seniors from your dream colleges. Get authentic insights and guidance." },
-    { icon: <Calendar className="h-12 w-12 text-orange-600" />, title: "Expert Sessions", description: "Attend exclusive sessions with industry experts and professionals to boost your career prospects." },
-  ];
 
   const heroImages = [teamPhoto1];
 
@@ -102,24 +97,28 @@ const LandingPage = () => {
               transition={{ delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
-              <Link
-                to="/predictor"
+              <a
+                href="https://www.techzdada.in/college-predictor"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 active:scale-95 w-full sm:w-auto touch-manipulation"
               >
                 College Predictor <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-              <Link
-                to="/compare"
+              </a>
+              <a
+                href="https://www.techzdada.in/cutoff-predictor"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="border-2 border-orange-600 text-orange-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300 flex items-center justify-center w-full sm:w-auto touch-manipulation"
               >
-                Compare Colleges <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
+                Analyze Cutoff(5years) <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              </a>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Features Section - Mobile Optimized */}
+      {/* Features Section - Redesigned Cards */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -130,20 +129,144 @@ const LandingPage = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">What We Offer</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">Comprehensive tools and guidance to help you make the right college choices</p>
           </motion.div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 hover:shadow-2xl transition-all duration-300 border border-orange-200"
-              >
-                <div className="flex justify-center mb-4 sm:mb-6">{feature.icon}</div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">{feature.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
+
+            {/* Card 1 - Tools for Cap-Rounds */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-orange-200 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex flex-col gap-6">
+                <div className="flex-1">
+                  <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                    <BookOpen className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    Tools for <span className="text-orange-600">Cap-Rounds</span>
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 max-w-md">
+                    Comprehensive AI-powered tools designed to simplify your admission process. From prediction to comparison, we have everything covered.
+                  </p>
+                  <a
+                    href="https://www.techzdada.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-orange-600 font-semibold text-sm sm:text-base hover:text-orange-700 inline-flex items-center gap-1 transition-colors"
+                  >
+                    Explore Tools <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+                <div className="bg-white rounded-xl p-4 sm:p-5 border border-gray-100 shadow-sm md:min-w-[280px]">
+                  <div className="grid grid-cols-2 gap-3">
+                    {['College Predictor', 'Cutoff Predictor', 'Comparison Tool', 'College List Generator'].map((tool) => (
+                      <div key={tool} className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></div>
+                        <span className="text-xs sm:text-sm text-gray-700">{tool}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 mt-3">
+                    <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></div>
+                    <span className="text-xs sm:text-sm text-gray-700">Historical Data Analyzer</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 2 - Talk to Seniors */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-gradient-to-br from-orange-50/50 to-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-orange-200 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex flex-col gap-6">
+                <div>
+                  <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                    <Users className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    Talk to <span className="text-orange-600">Seniors</span>
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4">
+                    Get the <strong>authentic reality</strong> of your dream college. Don't rely on brochures; talk to students who are actually living it.
+                  </p>
+                  <Link
+                    to="/colleges"
+                    className="text-orange-600 font-semibold text-sm sm:text-base hover:text-orange-700 inline-flex items-center gap-1 transition-colors"
+                  >
+                    Connect Now <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                  <div className="flex flex-col gap-3">
+                    {[
+                      { initials: 'SP', label: 'Student Reviews', sub: 'Authentic feedback', color: 'bg-orange-100 text-orange-600' },
+                      { initials: 'PL', label: 'Placement Reality', sub: 'Real packages & stats', color: 'bg-orange-100 text-orange-600' },
+                      { initials: 'CL', label: 'Campus Life', sub: 'Events & Culture', color: 'bg-orange-100 text-orange-600' },
+                    ].map((item) => (
+                      <div key={item.initials} className="flex items-center gap-3">
+                        <div className={`w-9 h-9 rounded-lg ${item.color} flex items-center justify-center text-xs font-bold flex-shrink-0`}>
+                          {item.initials}
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-gray-900">{item.label}</div>
+                          <div className="text-xs text-gray-500">{item.sub}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 3 - Vision to Visionaries */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-gradient-to-br from-teal-50 to-teal-100/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-teal-200 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex flex-col gap-6">
+                <div className="flex-1">
+                  <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-4">
+                    <Calendar className="h-6 w-6 text-teal-600" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    Vision to <span className="text-teal-600">Visionaries</span>
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 max-w-md">
+                    Campus to Corporate roadmap. Connect with alumni placed in top companies and get a <strong>career roadmap</strong> from Day 1.
+                  </p>
+                  <Link
+                    to="/events"
+                    className="text-teal-600 font-semibold text-sm sm:text-base hover:text-teal-700 inline-flex items-center gap-1 transition-colors"
+                  >
+                    View Events <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="bg-white rounded-xl p-4 sm:p-5 border border-gray-100 shadow-sm md:min-w-[220px]">
+                  <div className="flex flex-col gap-3">
+                    {['Expert Sessions', 'Resume Building', 'Mock Interviews', 'Industry Trends'].map((item) => (
+                      <div key={item} className="flex items-center gap-2">
+                        <div className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3 h-3 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="text-xs sm:text-sm text-gray-700 font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
