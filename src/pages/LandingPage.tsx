@@ -98,7 +98,7 @@ const LandingPage = () => {
               className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
               <a
-                href="https://www.techzdada.in/college-predictor"
+                href="https://www.techzdada.in/mhtcet-college-predictor"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 active:scale-95 w-full sm:w-auto touch-manipulation"
@@ -106,7 +106,7 @@ const LandingPage = () => {
                 College Predictor <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
-                href="https://www.techzdada.in/cutoff-predictor"
+                href="https://www.techzdada.in/mhtcet-college-comparison"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border-2 border-orange-600 text-orange-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300 flex items-center justify-center w-full sm:w-auto touch-manipulation"
@@ -411,7 +411,7 @@ const LandingPage = () => {
                   <button
                     onClick={() => {
                       setShowCorePopup(false);
-                      window.open('https://www.techzdada.in/college-predictor', '_blank');
+                      window.open('https://www.techzdada.in/mhtcet-college-predictor', '_blank');
                     }}
                     className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 active:scale-95 touch-manipulation"
                   >
@@ -420,7 +420,7 @@ const LandingPage = () => {
                   <button
                     onClick={() => {
                       setShowCorePopup(false);
-                      window.open('https://www.techzdada.in/cutoff-predictor', '_blank');
+                      window.open('https://www.techzdada.in/mhtcet-college-comparison', '_blank');
                     }}
                     className="flex-1 px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 touch-manipulation"
                   >
