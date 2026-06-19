@@ -37,56 +37,8 @@ const ResourcesPage = () => {
     return <ErrorDisplay message={error} onRetry={refresh} />;
   }
 
-  const handleDownload = async (resource: Resource) => {
-    if (resource.isPremium) {
-      setShowModal(true);
-      return;
-    }
-
-    try {
-      if (resource.fileUrl) {
-        // Show loading state could be added here if we had a specific state for it
-        let downloadUrl = resource.fileUrl;
-
-        // For Cloudinary URLs, ensure we get the file content
-        // We do NOT add fl_attachment here because we are fetching the blob directly
-        // and we want the raw file content, not a "Content-Disposition" header wrapper
-        // which might conflict with fetch/blob creation in some cases.
-
-        const response = await fetch(downloadUrl);
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-
-        // Ensure accurate extension
-        let filename = resource.title;
-        if (!filename.toLowerCase().endsWith('.pdf')) {
-          filename += '.pdf'; // Default to PDF if not specified, or could extract from blob.type
-        }
-
-        link.setAttribute('download', filename);
-        document.body.appendChild(link);
-        link.click();
-
-        // Cleanup
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(link);
-      } else {
-        setShowModal(true);
-      }
-    } catch (error) {
-      console.error('Download failed:', error);
-
-      // Fallback to simple link if fetch fails (e.g. due to CORS)
-      if (resource.fileUrl) {
-        window.open(resource.fileUrl, '_blank');
-      } else {
-        alert('Download failed. Please try again.');
-      }
-    }
+  const handleDownload = (resource: Resource) => {
+    window.location.href = 'https://www.techzdada.in/resources';
   };
 
   const formatDate = (dateString: string) => {
@@ -138,7 +90,7 @@ const ResourcesPage = () => {
         {/* Resources Grid - Mobile Optimized */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {filteredResources.map((resource) => (
-            <div key={resource.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl active:scale-[0.98] transition-all duration-300">
+            <div key={resource.id} onClick={() => handleDownload(resource)} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl active:scale-[0.98] transition-all duration-300 cursor-pointer">
               <div className="relative">
                 <img
                   src={resource.previewImage}

@@ -1,4 +1,11 @@
 {
+    "redirects": [
+        {
+            "source": "/predictor",
+            "destination": "https://www.techzdada.in/mhtcet-college-predictor",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/(.*)",
