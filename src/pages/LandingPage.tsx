@@ -106,7 +106,7 @@ const LandingPage = () => {
                 College Predictor <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
-                href="https://www.techzdada.in/mhtcet-college-comparison"
+                href="https://www.techzdada.in/mhtcet-cutoff-analyzer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border-2 border-orange-600 text-orange-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300 flex items-center justify-center w-full sm:w-auto touch-manipulation"
