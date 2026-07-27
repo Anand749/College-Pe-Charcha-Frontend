@@ -4,9 +4,9 @@ import { GraduationCap, Users, Target, Award, Heart, Sparkles, TrendingUp, BookO
 
 const AboutPage = () => {
   const stats = [
-    { icon: <Users className="w-8 h-8 text-orange-600" />, number: "15000+", label: "Happy Visitors on website" },
+    { icon: <Users className="w-8 h-8 text-orange-600" />, number: "50,000+", label: "Happy Visitors on website" },
     { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, number: "15+", label: "Colleges Included" },
-    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "4500+", label: "Students Helped" },
+    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "10,000+", label: "Students Helped" },
     { icon: <Award className="w-8 h-8 text-orange-600" />, number: "120+", label: "Expert Mentors" },
   ];
 
